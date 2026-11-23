@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite this manuscript when using SymBiList."
+title: "Symmetric Agreement-Anchored Phrase Recombination for Frozen Multilingual ASR"
+type: software
+authors:
+  - family-names: Pan
+    given-names: Zhifan
+  - family-names: Gao
+    given-names: Yingxiong
+  - family-names: Maimaiti
+    given-names: Maihemuti
+  - family-names: Yu
+    given-names: Yifeng
+  - family-names: Wumaier
+    given-names: Aishan
+repository-code: "https://github.com/Zhifan-Pan/symbilist-asr"

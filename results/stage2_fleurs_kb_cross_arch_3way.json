@@ -1,0 +1,922 @@
+{
+  "pair_Omni_Whisper": {
+    "src1_greedy": {
+      "FLEURS12": {
+        "macro_WER": 27.400078220048012,
+        "macro_CER": 6.244592737806698
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 28.079758629675094,
+        "macro_CER": 6.470218258226717
+      },
+      "Kathbath": {
+        "macro_WER": 38.77250532188854,
+        "macro_CER": 7.341761390724891
+      }
+    },
+    "src2_greedy": {
+      "FLEURS12": {
+        "macro_WER": 93.17702432256128,
+        "macro_CER": 62.52418166129085
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 92.41732270131338,
+        "macro_CER": 66.8600201475822
+      },
+      "Kathbath": {
+        "macro_WER": 86.52918010463043,
+        "macro_CER": 60.6444346370695
+      }
+    },
+    "Whole_fixed_HGB": {
+      "FLEURS12": {
+        "macro_WER": 26.05301107705425,
+        "macro_CER": 6.046654961921245
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.740936293022934,
+        "macro_CER": 6.264926678462397
+      },
+      "Kathbath": {
+        "macro_WER": 37.437723813300664,
+        "macro_CER": 7.207644342255937
+      }
+    },
+    "Fixed_L3_HGB": {
+      "FLEURS12": {
+        "macro_WER": 25.455306435802555,
+        "macro_CER": 6.109538497682744
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.007052384928198,
+        "macro_CER": 6.280888563649596
+      },
+      "Kathbath": {
+        "macro_WER": 37.17031457225894,
+        "macro_CER": 7.4294373680443035
+      }
+    },
+    "Phrase_A_HGB": {
+      "FLEURS12": {
+        "macro_WER": 25.653956920903966,
+        "macro_CER": 5.967865035418605
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.258803283880795,
+        "macro_CER": 6.157232853510171
+      },
+      "Kathbath": {
+        "macro_WER": 37.32520470051157,
+        "macro_CER": 7.21385320458659
+      }
+    },
+    "SymBiPhrase_HGB": {
+      "FLEURS12": {
+        "macro_WER": 25.45916378951325,
+        "macro_CER": 5.948570024256856
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.0737729214419,
+        "macro_CER": 6.131275775500149
+      },
+      "Kathbath": {
+        "macro_WER": 37.249194785850534,
+        "macro_CER": 7.212096111407898
+      }
+    },
+    "Listwise_Whole_fixed": {
+      "FLEURS12": {
+        "macro_WER": 25.826762762966997,
+        "macro_CER": 6.017948704398874
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.460522076644498,
+        "macro_CER": 6.220162687630556
+      },
+      "Kathbath": {
+        "macro_WER": 37.417641268411614,
+        "macro_CER": 7.224923502292069
+      }
+    },
+    "Listwise_dir1": {
+      "FLEURS12": {
+        "macro_WER": 25.55189177513518,
+        "macro_CER": 6.023744173150799
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.013434094852173,
+        "macro_CER": 6.170123540649196
+      },
+      "Kathbath": {
+        "macro_WER": 37.436594647531905,
+        "macro_CER": 7.258431978602903
+      }
+    },
+    "SymBiList": {
+      "FLEURS12": {
+        "macro_WER": 25.57009274537924,
+        "macro_CER": 6.039568592435525
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.030255537080606,
+        "macro_CER": 6.18996530712574
+      },
+      "Kathbath": {
+        "macro_WER": 37.4804188115017,
+        "macro_CER": 7.292640291441893
+      }
+    },
+    "bootstrap": {
+      "SymBiList_vs_Whole_fixed_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.48291833167500897,
+          "delta_WER_CI": [
+            -0.6819079417518243,
+            -0.27523372771460225
+          ],
+          "delta_CER_pp": -0.00708636948572039,
+          "delta_CER_CI": [
+            -0.11147270956065344,
+            0.1148911369830458
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.7106807559423274,
+          "delta_WER_CI": [
+            -0.9677310171520063,
+            -0.4476380911797283
+          ],
+          "delta_CER_pp": -0.07496137133665748,
+          "delta_CER_CI": [
+            -0.2089019517745048,
+            0.09027870268101022
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.04269499820103562,
+          "delta_WER_CI": [
+            -0.11508831851840143,
+            0.21337945565144092
+          ],
+          "delta_CER_pp": 0.08499594918595665,
+          "delta_CER_CI": [
+            0.049294827319079706,
+            0.12115771914723328
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Listwise_Whole_fixed": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.256670017587755,
+          "delta_WER_CI": [
+            -0.40431881086956195,
+            -0.11178653775652904
+          ],
+          "delta_CER_pp": 0.021619888036650714,
+          "delta_CER_CI": [
+            -0.05318223426960196,
+            0.10462543459989124
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.4302665395638918,
+          "delta_WER_CI": [
+            -0.6174938259034946,
+            -0.24474222021010797
+          ],
+          "delta_CER_pp": -0.03019738050481635,
+          "delta_CER_CI": [
+            -0.12553557387450784,
+            0.07619219168839364
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.06277754309008543,
+          "delta_WER_CI": [
+            -0.03824057704569288,
+            0.16927173907093895
+          ],
+          "delta_CER_pp": 0.06771678914982449,
+          "delta_CER_CI": [
+            0.03957879900570216,
+            0.09574289451971368
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Phrase_A_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.0838641755247238,
+          "delta_WER_CI": [
+            -0.2647033934626246,
+            0.10123418276307072
+          ],
+          "delta_CER_pp": 0.07170355701692,
+          "delta_CER_CI": [
+            -0.027617558966429298,
+            0.18750882452253304
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.22854774680018863,
+          "delta_WER_CI": [
+            -0.4528054898077004,
+            0.0038159291274144605
+          ],
+          "delta_CER_pp": 0.03273245361556931,
+          "delta_CER_CI": [
+            -0.09403733284787286,
+            0.1901751490995889
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.15521411099012994,
+          "delta_WER_CI": [
+            0.005064811611725355,
+            0.3166936734182601
+          ],
+          "delta_CER_pp": 0.07878708685530356,
+          "delta_CER_CI": [
+            0.044469059912942324,
+            0.11305108767963343
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Fixed_L3_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": 0.11478630957668656,
+          "delta_WER_CI": [
+            -0.07646709406539065,
+            0.30731055089514564
+          ],
+          "delta_CER_pp": -0.06996990524721891,
+          "delta_CER_CI": [
+            -0.17541524165872874,
+            0.052502273617939736
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": 0.023203152152408535,
+          "delta_WER_CI": [
+            -0.20394692429129754,
+            0.25889184396386633
+          ],
+          "delta_CER_pp": -0.09092325652385647,
+          "delta_CER_CI": [
+            -0.22146655940996088,
+            0.07177656935220333
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.31010423924276154,
+          "delta_WER_CI": [
+            0.1369588983645702,
+            0.4817396882249107
+          ],
+          "delta_CER_pp": -0.13679707660241025,
+          "delta_CER_CI": [
+            -0.18539542288614586,
+            -0.08742057662359538
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_src1_greedy": {
+        "FLEURS12": {
+          "delta_WER_pp": -1.8299854746687707,
+          "delta_WER_CI": [
+            -2.100149780173418,
+            -1.5551873975241
+          ],
+          "delta_CER_pp": -0.20502414537117364,
+          "delta_CER_CI": [
+            -0.31855047160130084,
+            -0.07499229649141331
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -2.049503092594488,
+          "delta_WER_CI": [
+            -2.3635535088269366,
+            -1.7357253136958446
+          ],
+          "delta_CER_pp": -0.2802529511009775,
+          "delta_CER_CI": [
+            -0.42111156054342014,
+            -0.10849397304349104
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -1.292086510386838,
+          "delta_WER_CI": [
+            -1.5208329733222545,
+            -1.0633520413769926
+          ],
+          "delta_CER_pp": -0.04912109928299735,
+          "delta_CER_CI": [
+            -0.08743110380278338,
+            -0.010295147389025582
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      }
+    }
+  },
+  "pair_MMS_Whisper": {
+    "src1_greedy": {
+      "FLEURS12": {
+        "macro_WER": 27.852278252281614,
+        "macro_CER": 6.927940020361564
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 29.58582172765957,
+        "macro_CER": 7.554981474947696
+      },
+      "Kathbath": {
+        "macro_WER": 42.081646756007316,
+        "macro_CER": 8.088712847556545
+      }
+    },
+    "src2_greedy": {
+      "FLEURS12": {
+        "macro_WER": 93.17702432256128,
+        "macro_CER": 62.52418166129085
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 92.41732270131338,
+        "macro_CER": 66.8600201475822
+      },
+      "Kathbath": {
+        "macro_WER": 86.52918010463043,
+        "macro_CER": 60.6444346370695
+      }
+    },
+    "Whole_fixed_HGB": {
+      "FLEURS12": {
+        "macro_WER": 25.039941200402843,
+        "macro_CER": 6.392737112239409
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.105543658884905,
+        "macro_CER": 6.876634154180734
+      },
+      "Kathbath": {
+        "macro_WER": 40.480768345097815,
+        "macro_CER": 7.929104812633037
+      }
+    },
+    "Fixed_L3_HGB": {
+      "FLEURS12": {
+        "macro_WER": 25.11853030670897,
+        "macro_CER": 6.647521134170471
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 26.32415991570066,
+        "macro_CER": 7.151849391815496
+      },
+      "Kathbath": {
+        "macro_WER": 40.272585567200316,
+        "macro_CER": 8.248245508020313
+      }
+    },
+    "Phrase_A_HGB": {
+      "FLEURS12": {
+        "macro_WER": 24.871254486735747,
+        "macro_CER": 6.395058616164011
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 25.882669586127026,
+        "macro_CER": 6.857021308334
+      },
+      "Kathbath": {
+        "macro_WER": 40.43147516015229,
+        "macro_CER": 7.971919080581554
+      }
+    },
+    "SymBiPhrase_HGB": {
+      "FLEURS12": {
+        "macro_WER": 24.683143008646322,
+        "macro_CER": 6.3674068453507555
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 25.617128594986127,
+        "macro_CER": 6.795087982101471
+      },
+      "Kathbath": {
+        "macro_WER": 40.567215511104756,
+        "macro_CER": 8.034968059165138
+      }
+    },
+    "Listwise_Whole_fixed": {
+      "FLEURS12": {
+        "macro_WER": 24.45179648821599,
+        "macro_CER": 6.307482585165662
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 25.323236830655677,
+        "macro_CER": 6.758881282528961
+      },
+      "Kathbath": {
+        "macro_WER": 41.09629657786872,
+        "macro_CER": 8.149601234058945
+      }
+    },
+    "Listwise_dir1": {
+      "FLEURS12": {
+        "macro_WER": 24.802072627907624,
+        "macro_CER": 6.396181815690145
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 25.500842914324164,
+        "macro_CER": 6.783059957011497
+      },
+      "Kathbath": {
+        "macro_WER": 41.03932844626202,
+        "macro_CER": 8.22616225839988
+      }
+    },
+    "SymBiList": {
+      "FLEURS12": {
+        "macro_WER": 24.741239193804322,
+        "macro_CER": 6.418433370525663
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 25.458931606732406,
+        "macro_CER": 6.817887898442127
+      },
+      "Kathbath": {
+        "macro_WER": 40.96066422116208,
+        "macro_CER": 8.207833432540705
+      }
+    },
+    "bootstrap": {
+      "SymBiList_vs_Whole_fixed_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.2987020065985213,
+          "delta_WER_CI": [
+            -0.5388683993305218,
+            -0.07370509188049595
+          ],
+          "delta_CER_pp": 0.02569625828625366,
+          "delta_CER_CI": [
+            -0.10110983567571245,
+            0.15948697461333386
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.6466120521524985,
+          "delta_WER_CI": [
+            -0.9396722934560163,
+            -0.3693288593733466
+          ],
+          "delta_CER_pp": -0.05874625573860737,
+          "delta_CER_CI": [
+            -0.2200239879639146,
+            0.11706368669238335
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.479895876064262,
+          "delta_WER_CI": [
+            0.27469254923578496,
+            0.6856979209129382
+          ],
+          "delta_CER_pp": 0.2787286199076675,
+          "delta_CER_CI": [
+            0.2134741260495295,
+            0.3444480658807935
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Listwise_Whole_fixed": {
+        "FLEURS12": {
+          "delta_WER_pp": 0.28944270558833196,
+          "delta_WER_CI": [
+            0.06765315317059066,
+            0.49983690243606615
+          ],
+          "delta_CER_pp": 0.11095078536000091,
+          "delta_CER_CI": [
+            -0.02786643283327352,
+            0.24381728076860976
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": 0.13569477607672908,
+          "delta_WER_CI": [
+            -0.1255678450907271,
+            0.37496505490238563
+          ],
+          "delta_CER_pp": 0.059006615913165916,
+          "delta_CER_CI": [
+            -0.11882821541991195,
+            0.23324253875458312
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -0.13563235670664398,
+          "delta_WER_CI": [
+            -0.2800835999100707,
+            0.003066786963759235
+          ],
+          "delta_CER_pp": 0.05823219848175931,
+          "delta_CER_CI": [
+            0.010893433569490574,
+            0.10383417885538229
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Phrase_A_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.1300152929314251,
+          "delta_WER_CI": [
+            -0.3457708849905769,
+            0.07599059282618993
+          ],
+          "delta_CER_pp": 0.023374754361651817,
+          "delta_CER_CI": [
+            -0.09649725774088573,
+            0.15503613305440375
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.42373797939461966,
+          "delta_WER_CI": [
+            -0.6722514547730472,
+            -0.1894574583584027
+          ],
+          "delta_CER_pp": -0.03913340989187297,
+          "delta_CER_CI": [
+            -0.19413920056354356,
+            0.13303581309422013
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.529189061009788,
+          "delta_WER_CI": [
+            0.36820427788389765,
+            0.6919913179604716
+          ],
+          "delta_CER_pp": 0.2359143519591509,
+          "delta_CER_CI": [
+            0.18719435484456032,
+            0.2848164324121205
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_Fixed_L3_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.377291112904647,
+          "delta_WER_CI": [
+            -0.5822061093942545,
+            -0.17413744456888688
+          ],
+          "delta_CER_pp": -0.22908776364480854,
+          "delta_CER_CI": [
+            -0.35557371341210636,
+            -0.09372019082282221
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.865228308968252,
+          "delta_WER_CI": [
+            -1.1118171201510705,
+            -0.6287377024615112
+          ],
+          "delta_CER_pp": -0.3339614933733692,
+          "delta_CER_CI": [
+            -0.49350474557803303,
+            -0.15982306382384148
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": 0.6880786539617603,
+          "delta_WER_CI": [
+            0.46640795552825287,
+            0.916345661220954
+          ],
+          "delta_CER_pp": -0.040412075479608234,
+          "delta_CER_CI": [
+            -0.10921260056260555,
+            0.03020183586543817
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "SymBiList_vs_src1_greedy": {
+        "FLEURS12": {
+          "delta_WER_pp": -3.1110390584772922,
+          "delta_WER_CI": [
+            -3.420206466977209,
+            -2.7980620369772615
+          ],
+          "delta_CER_pp": -0.5095066498359015,
+          "delta_CER_CI": [
+            -0.6505455052572544,
+            -0.3618992643531788
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -4.126890120927165,
+          "delta_WER_CI": [
+            -4.511793702104154,
+            -3.754427767853247
+          ],
+          "delta_CER_pp": -0.7370935765055693,
+          "delta_CER_CI": [
+            -0.915660277297039,
+            -0.5420003119119445
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -1.1209825348452398,
+          "delta_WER_CI": [
+            -1.3979833448602605,
+            -0.8301120098393752
+          ],
+          "delta_CER_pp": 0.11912058498415945,
+          "delta_CER_CI": [
+            0.04881683972461977,
+            0.18863828781106765
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      }
+    }
+  },
+  "three_way_Omni_MMS_Whisper": {
+    "3way_Whole_HGB": {
+      "FLEURS12": {
+        "macro_WER": 22.7962276665186,
+        "macro_CER": 5.768440216359952
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 23.155170798736357,
+        "macro_CER": 6.051773582977501
+      },
+      "Kathbath": {
+        "macro_WER": 36.81968207987701,
+        "macro_CER": 7.007693616930574
+      }
+    },
+    "3way_Phrase_HGB": {
+      "FLEURS12": {
+        "macro_WER": 22.278981290486392,
+        "macro_CER": 5.660136599364302
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 22.591450023894723,
+        "macro_CER": 5.922229841851791
+      },
+      "Kathbath": {
+        "macro_WER": 36.5053459796731,
+        "macro_CER": 6.959958432556032
+      }
+    },
+    "3way_Whole_Listwise": {
+      "FLEURS12": {
+        "macro_WER": 21.946788796997865,
+        "macro_CER": 5.627543658400199
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 22.34242768955515,
+        "macro_CER": 5.890288723740592
+      },
+      "Kathbath": {
+        "macro_WER": 36.363550595746894,
+        "macro_CER": 6.986564733205205
+      }
+    },
+    "3way_Listwise_OmniAnc": {
+      "FLEURS12": {
+        "macro_WER": 21.654371210858216,
+        "macro_CER": 5.6129701259911124
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 22.05112947359701,
+        "macro_CER": 5.8717562133045975
+      },
+      "Kathbath": {
+        "macro_WER": 36.00580271824473,
+        "macro_CER": 6.956346811009988
+      }
+    },
+    "3way_Listwise_MMSAnc": {
+      "FLEURS12": {
+        "macro_WER": 21.58539621647952,
+        "macro_CER": 5.517299752864678
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 21.942027187394253,
+        "macro_CER": 5.744266711963364
+      },
+      "Kathbath": {
+        "macro_WER": 36.035622143152615,
+        "macro_CER": 7.003747525683019
+      }
+    },
+    "3way_SymBiList": {
+      "FLEURS12": {
+        "macro_WER": 21.498414554747317,
+        "macro_CER": 5.507637089505776
+      },
+      "FLEURS9_whisper_native": {
+        "macro_WER": 21.894843024931905,
+        "macro_CER": 5.740822631510997
+      },
+      "Kathbath": {
+        "macro_WER": 35.900205774937625,
+        "macro_CER": 6.973909084339093
+      }
+    },
+    "bootstrap": {
+      "3way_SymBiList_vs_3way_Whole_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -1.2978131117712834,
+          "delta_WER_CI": [
+            -1.5194091122094822,
+            -1.0799052755264418
+          ],
+          "delta_CER_pp": -0.26080312685417617,
+          "delta_CER_CI": [
+            -0.36915968573606484,
+            -0.15897681746391368
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -1.2603277738044518,
+          "delta_WER_CI": [
+            -1.5286013070551907,
+            -0.9969963066571483
+          ],
+          "delta_CER_pp": -0.31095095146650387,
+          "delta_CER_CI": [
+            -0.4586177036387681,
+            -0.17838777630473637
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -0.919476304939387,
+          "delta_WER_CI": [
+            -1.1551529242096366,
+            -0.6814999719583235
+          ],
+          "delta_CER_pp": -0.033784532591480954,
+          "delta_CER_CI": [
+            -0.10280137834722827,
+            0.031425485796457736
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "3way_SymBiList_vs_3way_Whole_Listwise": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.4483742422505479,
+          "delta_WER_CI": [
+            -0.6144603733515605,
+            -0.29396644977454744
+          ],
+          "delta_CER_pp": -0.11990656889442342,
+          "delta_CER_CI": [
+            -0.25468738593390217,
+            -0.013848204811915937
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.4475846646232462,
+          "delta_WER_CI": [
+            -0.644972324150394,
+            -0.26453399668484284
+          ],
+          "delta_CER_pp": -0.14946609222959495,
+          "delta_CER_CI": [
+            -0.3393016784819577,
+            -0.009421843713587258
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -0.46334482080926875,
+          "delta_WER_CI": [
+            -0.5994431305469039,
+            -0.32578925172477335
+          ],
+          "delta_CER_pp": -0.012655648866112479,
+          "delta_CER_CI": [
+            -0.05901672181634225,
+            0.03906454000714314
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      },
+      "3way_SymBiList_vs_3way_Phrase_HGB": {
+        "FLEURS12": {
+          "delta_WER_pp": -0.7805667357390753,
+          "delta_WER_CI": [
+            -0.9845704672209036,
+            -0.5791894286826214
+          ],
+          "delta_CER_pp": -0.15249950985852578,
+          "delta_CER_CI": [
+            -0.25294134343613134,
+            -0.05871693113381424
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "FLEURS9": {
+          "delta_WER_pp": -0.6966069989628174,
+          "delta_WER_CI": [
+            -0.9447766267335426,
+            -0.45146852698346224
+          ],
+          "delta_CER_pp": -0.18140721034079377,
+          "delta_CER_CI": [
+            -0.3183316857832532,
+            -0.060668058494498966
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        },
+        "Kathbath": {
+          "delta_WER_pp": -0.605140204735477,
+          "delta_WER_CI": [
+            -0.83891648494813,
+            -0.3671873232135573
+          ],
+          "delta_CER_pp": 0.013950651783060763,
+          "delta_CER_CI": [
+            -0.052200523946869824,
+            0.07577428732359454
+          ],
+          "n_draws": 10000,
+          "bonferroni_k": 1
+        }
+      }
+    }
+  }
+}

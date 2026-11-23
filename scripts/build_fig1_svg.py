@@ -1,0 +1,350 @@
+#!/usr/bin/env python3
+"""Build a modern, publication-grade, editable SVG architecture figure (Fig. 1)
+and compile to vector PDF + crisp PNG via CairoSVG.
+
+Design language: NeurIPS / ICASSP / Nature Methods flat vector schematic:
+- Soft linear gradients, subtle elevation shadows, crisp vector icons
+- Generous whitespace, clear typographic hierarchy, colorblind-safe palette
+- 100% editable SVG source so the user can directly tweak in Illustrator/Figma/Inkscape later
+"""
+from __future__ import annotations
+
+from pathlib import Path
+import cairosvg
+
+FIG_DIR = Path(__file__).resolve().parents[1] / "manuscript" / "figures"
+FIG_DIR.mkdir(parents=True, exist_ok=True)
+
+SVG = r'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="535" viewBox="0 0 1200 535">
+  <defs>
+    <!-- Soft modern gradients -->
+    <linearGradient id="bgPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF7ED"/>
+      <stop offset="100%" stop-color="#FFEDD5"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="100%" stop-color="#D1FAE5"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF2F2"/>
+      <stop offset="100%" stop-color="#FEE2E2"/>
+    </linearGradient>
+    <linearGradient id="navyGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#0F2540"/>
+    </linearGradient>
+    <linearGradient id="whiteCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8FAFC"/>
+    </linearGradient>
+
+    <!-- Crisp arrowheads -->
+    <marker id="arrBlue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#2563EB"/>
+    </marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#D97706"/>
+    </marker>
+    <marker id="arrTeal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#059669"/>
+    </marker>
+    <marker id="arrDark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 1 1.5 L 9 5 L 1 8.5 z" fill="#334155"/>
+    </marker>
+
+    <!-- Subtle soft card shadow -->
+    <filter id="cardShadow" x="-4%" y="-6%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="1.8" stdDeviation="2.2" flood-color="#0F172A" flood-opacity="0.07"/>
+    </filter>
+  </defs>
+
+  <style>
+    text { font-family: "DejaVu Sans", "Liberation Sans", Helvetica, Arial, sans-serif; }
+    .sec-title { font-size: 14.5px; font-weight: 700; fill: #0F172A; }
+    .stage-pill { font-size: 10px; font-weight: 700; fill: #64748B; letter-spacing: 0.6px; }
+    .card-title { font-size: 12.2px; font-weight: 700; fill: #0F172A; }
+    .card-sub { font-size: 10.6px; font-weight: 400; fill: #334155; }
+    .card-muted { font-size: 9.8px; font-style: italic; fill: #64748B; }
+    .badge-white { font-size: 12px; font-weight: 700; fill: #FFFFFF; }
+    .badge-sub { font-size: 10.3px; font-weight: 400; fill: #CBD5E1; }
+    .chip-lbl { font-size: 10px; font-weight: 700; fill: #475569; }
+    .chip-txt { font-size: 10.6px; font-weight: 500; fill: #1E293B; }
+    .chip-bold { font-size: 10.6px; font-weight: 700; fill: #065F46; }
+    .note-title { font-size: 11.4px; font-weight: 700; }
+    .note-body { font-size: 10.1px; fill: #334155; }
+  </style>
+
+  <!-- Crisp pure white canvas -->
+  <rect x="0" y="0" width="1200" height="535" fill="#FFFFFF"/>
+
+  <!-- ====================================================================== -->
+  <!-- PANEL (a): SYMBILIST ARCHITECTURE PIPELINE                             -->
+  <!-- ====================================================================== -->
+  <text x="16" y="24" class="sec-title">(a) SymBiList: Symmetric Bidirectional Agreement-Anchored Phrase Recombination</text>
+
+  <!-- Outer soft stage container -->
+  <rect x="14" y="34" width="1172" height="258" rx="12" fill="url(#bgPanel)" stroke="#CBD5E1" stroke-width="1.2"/>
+
+  <!-- Subtle column stage headers -->
+  <text x="122" y="53" text-anchor="middle" class="stage-pill">1. FROZEN INPUTS</text>
+  <text x="415" y="53" text-anchor="middle" class="stage-pill">2. DUAL-ORIENTATION PARTITION</text>
+  <text x="720" y="53" text-anchor="middle" class="stage-pill">3. LISTWISE SCORING</text>
+  <text x="1030" y="53" text-anchor="middle" class="stage-pill">4. SYMMETRIC ARBITER &amp; RISK</text>
+
+  <!-- Vertical subtle lane dividers -->
+  <line x1="238" y1="62" x2="238" y2="280" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="590" y1="62" x2="590" y2="280" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,4"/>
+  <line x1="854" y1="62" x2="854" y2="280" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,4"/>
+
+  <!-- ===== STAGE 1: FROZEN RECOGNIZERS ===== -->
+  <!-- M1 Card -->
+  <g filter="url(#cardShadow)">
+    <rect x="30" y="66" width="188" height="84" rx="9" fill="url(#blueGrad)" stroke="#2563EB" stroke-width="1.5"/>
+  </g>
+  <!-- Waveform icon M1 -->
+  <g transform="translate(42, 77)" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round">
+    <line x1="0" y1="7" x2="0" y2="11"/>
+    <line x1="4" y1="3" x2="4" y2="15"/>
+    <line x1="8" y1="0" x2="8" y2="18"/>
+    <line x1="12" y1="4" x2="12" y2="14"/>
+    <line x1="16" y1="6" x2="16" y2="12"/>
+  </g>
+  <text x="66" y="90" class="card-title" fill="#1E40AF">Frozen ASR M₁</text>
+  <text x="42" y="112" class="card-sub">OmniASR-1B-CTC</text>
+  <text x="42" y="131" class="card-sub">Scored N-best L₁(h), b⁽¹⁾</text>
+
+  <!-- Center badge between M1 & M2 -->
+  <rect x="34" y="160" width="180" height="22" rx="11" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.9"/>
+  <text x="124" y="174.5" text-anchor="middle" class="card-muted">No finetune, times, or TTS</text>
+
+  <!-- M2 Card -->
+  <g filter="url(#cardShadow)">
+    <rect x="30" y="192" width="188" height="84" rx="9" fill="url(#amberGrad)" stroke="#D97706" stroke-width="1.5"/>
+  </g>
+  <!-- Waveform icon M2 -->
+  <g transform="translate(42, 203)" stroke="#D97706" stroke-width="1.8" stroke-linecap="round">
+    <line x1="0" y1="7" x2="0" y2="11"/>
+    <line x1="4" y1="4" x2="4" y2="14"/>
+    <line x1="8" y1="1" x2="8" y2="17"/>
+    <line x1="12" y1="3" x2="12" y2="15"/>
+    <line x1="16" y1="6" x2="16" y2="12"/>
+  </g>
+  <text x="66" y="216" class="card-title" fill="#9A3412">Frozen ASR M₂</text>
+  <text x="42" y="238" class="card-sub">MMS-1B / Whisper-v3t</text>
+  <text x="42" y="257" class="card-sub">Scored N-best L₂(h), b⁽²⁾</text>
+
+  <!-- ===== STAGE 2: DUAL-ORIENTATION AGREEMENT PARTITIONS ===== -->
+  <!-- Orient 1 -->
+  <g filter="url(#cardShadow)">
+    <rect x="272" y="66" width="286" height="84" rx="9" fill="url(#whiteCard)" stroke="#2563EB" stroke-width="1.5"/>
+    <rect x="272" y="66" width="8" height="84" rx="4" fill="#2563EB"/>
+  </g>
+  <!-- Lock icon -->
+  <g transform="translate(292, 77)">
+    <rect x="1" y="7" width="12" height="9" rx="2" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/>
+    <path d="M 3.5 7 V 4.5 A 3.5 3.5 0 0 1 10.5 4.5 V 7" fill="none" stroke="#2563EB" stroke-width="1.3"/>
+  </g>
+  <text x="313" y="90" class="card-title" fill="#1E40AF">Orientation 1 (M₁ → M₂)</text>
+  <text x="292" y="112" class="card-sub">2n+1 align to b⁽¹⁾; unanimous anchor locks</text>
+  <text x="292" y="131" class="card-sub">32d features (24 base + 8 block context)</text>
+
+  <!-- Center callout between Orient 1 & 2 -->
+  <text x="415" y="174" text-anchor="middle" class="card-muted">Separate anchor bases avoid delta-feature mixing</text>
+
+  <!-- Orient 2 -->
+  <g filter="url(#cardShadow)">
+    <rect x="272" y="192" width="286" height="84" rx="9" fill="url(#whiteCard)" stroke="#D97706" stroke-width="1.5"/>
+    <rect x="272" y="192" width="8" height="84" rx="4" fill="#D97706"/>
+  </g>
+  <!-- Lock icon 2 -->
+  <g transform="translate(292, 203)">
+    <rect x="1" y="7" width="12" height="9" rx="2" fill="#FFEDD5" stroke="#D97706" stroke-width="1.3"/>
+    <path d="M 3.5 7 V 4.5 A 3.5 3.5 0 0 1 10.5 4.5 V 7" fill="none" stroke="#D97706" stroke-width="1.3"/>
+  </g>
+  <text x="313" y="216" class="card-title" fill="#9A3412">Orientation 2 (M₂ → M₁)</text>
+  <text x="292" y="238" class="card-sub">2m+1 align to b⁽²⁾; unanimous anchor locks</text>
+  <text x="292" y="257" class="card-sub">32d features (24 base + 8 block context)</text>
+
+  <!-- Stage 1 -> Stage 2 Arrows (parallel + subtle dashed cross) -->
+  <path d="M 218 100 L 269 100" fill="none" stroke="#2563EB" stroke-width="2.1" marker-end="url(#arrBlue)"/>
+  <path d="M 218 242 L 269 242" fill="none" stroke="#D97706" stroke-width="2.1" marker-end="url(#arrAmber)"/>
+  <path d="M 218 124 C 242 124, 246 218, 269 218" fill="none" stroke="#2563EB" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrBlue)"/>
+  <path d="M 218 218 C 242 218, 246 124, 269 124" fill="none" stroke="#D97706" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrAmber)"/>
+
+  <!-- ===== STAGE 3: DIRECTIONAL LISTWISE BLOCK NETS ===== -->
+  <!-- Net 1 -->
+  <g filter="url(#cardShadow)">
+    <rect x="614" y="66" width="218" height="84" rx="9" fill="url(#blueGrad)" stroke="#2563EB" stroke-width="1.5"/>
+  </g>
+  <!-- Mini neural net icon 1 -->
+  <g transform="translate(626, 78)" stroke="#2563EB" stroke-width="1.1">
+    <line x1="3" y1="3" x2="14" y2="7"/>
+    <line x1="3" y1="13" x2="14" y2="7"/>
+    <circle cx="3" cy="3" r="2.3" fill="#FFFFFF"/>
+    <circle cx="3" cy="13" r="2.3" fill="#FFFFFF"/>
+    <circle cx="14" cy="7" r="2.5" fill="#2563EB"/>
+  </g>
+  <text x="649" y="90" class="card-title" fill="#1E40AF">ListwiseBlockNet₁</text>
+  <text x="626" y="112" class="card-sub">Expected-edit loss L<tspan baseline-shift="sub" font-size="8">list</tspan></text>
+  <text x="626" y="131" class="card-sub">Intact phrase output  ŷ⁽¹⁾</text>
+
+  <!-- Net 2 -->
+  <g filter="url(#cardShadow)">
+    <rect x="614" y="192" width="218" height="84" rx="9" fill="url(#amberGrad)" stroke="#D97706" stroke-width="1.5"/>
+  </g>
+  <!-- Mini neural net icon 2 -->
+  <g transform="translate(626, 204)" stroke="#D97706" stroke-width="1.1">
+    <line x1="3" y1="3" x2="14" y2="7"/>
+    <line x1="3" y1="13" x2="14" y2="7"/>
+    <circle cx="3" cy="3" r="2.3" fill="#FFFFFF"/>
+    <circle cx="3" cy="13" r="2.3" fill="#FFFFFF"/>
+    <circle cx="14" cy="7" r="2.5" fill="#D97706"/>
+  </g>
+  <text x="649" y="216" class="card-title" fill="#9A3412">ListwiseBlockNet₂</text>
+  <text x="626" y="238" class="card-sub">Expected-edit loss L<tspan baseline-shift="sub" font-size="8">list</tspan></text>
+  <text x="626" y="257" class="card-sub">Intact phrase output  ŷ⁽²⁾</text>
+
+  <!-- Small note between Net 1 and Net 2 -->
+  <text x="723" y="174" text-anchor="middle" class="card-muted">3-seed MLP ensemble (64d)</text>
+
+  <!-- Stage 2 -> Stage 3 Arrows -->
+  <path d="M 558 108 L 611 108" fill="none" stroke="#2563EB" stroke-width="2.1" marker-end="url(#arrBlue)"/>
+  <path d="M 558 234 L 611 234" fill="none" stroke="#D97706" stroke-width="2.1" marker-end="url(#arrAmber)"/>
+
+  <!-- ===== STAGE 4: PASS-2 ANTI-SYMMETRIC ARBITER + FINAL OUTPUT ===== -->
+  <!-- Arbiter Card -->
+  <g filter="url(#cardShadow)">
+    <rect x="886" y="66" width="282" height="122" rx="10" fill="url(#tealGrad)" stroke="#059669" stroke-width="1.7"/>
+  </g>
+  <!-- Shield / balance icon -->
+  <g transform="translate(900, 77)">
+    <path d="M 8 1 L 15 4 V 10 C 15 14.5 11.8 17.5 8 19 C 4.2 17.5 1 14.5 1 10 V 4 Z" fill="#FFFFFF" stroke="#059669" stroke-width="1.4"/>
+    <path d="M 5 10 L 7.2 12.2 L 11.2 7.8" fill="none" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="922" y="91" class="card-title" fill="#065F46">Pass-2 Anti-Sym. Block Arbiter</text>
+  <text x="900" y="114" class="card-sub">• Reconciles only residual ŷ⁽¹⁾ ≠ ŷ⁽²⁾ spans</text>
+  <text x="900" y="134" class="card-sub">• Paired margin features [ψ₁−ψ₂, ψ₁+ψ₂]</text>
+  <!-- CRC Sub-pill inside Arbiter -->
+  <rect x="900" y="148" width="254" height="28" rx="6" fill="#FFFFFF" stroke="#10B981" stroke-width="1"/>
+  <text x="1027" y="166" text-anchor="middle" style="font-size:10.3px; font-weight:700; fill:#047857;">+ Optional Conformal Risk Control CRC(α)</text>
+
+  <!-- Converging curved arrows from Net 1 & Net 2 to Arbiter -->
+  <path d="M 832 108 C 858 108, 862 114, 883 114" fill="none" stroke="#2563EB" stroke-width="2.1" marker-end="url(#arrBlue)"/>
+  <path d="M 832 234 C 862 234, 862 152, 883 152" fill="none" stroke="#D97706" stroke-width="2.1" marker-end="url(#arrAmber)"/>
+
+  <!-- Vertical arrow down to Final Output -->
+  <path d="M 1027 188 L 1027 212" fill="none" stroke="#059669" stroke-width="2.2" marker-end="url(#arrTeal)"/>
+
+  <!-- Final Output Dark Navy Pill -->
+  <g filter="url(#cardShadow)">
+    <rect x="886" y="216" width="282" height="60" rx="10" fill="url(#navyGrad)"/>
+  </g>
+  <text x="1027" y="241" text-anchor="middle" class="badge-white">Final Transcript  ŷ* ∈ Agreement Space</text>
+  <text x="1027" y="261" text-anchor="middle" class="badge-sub">Zero Hallucination Guarantee  |  3.0 ms/utt CPU</text>
+
+  <!-- ====================================================================== -->
+  <!-- PANEL (b): MECHANISM & VERIFIED MULTILINGUAL EXAMPLES                  -->
+  <!-- ====================================================================== -->
+  <text x="16" y="318" class="sec-title">(b) Verified Multilingual Mechanisms: Unanimous Agreement Anchors vs. Arbitrary Cuts</text>
+
+  <!-- Left Card: Hausa Alignment Matrix (x=14..686, w=672, h=194) -->
+  <g filter="url(#cardShadow)">
+    <rect x="14" y="328" width="670" height="194" rx="11" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  </g>
+  <rect x="14" y="328" width="670" height="30" rx="11" fill="#EFF6FF"/>
+  <rect x="14" y="346" width="670" height="12" fill="#EFF6FF"/>
+  <text x="28" y="348" class="note-title" fill="#1E40AF">1. Cross-List Phrase Recombination (FLEURS Hausa, exact utterance)</text>
+
+  <!-- Column headers -->
+  <text x="128" y="376" text-anchor="middle" class="chip-lbl">Fixed Anchor</text>
+  <text x="242" y="376" text-anchor="middle" class="chip-lbl" fill="#C2410C">Disagree Block 1</text>
+  <text x="330" y="376" text-anchor="middle" class="chip-lbl">Fixed</text>
+  <text x="430" y="376" text-anchor="middle" class="chip-lbl" fill="#C2410C">Disagree Block 2</text>
+  <text x="524" y="376" text-anchor="middle" class="chip-lbl">Fixed</text>
+  <text x="622" y="376" text-anchor="middle" class="chip-lbl">Outcome</text>
+
+  <!-- Disagreement dashed highlight columns behind Blocks 1 & 2 -->
+  <rect x="184" y="382" width="116" height="132" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="364" y="382" width="132" height="132" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Row 1: Omni -->
+  <text x="26" y="405" class="chip-lbl">Omni:</text>
+  <rect x="78" y="388" width="100" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="128" y="404.5" text-anchor="middle" class="chip-txt">... bincike</text>
+  <rect x="190" y="388" width="104" height="25" rx="5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><text x="242" y="404.5" text-anchor="middle" class="chip-txt" font-weight="700">makirci ✓</text>
+  <rect x="306" y="388" width="50" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="331" y="404.5" text-anchor="middle" class="chip-txt">za a</text>
+  <rect x="370" y="388" width="120" height="25" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/><text x="430" y="404.5" text-anchor="middle" class="chip-txt">son yashi</text>
+  <rect x="502" y="388" width="54" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="529" y="404.5" text-anchor="middle" class="chip-txt">zuwa ...</text>
+  <rect x="568" y="388" width="104" height="25" rx="5" fill="#F8FAFC" stroke="#CBD5E1"/><text x="620" y="404.5" text-anchor="middle" class="chip-txt">2 word err</text>
+
+  <!-- Row 2: MMS -->
+  <text x="26" y="437" class="chip-lbl">MMS:</text>
+  <rect x="78" y="420" width="100" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="128" y="436.5" text-anchor="middle" class="chip-txt">... bincike</text>
+  <rect x="190" y="420" width="104" height="25" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/><text x="242" y="436.5" text-anchor="middle" class="chip-txt">makirichi</text>
+  <rect x="306" y="420" width="50" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="331" y="436.5" text-anchor="middle" class="chip-txt">za a</text>
+  <rect x="370" y="420" width="120" height="25" rx="5" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.3"/><text x="430" y="436.5" text-anchor="middle" class="chip-txt" font-weight="700">sanya shi ✓</text>
+  <rect x="502" y="420" width="54" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="529" y="436.5" text-anchor="middle" class="chip-txt">zuwa ...</text>
+  <rect x="568" y="420" width="104" height="25" rx="5" fill="#F8FAFC" stroke="#CBD5E1"/><text x="620" y="436.5" text-anchor="middle" class="chip-txt">2 word err</text>
+
+  <!-- Row 3: Fixed L=3 -->
+  <text x="26" y="469" class="chip-lbl" fill="#DC2626">Fixed:</text>
+  <rect x="78" y="452" width="100" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="128" y="468.5" text-anchor="middle" class="chip-txt">... bincike</text>
+  <rect x="190" y="452" width="104" height="25" rx="5" fill="#FFFFFF" stroke="#CBD5E1"/><text x="242" y="468.5" text-anchor="middle" class="chip-txt">makirci</text>
+  <rect x="306" y="452" width="50" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="331" y="468.5" text-anchor="middle" class="chip-txt">za a</text>
+  <rect x="370" y="452" width="120" height="25" rx="5" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.2"/><text x="430" y="468.5" text-anchor="middle" class="chip-txt" fill="#991B1B">san | shi ✂</text>
+  <rect x="502" y="452" width="54" height="25" rx="5" fill="#F1F5F9" stroke="#CBD5E1"/><text x="529" y="468.5" text-anchor="middle" class="chip-txt">zuwa ...</text>
+  <rect x="568" y="452" width="104" height="25" rx="5" fill="#FEE2E2" stroke="#DC2626"/><text x="620" y="468.5" text-anchor="middle" class="chip-txt" fill="#991B1B">2 (cut error)</text>
+
+  <!-- Row 4: Ours (SymBiList) -->
+  <text x="26" y="501" class="chip-lbl" fill="#059669">Ours:</text>
+  <rect x="78" y="484" width="100" height="25" rx="5" fill="#E2E8F0" stroke="#94A3B8"/><text x="128" y="500.5" text-anchor="middle" class="chip-txt">... bincike</text>
+  <rect x="190" y="484" width="104" height="25" rx="5" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/><text x="242" y="500.5" text-anchor="middle" class="chip-bold">makirci</text>
+  <rect x="306" y="484" width="50" height="25" rx="5" fill="#E2E8F0" stroke="#94A3B8"/><text x="331" y="500.5" text-anchor="middle" class="chip-txt">za a</text>
+  <rect x="370" y="484" width="120" height="25" rx="5" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/><text x="430" y="500.5" text-anchor="middle" class="chip-bold">sanya shi</text>
+  <rect x="502" y="484" width="54" height="25" rx="5" fill="#E2E8F0" stroke="#94A3B8"/><text x="529" y="500.5" text-anchor="middle" class="chip-txt">zuwa ...</text>
+  <rect x="568" y="484" width="104" height="25" rx="5" fill="#059669"/><text x="620" y="500.5" text-anchor="middle" style="font-size:10.4px; font-weight:700; fill:#FFFFFF;">1 (merged!)</text>
+
+  <!-- Right Stacked Cards (x=700..1186, w=486) -->
+  <!-- Card 2: Amharic Asymmetry Protection -->
+  <g filter="url(#cardShadow)">
+    <rect x="700" y="328" width="486" height="90" rx="10" fill="url(#redGrad)" stroke="#EA580C" stroke-width="1.4"/>
+    <rect x="700" y="328" width="7" height="90" rx="3.5" fill="#EA580C"/>
+  </g>
+  <text x="718" y="349" class="note-title" fill="#9A3412">2. Asymmetry Protection (Amharic: Omni 49.95% vs. MMS 27.31%)</text>
+  <text x="718" y="370" class="note-body">• Omni splits morphological suffixes (CER 6.47%); Fixed L=3 cuts MMS along</text>
+  <text x="726" y="387" class="note-body">the fragmented grid, doubling insertions (98 → 192; WER jumps to 28.00%).</text>
+  <text x="718" y="405" class="note-body" font-weight="700" fill="#9A3412">• SymBiList keeps donor phrases intact → 22.08% WER (−5.92 pp vs. Fixed L).</text>
+
+  <!-- Card 3: CV26 Cross-Architecture Bidirectional Rescue -->
+  <g filter="url(#cardShadow)">
+    <rect x="700" y="430" width="486" height="92" rx="10" fill="url(#blueGrad)" stroke="#2563EB" stroke-width="1.4"/>
+    <rect x="700" y="430" width="7" height="92" rx="3.5" fill="#2563EB"/>
+  </g>
+  <text x="718" y="451" class="note-title" fill="#1E40AF">3. Cross-Architecture Rescue (Untouched CV26: CTC + Whisper AED)</text>
+  <text x="718" y="472" class="note-body">• Omni: "... [cheshe] crossing received mixed [to positive] [resviewes]" (2 err)</text>
+  <text x="718" y="489" class="note-body">• Whis: "... [cheshire] crossing received mixed [depositive] [reviews]" (2 err)</text>
+  <text x="718" y="507" class="note-body" font-weight="700" fill="#1E40AF">• Under 1.6×–5.7× gap, SymBiPhrase hits 16.91% (−3.52 pp vs. Omni).</text>
+</svg>
+'''
+
+
+def main():
+    svg_path = FIG_DIR / "method_overview.svg"
+    pdf_path = FIG_DIR / "method_overview.pdf"
+    png_path = FIG_DIR / "method_overview.png"
+    svg_path.write_text(SVG, encoding="utf-8")
+    cairosvg.svg2pdf(url=str(svg_path), write_to=str(pdf_path))
+    cairosvg.svg2png(url=str(svg_path), write_to=str(png_path), scale=2.2)
+    print(f"Rendered {svg_path}, {pdf_path}, {png_path}")
+
+
+if __name__ == "__main__":
+    main()
