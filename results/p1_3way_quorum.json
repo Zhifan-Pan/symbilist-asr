@@ -1,0 +1,299 @@
+{
+  "strict_3of3": {
+    "geometry": {
+      "FLEURS": {
+        "fixed_word_frac": 0.2171001592421706,
+        "mean_blocks": 2.577243746934772
+      },
+      "Kathbath": {
+        "fixed_word_frac": 0.18170129894685094,
+        "mean_blocks": 1.951219512195122
+      }
+    },
+    "systems": {
+      "3way_Whole_Listwise": {
+        "FLEURS": {
+          "macro_WER_mean": 21.940582059822834,
+          "macro_WER_sd": 0.031465850050925066,
+          "macro_CER_mean": 5.608047293301282,
+          "macro_CER_sd": 0.0342778877337931
+        },
+        "Kathbath": {
+          "macro_WER_mean": 36.363550595746894,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.986564733205205,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_Listwise_OmniAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 21.647569168951474,
+          "macro_WER_sd": 0.020751293984597866,
+          "macro_CER_mean": 5.590157868046705,
+          "macro_CER_sd": 0.02955349803311468
+        },
+        "Kathbath": {
+          "macro_WER_mean": 36.00580271824473,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.956346811009989,
+          "macro_CER_sd": 8.881784197001252e-16
+        }
+      },
+      "3way_Listwise_MMSAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 21.65590940710832,
+          "macro_WER_sd": 0.06414073022429716,
+          "macro_CER_mean": 5.537534603936622,
+          "macro_CER_sd": 0.035634947341523664
+        },
+        "Kathbath": {
+          "macro_WER_mean": 36.035622143152615,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 7.003747525683019,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_SymBiList": {
+        "FLEURS": {
+          "macro_WER_mean": 21.55637867266834,
+          "macro_WER_sd": 0.041590103015249485,
+          "macro_CER_mean": 5.534343173150642,
+          "macro_CER_sd": 0.022561205751627258
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.89219043776881,
+          "macro_WER_sd": 0.023155788185913097,
+          "macro_CER_mean": 6.961831245807738,
+          "macro_CER_sd": 0.010487986901787557
+        }
+      }
+    }
+  },
+  "quorum_2of3": {
+    "geometry": {
+      "FLEURS": {
+        "fixed_word_frac": 0.7180324745144475,
+        "mean_blocks": 12.77709661598823
+      },
+      "Kathbath": {
+        "fixed_word_frac": 0.5956058915842614,
+        "mean_blocks": 7.373170731707317
+      }
+    },
+    "systems": {
+      "3way_Whole_Listwise": {
+        "FLEURS": {
+          "macro_WER_mean": 22.149924718136845,
+          "macro_WER_sd": 0.03752871971117864,
+          "macro_CER_mean": 5.644467483789058,
+          "macro_CER_sd": 0.007938505137384486
+        },
+        "Kathbath": {
+          "macro_WER_mean": 36.38854578261239,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 7.008788649780176,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_Listwise_OmniAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 21.009688184242187,
+          "macro_WER_sd": 0.01841557143830488,
+          "macro_CER_mean": 5.517553647343587,
+          "macro_CER_sd": 0.02623997953642991
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.358360311667965,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.946966890481289,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_Listwise_MMSAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 20.94060432192862,
+          "macro_WER_sd": 0.017829634010042845,
+          "macro_CER_mean": 5.510851216970036,
+          "macro_CER_sd": 0.010934178078355623
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.51748230088175,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 7.0001810932251445,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_SymBiList": {
+        "FLEURS": {
+          "macro_WER_mean": 20.83186038116792,
+          "macro_WER_sd": 0.014266324759239807,
+          "macro_CER_mean": 5.450186961740491,
+          "macro_CER_sd": 0.015355484567084268
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.259768472520186,
+          "macro_WER_sd": 0.05093446572031462,
+          "macro_CER_mean": 6.882019321385322,
+          "macro_CER_sd": 0.013963144806353996
+        }
+      }
+    }
+  },
+  "mass_soft": {
+    "geometry": {
+      "FLEURS": {
+        "fixed_word_frac": 0.7511194588488288,
+        "mean_blocks": 13.05492888670917
+      },
+      "Kathbath": {
+        "fixed_word_frac": 0.6396793284047723,
+        "mean_blocks": 7.645325203252033
+      }
+    },
+    "systems": {
+      "3way_Whole_Listwise": {
+        "FLEURS": {
+          "macro_WER_mean": 22.140707196719337,
+          "macro_WER_sd": 0.025946414621056874,
+          "macro_CER_mean": 5.644205434706021,
+          "macro_CER_sd": 0.004381257504594992
+        },
+        "Kathbath": {
+          "macro_WER_mean": 36.33396356710083,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.983736803166502,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_Listwise_OmniAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 21.047196414872342,
+          "macro_WER_sd": 0.01785275803131934,
+          "macro_CER_mean": 5.5587337697568415,
+          "macro_CER_sd": 0.01176620451690889
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.2798400788958,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.95255763600229,
+          "macro_CER_sd": 0.0
+        }
+      },
+      "3way_Listwise_MMSAnc": {
+        "FLEURS": {
+          "macro_WER_mean": 20.93008228807683,
+          "macro_WER_sd": 0.01719367715586559,
+          "macro_CER_mean": 5.523464236052924,
+          "macro_CER_sd": 0.016860599224905157
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.48508056169885,
+          "macro_WER_sd": 0.0,
+          "macro_CER_mean": 6.997814185817847,
+          "macro_CER_sd": 8.881784197001252e-16
+        }
+      },
+      "3way_SymBiList": {
+        "FLEURS": {
+          "macro_WER_mean": 20.84666378790973,
+          "macro_WER_sd": 0.004719725797229385,
+          "macro_CER_mean": 5.477646568362725,
+          "macro_CER_sd": 0.013712851041519526
+        },
+        "Kathbath": {
+          "macro_WER_mean": 35.2143787573888,
+          "macro_WER_sd": 0.014257504523575115,
+          "macro_CER_mean": 6.901184717118668,
+          "macro_CER_sd": 0.0384231272740421
+        }
+      }
+    }
+  },
+  "bootstrap_seed17": {
+    "FLEURS_quorum_vs_strict": {
+      "delta_WER_pp": -0.6655091907985877,
+      "delta_WER_CI": [
+        -0.8485443571693613,
+        -0.4771533994581835
+      ],
+      "delta_CER_pp": -0.07858897514449392,
+      "delta_CER_CI": [
+        -0.1643570018138926,
+        0.005020259412579436
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    },
+    "FLEURS_quorum_vs_whole_listwise": {
+      "delta_WER_pp": -1.3651392055028886,
+      "delta_WER_CI": [
+        -1.611526784923239,
+        -1.1175463339454614
+      ],
+      "delta_CER_pp": -0.22328555961970586,
+      "delta_CER_CI": [
+        -0.3184065548523328,
+        -0.14304108139032104
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    },
+    "FLEURS_mass_soft_vs_strict": {
+      "delta_WER_pp": -0.6559601780338724,
+      "delta_WER_CI": [
+        -0.8514015440347299,
+        -0.46242728916168496
+      ],
+      "delta_CER_pp": -0.034225654040606734,
+      "delta_CER_CI": [
+        -0.15226150820616685,
+        0.10915567104558785
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    },
+    "Kathbath_quorum_vs_strict": {
+      "delta_WER_pp": -0.6197929092723626,
+      "delta_WER_CI": [
+        -0.7910557460630067,
+        -0.4516618972149241
+      ],
+      "delta_CER_pp": -0.0722283952297662,
+      "delta_CER_CI": [
+        -0.13290411475784,
+        -0.014284934326883589
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    },
+    "Kathbath_quorum_vs_whole_listwise": {
+      "delta_WER_pp": -1.1081329169471275,
+      "delta_WER_CI": [
+        -1.3447348522007792,
+        -0.8657498578767496
+      ],
+      "delta_CER_pp": -0.1071079606708496,
+      "delta_CER_CI": [
+        -0.1864083593667434,
+        -0.034730662187256345
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    },
+    "Kathbath_mass_soft_vs_strict": {
+      "delta_WER_pp": -0.67014326382278,
+      "delta_WER_CI": [
+        -0.8532525162119008,
+        -0.5010790343075939
+      ],
+      "delta_CER_pp": -0.03321795012875928,
+      "delta_CER_CI": [
+        -0.09379902589782482,
+        0.0311650959526351
+      ],
+      "n_draws": 10000,
+      "bonferroni_k": 1
+    }
+  },
+  "elapsed_sec": 7188.8
+}

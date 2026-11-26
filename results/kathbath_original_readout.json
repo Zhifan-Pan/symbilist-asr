@@ -1,0 +1,787 @@
+{
+  "scope": "Kathbath original clean/testunk; Tamil and Kannada; same fitted languages, project-scoped confirmation",
+  "single_frozen_readout": true,
+  "repeat_sd": null,
+  "recordings": 3030,
+  "system_ids": [
+    "anchor",
+    "donor",
+    "CTC_phrase",
+    "CTC_whole",
+    "CTC_whole_fixed",
+    "slot",
+    "cn"
+  ],
+  "metrics": {
+    "anchor": {
+      "macro_WER": 39.486971564793706,
+      "macro_CER": 7.734024466131217,
+      "micro_WER": 40.17075509635908,
+      "micro_CER": 7.901118609895426,
+      "total_counts": {
+        "S": 10727,
+        "D": 1276,
+        "I": 983,
+        "N": 32327,
+        "char_S": 9286,
+        "char_D": 5684,
+        "char_I": 4546,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 31.645655415480547,
+          "CER": 6.588926810769814,
+          "S": 3737,
+          "D": 701,
+          "I": 231,
+          "N": 14754,
+          "char_S": 3476,
+          "char_D": 2437,
+          "char_I": 1037,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 47.32828771410687,
+          "CER": 8.87912212149262,
+          "S": 6990,
+          "D": 575,
+          "I": 752,
+          "N": 17573,
+          "char_S": 5810,
+          "char_D": 3247,
+          "char_I": 3509,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "donor": {
+      "macro_WER": 43.43888011650712,
+      "macro_CER": 8.577463684774177,
+      "micro_WER": 43.81476784112352,
+      "micro_CER": 8.669530329591138,
+      "total_counts": {
+        "S": 11695,
+        "D": 1405,
+        "I": 1064,
+        "N": 32327,
+        "char_S": 10195,
+        "char_D": 6242,
+        "char_I": 4977,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 39.12837196692423,
+          "CER": 7.946530147895335,
+          "S": 4666,
+          "D": 820,
+          "I": 287,
+          "N": 14754,
+          "char_S": 4159,
+          "char_D": 2898,
+          "char_I": 1325,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 47.74938826609002,
+          "CER": 9.208397221653017,
+          "S": 7029,
+          "D": 585,
+          "I": 777,
+          "N": 17573,
+          "char_S": 6036,
+          "char_D": 3344,
+          "char_I": 3652,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "CTC_phrase": {
+      "macro_WER": 36.80519147529219,
+      "macro_CER": 7.283026694452698,
+      "micro_WER": 37.36505088625607,
+      "micro_CER": 7.437156633725096,
+      "total_counts": {
+        "S": 9820,
+        "D": 1323,
+        "I": 936,
+        "N": 32327,
+        "char_S": 8355,
+        "char_D": 5235,
+        "char_I": 4780,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 30.384980344313405,
+          "CER": 6.226772847933257,
+          "S": 3526,
+          "D": 729,
+          "I": 228,
+          "N": 14754,
+          "char_S": 3070,
+          "char_D": 2342,
+          "char_I": 1156,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 43.22540260627098,
+          "CER": 8.339280540972139,
+          "S": 6294,
+          "D": 594,
+          "I": 708,
+          "N": 17573,
+          "char_S": 5285,
+          "char_D": 2893,
+          "char_I": 3624,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "CTC_whole": {
+      "macro_WER": 37.43049510907157,
+      "macro_CER": 7.306264604936936,
+      "micro_WER": 37.98991555046865,
+      "micro_CER": 7.467520637401165,
+      "total_counts": {
+        "S": 9979,
+        "D": 1353,
+        "I": 949,
+        "N": 32327,
+        "char_S": 8483,
+        "char_D": 5309,
+        "char_I": 4653,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 31.015317879896976,
+          "CER": 6.201175578308684,
+          "S": 3578,
+          "D": 759,
+          "I": 239,
+          "N": 14754,
+          "char_S": 3091,
+          "char_D": 2350,
+          "char_I": 1100,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 43.845672338246175,
+          "CER": 8.411353631565188,
+          "S": 6401,
+          "D": 594,
+          "I": 710,
+          "N": 17573,
+          "char_S": 5392,
+          "char_D": 2959,
+          "char_I": 3553,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "CTC_whole_fixed": {
+      "macro_WER": 37.35615793854086,
+      "macro_CER": 7.34591399898977,
+      "micro_WER": 37.94042131963993,
+      "micro_CER": 7.509220535782966,
+      "total_counts": {
+        "S": 9987,
+        "D": 1334,
+        "I": 944,
+        "N": 32327,
+        "char_S": 8536,
+        "char_D": 5313,
+        "char_I": 4699,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 30.656093262843974,
+          "CER": 6.226772847933257,
+          "S": 3558,
+          "D": 731,
+          "I": 234,
+          "N": 14754,
+          "char_S": 3103,
+          "char_D": 2352,
+          "char_I": 1113,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 44.056222614237754,
+          "CER": 8.465055150046283,
+          "S": 6429,
+          "D": 603,
+          "I": 710,
+          "N": 17573,
+          "char_S": 5433,
+          "char_D": 2961,
+          "char_I": 3586,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "slot": {
+      "macro_WER": 36.56557423958577,
+      "macro_CER": 8.05913549936371,
+      "micro_WER": 37.12995328981965,
+      "micro_CER": 8.193017898568034,
+      "total_counts": {
+        "S": 9724,
+        "D": 1367,
+        "I": 912,
+        "N": 32327,
+        "char_S": 8588,
+        "char_D": 6387,
+        "char_I": 5262,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 30.093533956893047,
+          "CER": 7.1416382252559725,
+          "S": 3480,
+          "D": 757,
+          "I": 203,
+          "N": 14754,
+          "char_S": 3269,
+          "char_D": 2922,
+          "char_I": 1342,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 43.037614522278496,
+          "CER": 8.976632773471449,
+          "S": 6244,
+          "D": 610,
+          "I": 709,
+          "N": 17573,
+          "char_S": 5319,
+          "char_D": 3465,
+          "char_I": 3920,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    },
+    "cn": {
+      "macro_WER": 37.08906222908523,
+      "macro_CER": 9.861299309729482,
+      "micro_WER": 37.61870881925326,
+      "micro_CER": 10.005546491338162,
+      "total_counts": {
+        "S": 9832,
+        "D": 1464,
+        "I": 865,
+        "N": 32327,
+        "char_S": 8724,
+        "char_D": 10568,
+        "char_I": 5422,
+        "char_N": 247003
+      },
+      "by_language": {
+        "kn_in": {
+          "n": 1388,
+          "WER": 31.015317879896976,
+          "CER": 8.872772089495639,
+          "S": 3541,
+          "D": 840,
+          "I": 195,
+          "N": 14754,
+          "char_S": 3231,
+          "char_D": 4697,
+          "char_I": 1431,
+          "char_N": 105480
+        },
+        "ta_in": {
+          "n": 1642,
+          "WER": 43.16280657827349,
+          "CER": 10.849826529963327,
+          "S": 6291,
+          "D": 624,
+          "I": 670,
+          "N": 17573,
+          "char_S": 5493,
+          "char_D": 5871,
+          "char_I": 3991,
+          "char_N": 141523
+        }
+      },
+      "empty_outputs": 0
+    }
+  },
+  "changes": {
+    "anchor_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 3030,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 1388,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 1642,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      }
+    },
+    "anchor_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 2086,
+        "repair": 402,
+        "harm": 970,
+        "tie": 1658,
+        "changed_tie": 714,
+        "net_word_errors": 907
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 816,
+        "repair": 212,
+        "harm": 321,
+        "tie": 855,
+        "changed_tie": 283,
+        "net_word_errors": 186
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1270,
+        "repair": 190,
+        "harm": 649,
+        "tie": 803,
+        "changed_tie": 431,
+        "net_word_errors": 721
+      }
+    },
+    "donor_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 2843,
+        "repair": 789,
+        "harm": 1357,
+        "tie": 884,
+        "changed_tie": 697,
+        "net_word_errors": 1178
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 1264,
+        "repair": 232,
+        "harm": 760,
+        "tie": 396,
+        "changed_tie": 272,
+        "net_word_errors": 1104
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1579,
+        "repair": 557,
+        "harm": 597,
+        "tie": 488,
+        "changed_tie": 425,
+        "net_word_errors": 74
+      }
+    },
+    "donor_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 2606,
+        "repair": 391,
+        "harm": 1503,
+        "tie": 1136,
+        "changed_tie": 712,
+        "net_word_errors": 2085
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 1178,
+        "repair": 132,
+        "harm": 796,
+        "tie": 460,
+        "changed_tie": 250,
+        "net_word_errors": 1290
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1428,
+        "repair": 259,
+        "harm": 707,
+        "tie": 676,
+        "changed_tie": 462,
+        "net_word_errors": 795
+      }
+    },
+    "CTC_phrase_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 2086,
+        "repair": 970,
+        "harm": 402,
+        "tie": 1658,
+        "changed_tie": 714,
+        "net_word_errors": -907
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 816,
+        "repair": 321,
+        "harm": 212,
+        "tie": 855,
+        "changed_tie": 283,
+        "net_word_errors": -186
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1270,
+        "repair": 649,
+        "harm": 190,
+        "tie": 803,
+        "changed_tie": 431,
+        "net_word_errors": -721
+      }
+    },
+    "CTC_phrase_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 3030,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 1388,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 0,
+        "repair": 0,
+        "harm": 0,
+        "tie": 1642,
+        "changed_tie": 0,
+        "net_word_errors": 0
+      }
+    },
+    "CTC_whole_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 1865,
+        "repair": 838,
+        "harm": 391,
+        "tie": 1801,
+        "changed_tie": 636,
+        "net_word_errors": -705
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 740,
+        "repair": 288,
+        "harm": 207,
+        "tie": 893,
+        "changed_tie": 245,
+        "net_word_errors": -93
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1125,
+        "repair": 550,
+        "harm": 184,
+        "tie": 908,
+        "changed_tie": 391,
+        "net_word_errors": -612
+      }
+    },
+    "CTC_whole_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 1419,
+        "repair": 366,
+        "harm": 503,
+        "tie": 2161,
+        "changed_tie": 550,
+        "net_word_errors": 202
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 555,
+        "repair": 152,
+        "harm": 206,
+        "tie": 1030,
+        "changed_tie": 197,
+        "net_word_errors": 93
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 864,
+        "repair": 214,
+        "harm": 297,
+        "tie": 1131,
+        "changed_tie": 353,
+        "net_word_errors": 109
+      }
+    },
+    "CTC_whole_fixed_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 1825,
+        "repair": 819,
+        "harm": 359,
+        "tie": 1852,
+        "changed_tie": 647,
+        "net_word_errors": -721
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 708,
+        "repair": 284,
+        "harm": 180,
+        "tie": 924,
+        "changed_tie": 244,
+        "net_word_errors": -146
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1117,
+        "repair": 535,
+        "harm": 179,
+        "tie": 928,
+        "changed_tie": 403,
+        "net_word_errors": -575
+      }
+    },
+    "CTC_whole_fixed_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 977,
+        "repair": 217,
+        "harm": 357,
+        "tie": 2456,
+        "changed_tie": 403,
+        "net_word_errors": 186
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 345,
+        "repair": 92,
+        "harm": 113,
+        "tie": 1183,
+        "changed_tie": 140,
+        "net_word_errors": 40
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 632,
+        "repair": 125,
+        "harm": 244,
+        "tie": 1273,
+        "changed_tie": 263,
+        "net_word_errors": 146
+      }
+    },
+    "slot_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 2062,
+        "repair": 976,
+        "harm": 262,
+        "tie": 1792,
+        "changed_tie": 824,
+        "net_word_errors": -983
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 809,
+        "repair": 330,
+        "harm": 164,
+        "tie": 894,
+        "changed_tie": 315,
+        "net_word_errors": -229
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1253,
+        "repair": 646,
+        "harm": 98,
+        "tie": 898,
+        "changed_tie": 509,
+        "net_word_errors": -754
+      }
+    },
+    "slot_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 1539,
+        "repair": 506,
+        "harm": 433,
+        "tie": 2091,
+        "changed_tie": 600,
+        "net_word_errors": -76
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 623,
+        "repair": 213,
+        "harm": 179,
+        "tie": 996,
+        "changed_tie": 231,
+        "net_word_errors": -43
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 916,
+        "repair": 293,
+        "harm": 254,
+        "tie": 1095,
+        "changed_tie": 369,
+        "net_word_errors": -33
+      }
+    },
+    "cn_minus_anchor": {
+      "all": {
+        "n": 3030,
+        "modified": 2460,
+        "repair": 1054,
+        "harm": 539,
+        "tie": 1437,
+        "changed_tie": 867,
+        "net_word_errors": -825
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 1017,
+        "repair": 339,
+        "harm": 307,
+        "tie": 742,
+        "changed_tie": 371,
+        "net_word_errors": -93
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1443,
+        "repair": 715,
+        "harm": 232,
+        "tie": 695,
+        "changed_tie": 496,
+        "net_word_errors": -732
+      }
+    },
+    "cn_minus_CTC_phrase": {
+      "all": {
+        "n": 3030,
+        "modified": 2086,
+        "repair": 585,
+        "harm": 666,
+        "tie": 1779,
+        "changed_tie": 835,
+        "net_word_errors": 82
+      },
+      "kn_in": {
+        "n": 1388,
+        "modified": 883,
+        "repair": 226,
+        "harm": 309,
+        "tie": 853,
+        "changed_tie": 348,
+        "net_word_errors": 93
+      },
+      "ta_in": {
+        "n": 1642,
+        "modified": 1203,
+        "repair": 359,
+        "harm": 357,
+        "tie": 926,
+        "changed_tie": 487,
+        "net_word_errors": -11
+      }
+    }
+  },
+  "scope_qualification": "33a2c2721731bada80edb50dd81618fa2916de2b00ef3f13f9f0d55475f13128",
+  "native_error_recordings": 0,
+  "native_error_by_source": {},
+  "fusion_error_recordings": 0,
+  "intervals": [
+    {
+      "comparator": "CTC_whole",
+      "metric": "macro_WER",
+      "effect_pp": -0.6253036337793816,
+      "simultaneous_interval_pp": [
+        -0.9670488990876756,
+        -0.2726314236396695
+      ]
+    },
+    {
+      "comparator": "CTC_whole",
+      "metric": "macro_CER",
+      "effect_pp": -0.023237910484238178,
+      "simultaneous_interval_pp": [
+        -0.06952856331373858,
+        0.019205957839722048
+      ]
+    },
+    {
+      "comparator": "CTC_whole_fixed",
+      "metric": "macro_WER",
+      "effect_pp": -0.5509664632486704,
+      "simultaneous_interval_pp": [
+        -0.8455510302740739,
+        -0.2785547505146618
+      ]
+    },
+    {
+      "comparator": "CTC_whole_fixed",
+      "metric": "macro_CER",
+      "effect_pp": -0.06288730453707281,
+      "simultaneous_interval_pp": [
+        -0.11295644527915441,
+        -0.01548763137524666
+      ]
+    }
+  ],
+  "statistical_family": "four endpoints, two-sided Bonferroni percentile; conditional on fixed predictions/sentences; no slot inference",
+  "both_primary_upper_below_zero": true,
+  "draws": 50000,
+  "bootstrap_seed": 314159,
+  "predictions_sha256": "489fecce929a8f364e9707f6497e03c730c42b09f90b5a3e1e9375301b943398"
+}

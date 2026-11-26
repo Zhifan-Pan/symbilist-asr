@@ -1,5 +1,7 @@
 \documentclass[conference,letterpaper]{IEEEtran}
+\IEEEoverridecommandlockouts
 \usepackage[T1]{fontenc}
+\usepackage{microtype}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -7,30 +9,23 @@
 \usepackage{cite}
 \usepackage{url}
 \usepackage{xcolor}
-\usepackage[hidelinks]{hyperref}
 
-\setlength{\textfloatsep}{5pt plus 1.5pt minus 1.5pt}
-\setlength{\dbltextfloatsep}{6pt plus 1.5pt minus 1.5pt}
-\setlength{\floatsep}{4pt plus 1pt minus 1pt}
-\setlength{\abovecaptionskip}{2pt}
-\setlength{\belowcaptionskip}{0pt}
+\usepackage{balance}
+\input{column-layout}
 
 \newcommand{\pp}{\ensuremath{\,\mathrm{pp}}}
 \newcommand{\Hwhole}{\mathcal{H}_{\mathrm{whole}}}
 \newcommand{\Hagree}{\mathcal{H}_{\mathrm{agree}}}
 \newcommand{\Hslot}{\mathcal{H}_{\mathrm{slot}}}
-\newcommand{\SymBiPhrase}{\textsc{SymBiPhrase}}
-\newcommand{\SymBiList}{\textsc{SymBiList}}
-\newcommand{\crc}{\textsc{CRC}}
+\newcommand{\SymBiPhrase}{\textup{\textsc{SymBiPhrase}}}
+\newcommand{\SymBiList}{\textup{\textsc{SymBiList}}}
+\newcommand{\crc}{\textup{\textsc{CRC}}}
 
-\newcommand{\pl}{\smash{$^\ddagger$}}
-\newcommand{\sig}{\smash{$^\dagger$}}
-
-\title{Symmetric Agreement-Anchored Phrase Recombination\\for Frozen Multilingual ASR}
+\title{Symmetric Agreement-Anchored Phrase\\Recombination for Frozen Multilingual ASR}
 
 \author{\IEEEauthorblockN{Zhifan Pan\textsuperscript{1,2,3},
-Yingxiong Gao\textsuperscript{1,2,3},
 Maihemuti Maimaiti\textsuperscript{1,2,3,*},
+Yingxiong Gao\textsuperscript{1,2,3},
 Yifeng Yu\textsuperscript{1,2,3}, Aishan Wumaier\textsuperscript{1,2,3}}
 \IEEEauthorblockA{\textsuperscript{1}School of Computer Science and Technology, Xinjiang University, Urumqi, China\\
 \textsuperscript{2}Xinjiang Multimodal Intelligent Processing and Information Security\\
@@ -41,253 +36,242 @@ Cognitive Computing, Xinjiang University, Urumqi, China\\
 
 \begin{document}
 \maketitle
+\flushbottom
 
 \begin{abstract}
-Frozen multilingual speech recognizers frequently produce complementary local transcriptions across languages and architectures, yet post-decoding fusion faces a \emph{granularity--asymmetry trade-off}: whole-hypothesis reranking cannot recombine complementary phrases, whereas word-level voting or arbitrary cuts shatter donor phrases under recognizer asymmetry. We propose \SymBiList{}, a zero-hallucination, millisecond-latency phrase recombination framework requiring neither acoustic fine-tuning, word timestamps, nor speech resynthesis. Aligning scored $N$-best lists to an anchor grid and fixing unanimously agreed words induces a phrase space ($\Hwhole \subseteq \Hagree \subseteq \Hslot$) that preserves intact donor phrases. To eliminate single-anchor bias, we run dedicated directional models in both anchor orientations and reconcile residual disagreements via an anti-symmetric Pass-2 block arbiter (\SymBiPhrase{}). We further replace pointwise trees with a lightweight neural listwise expected-edit ranker over 32d block-context features and introduce Conformal Risk-Controlled Deferral (\crc{}) for finite-sample harm guarantees. Across FLEURS-12 and cross-corpus Kathbath (valid and unseen-speaker test), \SymBiList{} reaches 21.67\%, 35.24\%, and 36.41\% macro WER (5.55\%, 6.77\%, 7.16\% CER) in 3.0~ms/utterance CPU, outperforming whole-list controls on all 12 languages, fixed-length cuts even without Amharic, MBR, ROVER, and confusion networks; scaling to 3-system CTC+CTC+AED fusion lowers FLEURS-12 further to 21.50\% WER / 5.51\% CER. On an untouched 8-language Common Voice 26 CTC+AED benchmark (7 unseen languages), symmetric recombination cuts WER by 3.52\pp{} below the best single model and transfers zero-shot ($-2.05\pp$ on unseen languages). Code is available at \href{https://github.com/Zhifan-Pan/symbilist-asr}{\nolinkurl{github.com/Zhifan-Pan/symbilist-asr}}.
+Frozen multilingual speech recognizers often supply complementary words and phrases for the same utterance. Whole-list reranking preserves sentence coherence but cannot assemble a novel combination across lists, whereas word-level voting can fracture intact phrases that one recognizer transcribed correctly. We present \SymBiList{}, a post-decoding fusion framework that partitions scored $N$-best lists at positions of multi-recognizer agreement, ranks observed spans with a listwise scorer for each anchor orientation, reconciles disagreements via an anti-symmetric arbiter, and optionally defers uncertain edits with conformal risk control (\crc{}). With three recognizers, two-source majority agreement defines partition boundaries while keeping dissenting tokens selectable. On the 12-language FLEURS official test (9,671 clips), CPU \SymBiList{} lowers macro WER from 22.52\% to 21.42\% versus matched bidirectional whole-list selection (improving 12/12 languages) and cuts unseen-speaker Kathbath WER from 37.14\% to 36.41\%. Adding a third recognizer lowers FLEURS WER to 20.62\% versus 21.84\% for fair three-source bidirectional whole-list selection. Decoupled controls show that recombination gains arise from pairing phrase freedom with contextual linguistic scoring, and Common Voice tests delineate when source complementarity favors recombination versus deferral. Fusion operates purely on scored lists without word timestamps or audio resynthesis.
 \end{abstract}
 
 \begin{IEEEkeywords}
-multilingual speech recognition, system combination, phrase recombination, listwise ranking, conformal risk control
+multilingual speech recognition, system combination, phrase recombination, listwise ranking, conformal risk control.
 \end{IEEEkeywords}
 
 \section{Introduction}
-Frozen multilingual automatic speech recognition (ASR) foundation models—both non-autoregressive connectionist temporal classification (CTC) encoders such as MMS~\cite{pratap2024mms}, OWSM-CTC~\cite{peng2024owsmctc}, and Omnilingual ASR~\cite{omni2025}, and autoregressive encoder--decoder (AED) models such as Whisper~\cite{radford2023whisper}—exhibit strong complementarity across languages, scripts, and error modes. Post-decoding combination avoids costly multi-encoder retraining, yet exposes a structural dilemma: whole-hypothesis reranking~\cite{yan2025reranking} preserves fluency without hallucination but cannot recombine local phrases; word voting and confusion networks~\cite{fiscus1997rover,mangu2000consensus,benes2024hystoc} allow word-level edits but sever phrase dependencies and inflate insertions under word-boundary mismatch; and LLM generative error correction (GER)~\cite{chen2023hyporadise,ma2025correction,yang2025covoger} incurs high latency and hallucination risk~\cite{hu2024listen}.
+A frozen speech recognizer may transcribe part of an utterance accurately yet fail elsewhere, while a second recognizer makes the complementary error. Even an oracle whole-sentence reranker~\cite{yan2025reranking} cannot recover their combination unless one input $N$-best list already contains it. Conversely, ROVER~\cite{fiscus1997rover} and confusion-network (CN) consensus decoding~\cite{mangu2000consensus} switch word by word, which can break an intact phrase that one model transcribed correctly. When only frozen scored $N$-best lists are available---without word timestamps, retraining, or audio resynthesis---where should a combiner switch between sources?
 
-We investigate three questions: \textbf{RQ1:} \emph{Which boundaries govern effective multilingual phrase recombination?} \textbf{RQ2:} \emph{How does anchor orientation bias affect fusion under recognizer asymmetry, and can bidirectional symmetry neutralize it?} \textbf{RQ3:} \emph{Can listwise block ranking and distribution-free risk control compress the oracle--selection gap while bounding harm?}
+\SymBiList{} partitions input lists at words where recognizers unanimously (or by majority quorum) agree; between boundaries, each variable block holds only intact spans observed in at least one hypothesis. Figure~\ref{fig:method}b shows one FLEURS Hausa development recording. Between agreed words, \SymBiList{} takes \emph{makirci} from OmniASR and \emph{sanya shi} intact from MMS. The two greedy transcripts have three and two word errors, respectively; the recombined transcript has one and is absent from both input lists. Both sources agree on the remaining error: \emph{bincike} in place of \emph{binciken}. Unlike READ~\cite{li2026read}, which resynthesizes audio to localize acoustic discrepancies, or LLM generative error correction (GER)~\cite{chen2023hyporadise,yang2025covoger}, which may hallucinate out-of-list words, \SymBiList{} emits only words found in the input lists.
 
-Our analysis reveals a \emph{granularity--asymmetry mechanism}. When an anchor splits morphological affixes—as in FLEURS Amharic (49.95\% anchor WER vs.\ 27.31\% donor WER despite 6.47\% anchor CER)—fixed-length or slot partitions slice donor words on the fragmented grid, doubling insertions. Fixing only unanimously agreed words keeps donor phrases intact across disagreement spans, while dedicated bidirectional reconciliation eliminates single-anchor bias without scrambling anchor-relative deltas.
-
-We contribute: (1) a \textbf{formal agreement phrase space} ($\Hwhole \subseteq \Hagree \subseteq \Hslot$) with zero-hallucination support and pure boundary-position controls ($Q_{\mathrm{var}}, Q_{\mathrm{shift}}$); (2) \textbf{symmetric bidirectional reconciliation (\SymBiPhrase{})} neutralizing anchor bias across CTC+CTC and CTC+AED pairs; (3) \textbf{listwise expected-edit ranking (\SymBiList{}) and Conformal Risk Control (\crc{})} compressing selection error at 3.0~ms/utterance CPU with finite-sample harm ceilings; and (4) \textbf{multilingual, cross-architecture, and unseen-language validation} across FLEURS-12, Kathbath valid/test, 3-system fusion, and untouched Common Voice 26 (7 unseen languages).
-
-\section{Related Work}
-\emph{Voting, confusion networks, and MBR.} Classical ROVER~\cite{fiscus1997rover}, LM-weighted voting~\cite{schwenk2000combining}, and confusion networks (CN)~\cite{mangu2000consensus} merge aligned words; Hystoc~\cite{benes2024hystoc} extracts lattice-free word confidences from end-to-end $N$-best lists. Minimum Bayes Risk (MBR) decoding minimizes expected risk, with recent progress in model-based MBR~\cite{jinnai2024mbmbr}, low-rank factorization~\cite{trabelsi2024lowrankmbr}, and uncertainty-aware abstention~\cite{daheim2025uambr}. Our block expected edit-distance features act as block-decomposed dual-source MBR risks that naturally factor pairwise comparisons into small disagreement blocks.
-
-\emph{Segment recombination, reranking, and LLM-GER.} READ~\cite{li2026read} uses text and timestamp agreement to form segments scored via pretrained TTS acoustic discrepancy; our approach requires neither timestamps nor TTS and runs in 3~ms CPU. Multilingual $N$-best reranking~\cite{yan2025reranking} stays limited to $\Hwhole$, while LLM-GER frameworks—HyPoradise~\cite{chen2023hyporadise}, CoVoGER~\cite{yang2025covoger}, UADF~\cite{chen2024uadf}, Listen-Again~\cite{hu2024listen}, and TASLP GER~\cite{ma2025correction}—enable open rewriting at higher latency and hallucination risk. DualHyp~\cite{kim2024dualhyp} highlights dual-stream reliability routing, motivating our symmetric arbiter (Table~\ref{tab:related}).
-
-\emph{Multilingual metrics and risk control.} Normalization and word segmentation heavily affect multilingual WER relative to CER~\cite{manohar2024normalization,thomas2025cer}, while subword/phonetic cues aid low-resource transfer~\cite{yusuyin2024whistle}. Motivated by pairwise/listwise ensembling~\cite{jiang2023llmblender} and Conformal Risk Control~\cite{angelopoulos2024crc}, we jointly optimize WER/CER via listwise block ranking and distribution-free harm deferral.
-
-\begin{table}[t]
-\caption{Positioning of \SymBiList{} vs.\ representative ASR fusion paradigms.}\label{tab:related}
-\centering\scriptsize\setlength{\tabcolsep}{1.8pt}\renewcommand{\arraystretch}{0.94}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc@{}}\toprule
-Paradigm & Recomb. & 0-Hallu. & No TTS & Multi-Lang & ms\\\midrule
-ROVER/Hystoc~\cite{fiscus1997rover,benes2024hystoc} & Word & $\checkmark$ & $\checkmark$ & $\checkmark$ & $<$5\\
-Whole Rerank~\cite{yan2025reranking} & None & $\checkmark$ & $\checkmark$ & $\checkmark$ & $<$5\\
-READ~\cite{li2026read} & Segment & $\checkmark$ & $\times$ & Limited & $>$500\\
-LLM-GER~\cite{ma2025correction,yang2025covoger} & Free Gen. & $\times$ & $\checkmark$ & Partial & $>$200$^\dagger$\\
-\textbf{\SymBiList{} (Ours)} & \textbf{Sym.\ Phr.} & $\checkmark$ & $\checkmark$ & $\checkmark$ & \textbf{3.0}\\
-\bottomrule
-\multicolumn{6}{l}{\tiny $^\dagger$GPU decoding (1B--7B autoregressive models); others measured on CPU.}
-\end{tabular*}
-\end{table}
+Across 21 languages and four benchmarks, we isolate four questions: (i)~whether agreement boundaries outperform fixed and random cuts; (ii)~whether phrase recombination beats whole-list selection under identical rankers, with and without external LMs; (iii)~how bidirectional arbitration mitigates anchor asymmetry; and (iv)~when \crc{} deferral and learned CPU$\to$GPU rescoring improve cross-corpus and cross-architecture robustness. Code and scripts are at \url{github.com/Zhifan-Pan/symbilist-asr}.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.82\textwidth]{figures/method_overview.pdf}
-\caption{Overview of \SymBiList{} and verified multilingual mechanisms. (a) Dual-orientation agreement partitioning builds separate anchor bases ($M_1{\to}M_2$, $M_2{\to}M_1$) fed to dedicated directional \texttt{ListwiseBlockNet} scorers; an anti-symmetric Pass-2 arbiter reconciles residual disagreements with optional Conformal Risk Control (\crc{}). (b) Verified examples showing cross-list phrase recovery (Hausa), suffix-split asymmetry protection (Amharic), and cross-architecture CTC+AED rescue (CV26 English).}
+% IEEEtran supplies the number and the trailing period; bold them only here.
+\makeatletter
+\def\fnum@figure{\bfseries\figurename\nobreakspace\thefigure}
+\makeatother
+\includegraphics[width=\linewidth]{figures/SYMBILIST_Figure1_final.png}%
+\caption{\textbf{Overview of SYMBILIST.} (a) Shared scored N-best lists are processed through two anchor views, listwise ranking, and anti-symmetric arbitration. Agreement boundaries require unanimity for two sources and a two-of-three quorum for three sources, with dissenting tokens remaining selectable in the latter case. CRC deferral and CPU/GPU routing are optional. (b) A Hausa example from FLEURS development data illustrates intact phrase recombination and contrasts fixed-length and agreement-anchored partitioning. Check marks and crosses indicate reference-based local matches and errors. Error counts cover the full utterance.}
 \label{fig:method}
-\vspace{-6pt}
 \end{figure*}
+
+\section{Related Work}
+\emph{Multilingual ASR and whole-list selection.} Massive multilingual encoders span CTC models such as MMS~\cite{pratap2024mms}, Omnilingual ASR~\cite{omni2025}, OWSM-CTC~\cite{peng2024owsmctc}, and Whistle~\cite{yusuyin2025whistle}, alongside attention encoder--decoder (AED) models such as Whisper~\cite{radford2023whisper}. For combining frozen recognizers, whole-list neural reranking~\cite{yan2025reranking} and Minimum Bayes Risk (MBR) decoding~\cite{goel2000mbr,xu2011mbr}---including model-based, low-rank, and uncertainty-aware MBR~\cite{jinnai2024mbmbr,trabelsi2024lowrankmbr,daheim2025uambr}---preserve sentence fluency yet remain bounded by the best complete input hypothesis.
+
+\emph{Word-, segment-, and LLM-based combination.} Token-level ROVER~\cite{fiscus1997rover}, voting with LMs~\cite{schwenk2000combining}, and confusion networks~\cite{mangu2000consensus}---recently enhanced with Hystoc word confidences~\cite{benes2024hystoc}---allow cross-list edits but can fracture phrases; READ~\cite{li2026read} scores segments via TTS acoustic discrepancy at high latency. LLM GER frameworks---HyPoradise~\cite{chen2023hyporadise}, GenSEC~\cite{yang2024gensec}, Listen-Again~\cite{hu2024listen}, UADF~\cite{chen2024uadf}, multilingual CoVoGER~\cite{yang2025covoger}, DualHyp~\cite{kim2026dualhyp}, ASR-LLM studies~\cite{ma2025correction}, and pairwise LLM rankers~\cite{jiang2023llmblender}---can rewrite beyond input lists with higher latency and hallucination risk. We instead pair closed-list agreement-anchored phrase recombination with conformal risk control~\cite{angelopoulos2024crc} and optional neural rescoring~\cite{yang2025qwen3,martins2024eurollm}.
 
 \section{Proposed Method}
 \subsection{Candidate Alignment and Agreement Phrase Space}
-Given $S \ge 2$ frozen recognizers $\{M_1,\dots,M_S\}$, each source $s$ supplies a greedy transcript $b^{(s)}$ and scored $N$-best list $\mathcal{L}_s=\{(h, L_s(h))\}$. Strings undergo deterministic Unicode normalization (NFC, lowercase, NFC, Unicode punctuation replaced by spaces, whitespace collapsed, combining marks retained). Equal normalized strings within source $s$ merge via log-sum-exp, giving conditional masses
+Given $S \ge 2$ frozen recognizers $\{M_1,\dots,M_S\}$, each source $s$ yields greedy transcript $b^{(s)}$ and scored $N$-best list $\mathcal{L}_s=\{(h, L_s(h))\}$. Strings undergo Unicode NFC, lowercasing, second NFC, punctuation-to-space, and whitespace collapse (keeping combining marks). Duplicates merge via log-sum-exp, giving $p_s(h)=\exp(L_s(h)/T)/\sum_{h'\in\mathcal{L}_s}\exp(L_s(h')/T)$ ($T=0.5$).
+
+Fix anchor $b = (w_1,\dots,w_n)$. Every $h \in \Hwhole = \bigcup_{s=1}^S \mathcal{L}_s$ aligns to $b$ by unit word Levenshtein distance (ties: diag., del., ins.), giving lossless projection $\pi_b(h)$ over $2n+1$ cells ($n$ word cells, $n+1$ gaps; $\mathrm{read}(\pi_b(h))=h$). Word cell $2i-1$ forms a \emph{quorum partition boundary} iff at least $q=\max(2,\lceil 2S/3\rceil)$ sources unanimously project $w_i$ there:
 \begin{equation}
-p_s(h)=\frac{\exp(L_s(h)/T)}{\sum_{h'\in\mathcal{L}_s}\exp(L_s(h')/T)},\qquad T=0.5.
-\label{eq:mass}
+\mathcal{B}_b = \Big\{2i-1 : \sum_{s=1}^S \mathbb{I}\big[\forall h \in \mathcal{L}_s,\; \pi_b(h)_{2i-1} = w_i\big] \ge q\Big\}.
 \end{equation}
+Each boundary forms a singleton interval; intervening runs form contiguous blocks. Let $V_j$ collect distinct projected spans in interval $j$ (anchor span $v_{j,0}$ first); only intervals with $|V_j| \ge 2$ need ranking. For $S=2$ ($q=2$), boundary words are strictly fixed; for $S=3$ ($q=2$), two agreeing sources set a boundary while a dissenting third source's token remains selectable (hard-locking is ablated in Sec.~\ref{sec:cross}).
 
-Fix anchor $b = (w_1,\dots,w_n)$. Every $h \in \Hwhole = \bigcup_{s=1}^S \mathcal{L}_s$ aligns to $b$ by unit word Levenshtein distance (tie order: diagonal, deletion, insertion), giving a lossless projection $\pi_b(h)$ over $2n{+}1$ cells ($n$ word cells $\{1,3,\dots,2n{-}1\}$ and $n{+}1$ gap cells $\{0,2,\dots,2n\}$; $\mathrm{read}(\pi_b(h))=h$). Word cell $2i{-}1$ is \emph{fixed} iff every retained hypothesis projects $w_i$ there:
+\emph{Phrase support.} Reading an input hypothesis's projected spans in order recovers that hypothesis. Hence every original sentence is available to the phrase decoder, while selecting spans independently is at most as permissive as selecting individual cells: $\Hwhole\subseteq\Hagree\subseteq\Hslot$. Every Pass-1 span occurs intact in at least one input. A recombination can still be wrong, but it cannot introduce a word absent from all inputs.
+
+\subsection{Learning to Rank Observed Phrases}
+For Pass~1 (Fig.~\ref{fig:method}a), we splice span $v\in V_j$ into anchor $b$ at block $j$ and encode it with $D=12+6S+8$ target-free features ($D=32$ for $S=2$, $38$ for $S=3$) across four families: (i)~7 edit-geometry features (source divergence, position, option count, word/character length deltas, edit distance from $v_{j,0}$); (ii)~5 training-text LM deltas (2 character 4-gram Witten--Bell deltas, 3 word-bigram per-token/per-char/OOV deltas); (iii)~$6S$ per-source mass and expected word/nonspace-char edit-risk terms; and (iv)~8 intra-block context features comparing $v$ to block extrema and risk dispersion.
+
+During training, full-sentence edit changes against the reference reward local repairs even when no complete input is error-free. Using listwise ranking~\cite{cao2007listnet}, define $c_j(v)=\bar{e}_j^{(w)}(v)+\alpha_c\bar{e}_j^{(c)}(v)$ and regret $\tilde{e}_j(v)=c_j(v)-\min_{v'\in V_j}c_j(v')\ge 0$, normalized by training-language mean lengths (in the primary two-source fit, $\alpha_c=0.5$ in the first direction and $1.0$ in the second). Per orientation, \texttt{ListwiseBlockNet} trains three MLPs $f_\theta(x_{j,v})\in\mathbb{R}$ ($D\to 48\to 24\to 1$, SiLU, dropout $0.1$, AdamW) on expected block regret:
 \begin{equation}
-\mathcal{F}_b = \big\{2i{-}1 : \forall h \in \Hwhole,\; \pi_b(h)_{2i-1} = w_i\big\}.
-\end{equation}
-Maximal contiguous runs of non-fixed cells form variable blocks $B_1,\dots,B_K$. Block $j$ admits the distinct intact phrases $V_j$ read from complete projections across $B_j$, with anchor phrase $v_{j,0}$ first.
-
-\emph{Proposition 1 (Containment and Zero-Hallucination Support).} Let $\Hagree=\{\bigoplus_{j=1}^K v_j : v_j \in V_j\}$ interleaved with fixed anchor words, and let $\Hslot$ be the cell-level Cartesian product. Then: (i) $\Hwhole \subseteq \Hagree \subseteq \Hslot$; (ii) every emitted word occurs in some $h \in \Hwhole$; and (iii) every local phrase $v_j \in V_j$ occurs contiguously in some $h \in \Hwhole$. \emph{Proof:} Lossless projection maps each $h \in \Hwhole$ to $v_j(h)=\mathrm{read}(\pi_b(h)_{B_j}) \in V_j$, so $h \in \Hagree$; intact-substring admissibility restricts $\Hslot$ and forbids out-of-list vocabulary.\hfill$\square$
-
-\subsection{Block Features and Intra-Block Competition Context}
-For candidate $v \in V_j$, let $y = b[v_{j,0} \leftarrow v]$ be the single-block replacement and $A = \max(1, |b|_w)$. Table~\ref{tab:features} specifies all 32 target-free features (24 base + 8 intra-block competition context). A Witten--Bell character 4-gram LM (spaces/EOS retained, additive-0.1 unigrams) and word bigram LM ($c/(c{+}t)$ interpolation) fit solely on training transcripts supply length- and anchor-normalized char4 deltas
-\begin{equation}
-F_\mu(y)=\frac{\ell(y)}{|y|+1}-\frac{\ell(b)}{|b|+1},\quad
-F_\Sigma(y)=\frac{\ell(y)-\ell(b)}{|b|+1},
-\label{eq:lm}
-\end{equation}
-plus word2 deltas. Projecting $p_s$ into block $j$ yields $P_{s,j}$ and local expected edit-risk deltas for $k\in\{w,c\}$:
-\begin{equation}
-R_{s,j}^{(k)}(v)=\frac{1}{A_k}\sum_{a\in V_j} P_{s,j}(a)\big[d_k(v,a)-d_k(v_{j,0},a)\big].
-\label{eq:risk}
-\end{equation}
-To expose within-block competition to neural/tree scorers, we append 8 zero-cost context features (within-$V_j$ $z$-scores and gaps to the block best for $F_\Sigma$, word2 per-char delta, $R_{1,j}^{(w)}$, and $R_{2,j}^{(w)}$, plus cross-source mass entropy).
-
-\begin{table}[t]
-\caption{32-dimensional block-candidate feature schema (24d base + 8d context).}\label{tab:features}
-\centering\scriptsize\setlength{\tabcolsep}{1.8pt}\renewcommand{\arraystretch}{0.94}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcl@{}}\toprule
-Family & Dim & Constituents (Anchor-Relative / Target-Free)\\\midrule
-Edit Geometry & 7 & Anc--Don div., cell pos., $|V_j|$, $|v|_w$, $|v_0|_w$, $d_w/A$, $\Delta|v|_c$\\
-Char 4-gram LM & 2 & Per-char delta $F_\mu(y)$, anchor-norm sum delta $F_\Sigma(y)$\\
-Word 2-gram LM & 3 & Per-tok delta, per-char delta, $\Delta$OOV fraction\\
-Source Dist./Risk & $6S$ & $P_{s,j}(v)$, $P_{s,j}(v_0)$, $|\mathrm{supp}|$, $\max P_{s,j}$, $R_{s,j}^{(w)}$, $R_{s,j}^{(c)}$\\
-Block Context & 8 & Within-$V_j$ $z$-score \& best-gap (LM, risk), mass entropy\\
-\bottomrule\end{tabular*}
-\end{table}
-
-\subsection{Listwise Ranking, Bidirectional Symmetry, and CRC Deferral}
-\emph{Differentiable Listwise Expected-Edit Ranker (\texttt{ListwiseBlockNet}).} Let $\Delta e_j^{(w)}(v), \Delta e_j^{(c)}(v)$ be language-length-normalized edit changes on the training fold. Pointwise squared-error trees waste capacity fitting absolute errors of irrelevant suboptimal options. We instead train a 2-layer residual MLP $f_\theta(x_{j,v})\in\mathbb{R}^2$ (64 hidden units, LayerNorm, SiLU, dropout 0.15; 3-seed ensemble) directly on block-level expected edit loss:
-\begin{equation}
-\mathcal{L}_{\mathrm{list}}(\theta)=\sum_{j}\omega_j\Big[\sum_{v\in V_j}q_\theta(v|B_j)\tilde{e}_j(v)+\beta\,\mathrm{KL}(q_\theta\|q^*)\Big],
+\mathcal{L}_{\mathrm{list}}(\theta)=\sum_{j}\omega_j\sum_{v\in V_j}q_\theta(v|B_j)\,\tilde{e}_j(v),
 \label{eq:listwise}
 \end{equation}
-where $q_\theta(v|B_j)$ is the softmax of $-s_\theta(v)/\tau_r$ over $V_j$ with $s_\theta(v)=\hat{z}_w(v)+\alpha_c\hat{z}_c(v)$ ($s_\theta(v_{j,0})\equiv 0$), $\tilde{e}_j(v)=\Delta e_j^{(w)}(v)+\alpha_c\Delta e_j^{(c)}(v)$, $q^*$ is the soft target over $V_j$, $\beta{=}0.2$, and $\omega_j$ equalizes language weights.
+where $q_\theta(\cdot|B_j)=\mathrm{softmax}(f_\theta(x_{j,\cdot}))$, $\omega_j$ equalizes languages and active clips, and $\bar q$ averages the three ensemble probabilities.
 
-\emph{Symmetric Bidirectional Reconciliation (\SymBiPhrase{} / \SymBiList{}).} Fixing $M_1$ as anchor biases alignment whenever $M_2$ outperforms $M_1$, yet switching anchors inside one regressor degrades accuracy by mixing anchor-delta bases (Section~\ref{sec:ablation}). We instead fit dedicated directional scorers $f^{(1)}$ ($M_1{\to}M_2$) and $f^{(2)}$ ($M_2{\to}M_1$) producing $\hat{y}^{(1)}, \hat{y}^{(2)}$, align them by exact agreement, and resolve only residual spans $(u_1,u_2)$ via an out-of-fold Pass-2 anti-symmetric arbiter $g([\psi(u_1){-}\psi(u_2),\,\psi(u_1){+}\psi(u_2)])$ over Pass-1 margins, LM deltas, and source risks (Fig.~\ref{fig:method}a). Since $\hat{y}^{(1)},\hat{y}^{(2)}\in\Hagree$, Proposition~1 holds verbatim.
-
-\emph{Conformal Risk-Controlled Deferral (\crc{}).} Let $y_{\mathrm{whole}}$ be the best whole hypothesis under the same scorer and $m(x){=}S(y_{\mathrm{whole}}){-}S(\hat{y}^*)\ge 0$ the recombination margin. For rule $\hat{y}_\lambda = \hat{y}^*$ if $m(x)\ge\lambda$ else $y_{\mathrm{whole}}$, harm $H_i(\lambda)=\mathbb{I}[d_w(\hat{y}_\lambda,r_i)>d_w(y_{\mathrm{whole}},r_i)]$ is monotonically non-increasing in $\lambda$. Conformal Risk Control~\cite{angelopoulos2024crc} calibrates on held-out folds:
+\subsection{Decoding and Resolving Disagreements}
+\emph{A common score.} For anchor direction $d$, let $v_j^{(d)}(h)$ be the span that sentence $h$ contributes to block $j$. With ensemble probabilities $\bar q^{(d)}$, its path score is
 \begin{equation}
-\hat{\lambda}(\alpha) = \inf\Big\{\lambda \ge 0 : \frac{1+\sum_{i=1}^{n_{\mathrm{cal}}} H_i(\lambda)}{n_{\mathrm{cal}}+1} \le \alpha\Big\},
-\label{eq:crc}
+S^{(d)}(h)=\sum_j\log\bar q^{(d)}\!\left(v_j^{(d)}(h)\mid B_j^{(d)}\right).
+\label{eq:path}
 \end{equation}
-guaranteeing $\mathbb{E}[H_{\mathrm{test}}(\hat{\lambda})] \le \alpha$ for exchangeable utterances at any harm ceiling $\alpha$. \emph{Complexity:} Running both directional alignments ($\mathcal{O}(SNL_w^2)$ for sentence length $L_w$), 32d feature extraction, 3-seed MLP inference, Pass-2 reconciliation, and optional \crc{} deferral requires 3.0~ms/utterance on CPU.
+Whole picks the highest-scoring original sentence. Pass~1 instead picks the best span in each block and joins those spans in order. The scorer is the same; the two searches differ only in which outputs they admit. Both use the two anchor directions. With three sources, OmniASR and MMS provide the anchors; Whisper contributes candidate spans, probability mass and boundary votes in both directions.
+
+\emph{Pass-2 arbitration.} We align the two directional outputs, preserve matching words, and test each intervening span from the second output as a single replacement in the unchanged first. Two depth-3 gradient-boosted regressors estimate the resulting changes in normalized word and character errors. They compare 15 sentence features capturing LM scores, source-weighted edit risks, length and list membership. For each measure we take half the difference between the forward and reverse predictions. Swapping the sentences therefore reverses the predicted change.
+
+For each choice, the arbiter considers its worst predicted increase in either error measure, using a character weight of 0.75 in the primary two-source system and treating improvements as zero cost. It replaces the span only when replacement has the lower cost; a tie keeps the first span. All accepted replacements are applied together. Separate sentence regressors use the same rule to choose between the two directional Whole candidates. Both sets of regressors learn from out-of-fold predictions.
+
+\emph{Optional deferral.} In each direction we subtract the best whole-sentence score from the recombined path score in Eq.~(\ref{eq:path}). If the average of the two margins is below threshold, we return bidirectional Whole. Otherwise we keep the reconciled phrase output. A recording counts as harmed only if its output has more word errors than Whole.
+
+For target harm rate $\alpha$, we use the smallest threshold for which the calibration harm rate, with one added to both the harm count and the recording count, is at most $\alpha$~\cite{angelopoulos2024crc}. The grid includes a final all-defer threshold. The bound controls expected harm for a predictor frozen before calibration on independent, exchangeable units. We report the no-refit development check separately from empirical harm after fitting on all development data.
 
 \section{Experimental Setup}
-\emph{Models and Benchmarks.} We evaluate homogeneous CTC+CTC, heterogeneous CTC+AED, and 3-system fusion across three benchmarks: (1) \textbf{FLEURS-12 Dev}~\cite{conneau2023fleurs}: 4,078 recordings across 12 languages (\texttt{am, hy, ast, bn, ka, ha, he, kea, kn, ckb, ta, uk}) with 32,940 train transcripts solely for Char4/Word2 LMs. CTC+CTC pairs \texttt{omniASR\_CTC\_1B\_v2}~\cite{omni2025} with \texttt{facebook/mms-1b-all}~\cite{pratap2024mms} (closed 12-route \texttt{mms-lid-126}, 4-beam exact CTC rescoring); Stage-2A adds \texttt{openai/whisper-large-v3-turbo} (4-beam FP16 AED). (2) \textbf{Kathbath Valid \& Test}~\cite{javed2023indic}: 4,920 validation (2,770 \texttt{ta}, 2,150 \texttt{kn}; 40 speakers) and 3,030 unseen-speaker \texttt{clean/testunk} utterances (40 disjoint speakers), evaluated strictly zero-target-label from FLEURS-12 fits. We distinguish originally sealed locked baseline test readouts from our \emph{post-lock} evaluation of the frozen FLEURS-12 \SymBiList{} checkpoint. (3) \textbf{Untouched Common Voice 26}~\cite{ardila2020commonvoice}: 2,000 crowdsourced utterances (250/lang) across 1 seen (\texttt{ta}) and \textbf{7 unseen languages} (\texttt{ar, tr, sw, ru, gl, es, en}) pairing \texttt{omniASR\_CTC\_1B\_v2} with \texttt{whisper-large-v3-turbo} (unrestricted auto-LID), under \textbf{Protocol Z1} (strictly zero-shot from FLEURS-12, zero CV26 labels/LM) and \textbf{Protocol Z3} (5-fold OOF with train-fold text LM).
+\emph{Benchmarks and frozen models.} FLEURS-12~\cite{conneau2023fleurs} provides 32,940 training texts, 4,078 dev clips, and 9,671 official test clips across 12 languages (\texttt{am}, \texttt{hy}, \texttt{ast}, \texttt{bn}, \texttt{ka}, \texttt{ha}, \texttt{he}, \texttt{kea}, \texttt{kn}, \texttt{ckb}, \texttt{ta}, \texttt{uk}). We pair frozen CTC models \texttt{omniASR\_CTC\_1B\_v2}~\cite{omni2025} and \texttt{mms-1b-all}~\cite{pratap2024mms} (beam 4; 12-route \texttt{mms-lid-126}, 99.75\% test accuracy), and add frozen AED \texttt{whisper-large-v3-turbo}~\cite{radford2023whisper} (FP16, beam 4) for $S=3$. A noise test adds babble plus pink noise to 1,200 FLEURS test clips (100/language) at 15, 10, and 5~dB. Kathbath~\cite{javed2023indic} tests zero-target-label transfer on 4,920 validation and 3,030 clean \texttt{testunk} clips in Tamil and Kannada (40 unseen speakers). Common Voice 26 (CV26)~\cite{ardila2020commonvoice} pairs OmniASR-CTC and Whisper-AED (auto-LID) on 2,000 clips (250/language): 1,750 in seven unseen languages (\texttt{ar}, \texttt{tr}, \texttt{sw}, \texttt{ru}, \texttt{gl}, \texttt{es}, \texttt{en}) plus 250 in Tamil. Non-spaced scripts test character recombination of OmniASR-1B and 300M on Khmer and Burmese FLEURS (1,651 test, 710 dev, 492 \texttt{train\_1h} texts).
 
-\emph{Baselines, Controls, and Statistical Testing.} All comparators consume identical scored lists: unsupervised Hystoc--ROVER~\cite{benes2024hystoc,fiscus1997rover}, Exact N-best MBR~\cite{jinnai2024mbmbr}, zero-supervision Agreement Block-MBR; supervised Calibrated word CN, \emph{Whole (refit/fixed)}, \emph{Learned word slots} ($\Hslot$); and boundary controls \emph{Fixed} ($F, L{=}3$), \emph{Matched random} ($Q$, 5 seeds), plus pure-position controls $Q_{\mathrm{var}}$ (matching exact per-utterance variable-block counts) and $Q_{\mathrm{shift}}$ ($\pm 2$-cell shifts). Primary metrics are macro WER and nonspace Unicode CER across three prompt-group-disjoint 5-fold splits (seeds 17, 42, 2026) with inner-fold $\alpha_c \in \{0.5,1.0\}$. Following~\cite{dror2018significance}, we compute paired cluster bootstrap 95\% CIs (10,000--50,000 draws; prompt groups on FLEURS, speakers on Kathbath, utterances on CV26).
+\emph{Evaluation protocol.} We report language-macro WER and nonspace Unicode-codepoint CER, since a change in word boundaries can affect the two differently~\cite{manohar2024normalization,thomas2025cer}. FLEURS development uses three different random seeds for prompt-grouped five-fold partitions. The official test evaluates one frozen system, with rankers fitted on the full development set and the arbiter using one fixed partition. Earlier project iterations had examined FLEURS test. On CV26, Z1 transfers without text LMs or target labels; Z3 uses training-split text LMs and averages three recording-level five-fold partitions. We also check splits grouped by available speaker IDs.
 
-\begin{table*}[t]
-\caption{Main CTC+CTC results (OmniASR-1B-CTC + MMS-1B-all) on FLEURS-12 dev (3 grouped splits), Kathbath valid (cross-corpus), and Kathbath clean/testunk (unseen speakers). Bold marks best scored system; $\dagger$ denotes 95\% paired cluster CI strictly $<0$ vs.\ Agree A and Whole (fixed).}\label{tab:main}
-\centering\scriptsize\setlength{\tabcolsep}{3.0pt}\renewcommand{\arraystretch}{0.84}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llccccccr@{}}\toprule
-& & \multicolumn{2}{c}{\textbf{FLEURS-12 Dev (4,078)}} & \multicolumn{2}{c}{\textbf{Kathbath Valid (4,920)}} & \multicolumn{2}{c}{\textbf{Kathbath Test (3,030)}} & \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
-Group & Method & WER (\%) $\downarrow$ & CER (\%) $\downarrow$ & WER (\%) $\downarrow$ & CER (\%) $\downarrow$ & WER (\%) $\downarrow$ & CER (\%) $\downarrow$ & WERR$^*$\\\midrule
-\multirow{2}{*}{Single}
-& Anchor greedy (OmniASR) & 27.400 & 6.245 & 38.773 & 7.342 & 39.487 & 7.734 & 0.0\%\\
-& Donor greedy (MMS) & 27.852 & 6.928 & 42.082 & 8.089 & 43.439 & 8.577 & $-1.6$\%\\\midrule
-\multirow{4}{*}{Unsup.}
-& Hystoc--ROVER~\cite{benes2024hystoc,fiscus1997rover}\pl & 27.588 & 8.008 & 39.175 & 9.842 & 40.274 & 10.306 & $-0.7$\%\\
-& Exact MBR (word, whole)\pl & 26.391 & 6.335 & 38.581 & 7.392 & 39.454 & 7.797 & +3.7\%\\
-& Block MBR (word, agree)\pl & 26.148 & 6.261 & 38.409 & 7.331 & 39.265 & 7.752 & +4.6\%\\
-& Exact MBR + Char4 LM\pl & 23.668 & 5.914 & 36.889 & 7.034 & 37.871 & 7.436 & +13.6\%\\\midrule
-\multirow{7}{*}{Sup.\ Ctrl}
-& Calibrated word CN & 23.246 & 7.792 & 36.234 & 9.405 & 37.089 & 9.861 & +15.2\%\\
-& Whole (refitted HGB) & 22.946{\tiny$\pm$.043} & 5.833 & 36.468 & 6.938 & 37.430 & 7.306 & +16.3\%\\
-& Whole (fixed HGB costs) & 22.722{\tiny$\pm$.017} & 5.811 & 36.315 & 6.952 & 37.356 & 7.346 & +17.1\%\\
-& Whole (fixed Listwise)\pl & 22.692{\tiny$\pm$.023} & 5.758 & 36.067 & 6.905 & 37.164 & 7.295 & +17.2\%\\
-& Learned word slots ($\Hslot$) & 22.525{\tiny$\pm$.016} & 6.627 & 35.691 & 7.593 & 36.566 & 8.059 & +17.8\%\\
-& Random partition ($Q$)\pl & 22.369 & 6.292 & 35.751 & 7.418 & 36.735 & 7.843 & +18.4\%\\
-& Fixed length ($F, L{=}3$)\pl & 22.264 & 6.360 & 35.542 & 7.509 & 36.433 & 8.033 & +18.7\%\\\midrule
-\multirow{4}{*}{\textbf{Ours}}
-& Agree Phrase A (Omni anc., HGB) & 21.948{\tiny$\pm$.037} & 5.631 & 35.725 & 6.840 & 36.805 & 7.283 & +19.9\%\\
-& Agree Phrase A0 (MMS anc., HGB)\pl & 21.893{\tiny$\pm$.061} & 5.591 & 35.567 & 6.811 & 36.680 & 7.227 & +20.1\%\\
-& \SymBiPhrase{} (HGB, 24d)\pl & 21.738{\tiny$\pm$.084} & 5.588 & 35.354 & 6.792 & 36.565 & 7.225 & +20.7\%\\
-& \textbf{\SymBiList{} (32d Listwise)}\pl & \textbf{21.672}{\tiny$\pm$.030}\sig & \textbf{5.552}\sig & \textbf{35.236}\sig & \textbf{6.772}\sig & \textbf{36.409}\sig & \textbf{7.161}\sig & \textbf{+20.9\%}\\\midrule
-\multirow{2}{*}{\textcolor{gray}{\emph{Oracle}}}
-& \textcolor{gray}{\emph{Whole list oracle ($\Hwhole$)}} & \textcolor{gray}{\emph{19.569}} & \textcolor{gray}{\emph{4.892}} & \textcolor{gray}{\emph{30.667}} & \textcolor{gray}{\emph{5.814}} & \textcolor{gray}{\emph{31.800}} & \textcolor{gray}{\emph{6.217}} & \textcolor{gray}{\emph{+28.6\%}}\\
-& \textcolor{gray}{\emph{Agreement phrase oracle ($\Hagree$)}} & \textcolor{gray}{\emph{17.318}} & \textcolor{gray}{\emph{4.331}} & \textcolor{gray}{\emph{28.750}} & \textcolor{gray}{\emph{5.369}} & \textcolor{gray}{\emph{29.915}} & \textcolor{gray}{\emph{5.775}} & \textcolor{gray}{\emph{+36.8\%}}\\
+\emph{Comparisons and uncertainty.} We compare Hystoc--ROVER~\cite{fiscus1997rover,benes2024hystoc}, whole and block MBR~\cite{goel2000mbr,xu2011mbr}, fixed blocks ($L=3$), histogram gradient boosting (HGB), Qwen3-1.7B~\cite{yang2025qwen3} and EuroLLM-1.7B~\cite{martins2024eurollm} rescoring, and Qwen3-8B generative correction. GPU comparisons use A40s; BERTScore F1 uses layer~9 of \texttt{xlm-roberta-base}~\cite{zhang2020bertscore,conneau2020xlmr}. We use paired cluster bootstrap intervals~\cite{dror2018significance} and MAPSSWE~\cite{gillick1989mapsswe}. Full FLEURS test estimates use 350 numeric prompt IDs and 5,000 draws; the six-way Bonferroni WER family compares against OmniASR, Block MBR+char4, bidirectional Whole, Fixed-$L$, Agree A and \SymBiPhrase{}. A separate interval uses 50,000 draws on 9,109 recordings with verified prompt mappings. Kathbath intervals use 5,000 draws over 40 speakers.
+
+\section{Results and Analysis}
+\subsection{Two-Source Recognition and Neural Rescoring}
+Under the same two directional scorers, allowing phrases to recombine lowers macro WER relative to bidirectional Whole on both official tests (Table~\ref{tab:main}). The reductions are 1.10 percentage points on FLEURS-12 and 0.74 on Kathbath. On FLEURS, all twelve languages improve in both WER and CER. The WER difference on recordings with verified prompt mappings is $-1.110\pp$ (95\% CI $[-1.234,-0.990]$); the 40-speaker interval on Kathbath is also below zero ($[-0.959,-0.484]\pp$).
+
+The choice of comparator matters. Against fixed-length blocks, phrases improve CER in all twelve FLEURS languages but WER in only eight (Fig.~\ref{fig:mechanism}a). On Kathbath the WER interval against fixed blocks crosses zero, although CER improves. On FLEURS the WER difference from the bidirectional HGB ranker is only $-0.069\pp$; its six-comparison adjusted interval includes zero ($[-0.159,+0.022]$). This result supports the benefit over whole-sentence selection more clearly than an advantage over another phrase ranker.
+
+\begin{table}[t]
+\caption{OmniASR + MMS on the full test splits. Language-macro WER and CER (\%, $\downarrow$). Bold and underline mark minima among CPU and all deployable systems, respectively. Oracles minimize each metric separately.}\label{tab:main}
+\centering\footnotesize\setlength{\tabcolsep}{1.6pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}\toprule
+\multirow{2}{*}{Method} & \multicolumn{2}{c}{FLEURS-12} & \multicolumn{2}{c}{Kathbath}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& WER & CER & WER & CER\\\midrule
+OmniASR (greedy) & 27.128 & 6.391 & 39.487 & 7.734\\
+MMS (greedy) & 27.824 & 7.175 & 43.439 & 8.577\\
+\midrule
+Hystoc--ROVER & 27.433 & 8.226 & 40.274 & 10.306\\
+Block MBR + char LM & 22.810 & 5.943 & 37.425 & 7.336\\
+\midrule
+Qwen3-8B GER & 25.907 & 8.971 & 37.204 & 7.303\\
+Whole + 1.7B + n-grams & 22.211 & 5.833 & 36.282 & 7.146\\
+\SymBiList{} + 1.7B & \underline{21.016} & \underline{5.598} & \underline{35.191} & \underline{6.970}\\
+\midrule
+Bidirectional Whole & 22.522 & 5.894 & 37.144 & 7.287\\
+Fixed length ($L=3$) & 22.036 & 6.464 & 36.433 & 8.033\\
+\midrule
+Agree A (HGB) & 21.628 & 5.687 & 36.805 & 7.283\\
+\SymBiPhrase{} (HGB) & 21.488 & 5.664 & 36.565 & 7.225\\
+\SymBiList{} (ours) & \textbf{21.419} & \textbf{5.662} & 36.409 & 7.161\\
+\SymBiList{} + \crc{} (.06) & 21.464 & 5.662 & \textbf{36.359} & \textbf{7.158}\\
+\midrule
+Whole oracle & 19.626 & 5.033 & 31.800 & 6.217\\
+Phrase oracle & 17.321 & 4.461 & 29.915 & 5.775\\
 \bottomrule
-\multicolumn{9}{l}{\tiny $^*$FLEURS WERR vs.\ OmniASR (27.400\%). $^\ddagger$Post-lock clean/testunk readouts of frozen FLEURS-12 fits (unmarked test rows: sealed baselines; \SymBiList{} 3.03~ms/utt CPU).}
 \end{tabular*}
-\end{table*}
+\end{table}
+
+\emph{Which gains are possible?} With access to the reference, the phrase oracle can recover better sentences than the whole-list oracle on both corpora (Table~\ref{tab:main}, last two rows). On FLEURS a simpler selector also benefits: Block MBR scores observed spans with a character LM and has lower WER than whole-hypothesis MBR with the same LM. Thus some benefit is available without training the selector on edit labels.
+
+\emph{Neural rescoring.} Using the same Qwen3-1.7B scores, phrase selection outperforms the whole-list reranker with n-grams on both corpora. EuroLLM-1.7B gives the same ordering. Generating a correction is a different trade-off: Qwen3-8B introduces out-of-list words on 8.6\% of FLEURS recordings. An agreement-anchor guard removes those words and lowers WER, but still trails CPU phrase fusion. The comparison includes the 287 outputs that reached the generation limit.
+
+A separate development-trained router sends 53\% of the FLEURS recordings to neural phrase rescoring and recovers 87.8\% of the full-GPU WER gain (Fig.~\ref{fig:mechanism}b). For the CPU comparison, embedding similarity also improves slightly: macro BERTScore F1 is 96.74 for \SymBiList{} and 96.56 for bidirectional Whole on a 0--100 scale.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.86\textwidth]{figures/mechanism_and_risk.pdf}
-\caption{Scientific mechanisms on FLEURS-12 and Kathbath. (a) Per-language $\Delta$WER and $\Delta$CER vs.\ Fixed-$L$ ($F$), ordered by Anchor$-$Donor WER asymmetry: agreement protects weak-anchor languages (\texttt{am\_et}, \texttt{ast\_es}), while \SymBiList{} wins 12/12 CER and improves non-Amharic mean WER ($-0.11\pp$). (b) Support vs.\ Selection Gap plane (dotted lines mark constant Actual$-$Oracle gap): finer partitions inflate selection error whereas \SymBiList{} compresses it directly. (c) Conformal Risk Control (\crc{}) keeps empirical harm strictly below $\alpha$ on FLEURS and cross-corpus Kathbath.}
+\includegraphics[width=0.98\textwidth]{figures/mechanism_and_risk.pdf}
+\caption{(a) Per-language FLEURS-12 test differences (\SymBiList{} minus baseline): \SymBiList{} lowers WER on 12/12 languages vs.\ Bidirectional Whole and lowers CER on 12/12 (WER on 8/12) vs.\ Fixed-$L$ (\texttt{am} $-6.34\pp$ marked by arrow). (b) Post-decoding WER vs.\ latency on FLEURS-12 test (routing costs are modeled). (c) Harm relative to Whole across FLEURS split-dev (5-fold mean), FLEURS/Kathbath test, and CV26; FLEURS test yields 1,836 repairs vs.\ 612 harms at $\alpha=0.06$.}
 \label{fig:mechanism}
-\vspace{-4pt}
 \end{figure*}
 
-\section{Results and Analysis}
-\subsection{Main CTC+CTC Results and Post-Lock Test Verification}
-Table~\ref{tab:main} shows three clear findings. First, with \emph{zero supervision or LM}, Agreement Block-MBR (26.148\%/6.261\% FLEURS; 38.409\%/7.331\% Kathbath) beats Whole Exact MBR (26.391\%/6.335\%; 38.581\%/7.392\%) on every metric, proving structural value prior to learning. Second, \SymBiList{} resolves every prior weakness of unidirectional Agreement (A): bidirectional symmetry (\SymBiPhrase{}) cuts WER from 21.948\%/35.725\% to 21.738\%/35.354\% (95\% CI vs.\ A: $[-0.389,-0.208]\pp$ FLEURS; $[-0.523,-0.273]\pp$ Kathbath), and 32d listwise ranking (\SymBiList{}) reaches \textbf{21.672\% / 5.552\%} on FLEURS and \textbf{35.236\% / 6.772\%} on Kathbath—beating \emph{every} baseline including Fixed-$L$ (35.542\%) and Slots (35.691\%) on both WER and CER (\texttt{kn\_in} 30.03\%/6.09\%, \texttt{ta\_in} 40.44\%/7.45\%). On FLEURS, \SymBiList{} beats \emph{Whole (fixed)} on \textbf{12/12 languages} (Amharic: 22.08\% vs.\ 22.58\%), beats A on \textbf{11/12 languages}, and beats Fixed-$L$ even excluding Amharic ($-0.108\pp$ mean across the other 11 languages, 12/12 CER wins). Under the \emph{identical} listwise scorer (\emph{Whole fixed Listwise}: 22.692\%/36.067\%), phrase recombination isolates pure gains of \textbf{$-1.020\pp$ FLEURS} and \textbf{$-0.831\pp$ Kathbath}. Third, on unseen-speaker Kathbath \texttt{clean/testunk}, the frozen FLEURS-12 \SymBiList{} achieves \textbf{36.409\% WER / 7.161\% CER} in \textbf{3.03~ms/utterance} CPU (9.18~s total), with 95\% CIs strictly $<0$ vs.\ A ($-0.396$ $[-0.601,-0.184]$ WER; $-0.122$ $[-0.157,-0.089]$ CER), \emph{Whole (refit)} ($-1.021$ $[-1.317,-0.718]$ WER; $-0.146$ $[-0.188,-0.104]$ CER), and \emph{Whole (fixed)} ($-0.947$ $[-1.168,-0.719]$ WER), while posting lower WER and $-0.899\pp$ $[-1.068,-0.741]$ lower CER than \emph{Slots} (36.566\%/8.059\%).
+\subsection{Cross-Architecture Transfer and Three-Source Fusion}\label{sec:cross}
+\emph{Transfer to OmniASR and Whisper.} Without CV26 labels, both whole-sentence selection and phrase recombination improve on OmniASR, but Whole has slightly lower WER (Table~\ref{tab:stage2}). With target supervision and recording-level folds, unconstrained CPU recombination again trails Whole in the eight-language macro average. Deferral narrows this gap; it puts CPU phrases just ahead of Whole on the seven-language subset that excludes Tamil. Neural rescoring lowers WER further but raises CER relative to CPU Whole. A post-hoc repetition guard removes a loop in Arabic; its row is reported separately.
 
-\subsection{Cross-Architecture (CTC+AED), Unseen Languages, and 3-Way Fusion}
-Table~\ref{tab:stage2} reports untouched Common Voice 26 cross-architecture fusion (\texttt{OmniASR-1B-CTC} + \texttt{Whisper-large-v3-turbo}) and Stage-2A FLEURS/Kathbath CTC+AED and 3-system results. On CV26, Whisper excels on high-resource languages (\texttt{ru} 5.7\%, \texttt{es} 5.8\%, \texttt{en} 9.6\%, \texttt{tr} 19.4\% vs.\ OmniASR 12.9\%, 9.2\%, 16.4\%, 26.7\%) but suffers unrestricted auto-LID collapse on \texttt{sw} (105.3\%) and \texttt{ta} (67.5\%) where OmniASR gets 18.6\% and 37.1\%. Unsupervised voting/MBR collapses (33.8--34.9\%) and unidirectional A exhibits strong anchor lock-in (18.651\% Omni-anc.\ vs.\ 17.572\% Whisper-anc., hurting \texttt{ta} to 40.0\%).
+\emph{Speakers and source quality.} IDs were available for 1,566 of the 2,000 CV26 clips. We grouped those clips by speaker without overlap across folds; each unmatched clip formed its own group. CPU fusion with deferral had a small WER point advantage over CPU Whole: 16.882\% versus 16.893\% on all eight languages. The direction was the same on the seven-language subset. Speaker separation is verified only for clips with matched IDs.
 
-Under \textbf{Protocol Z1} (strictly zero-shot from FLEURS-12, zero CV26 labels/LM), listwise scoring transfers strongly, slashing Unseen-7 WER from 18.047\% to \textbf{15.886\%} (Listwise Omni-anc.) and \textbf{15.993\%} (\SymBiList{}; All-8 19.412\%, $-1.02\pp$ All-8, $-2.05\pp$ Unseen-7), whereas zero-shot HGB degrades (21.712\%). Under \textbf{Protocol Z3} (5-fold OOF), \SymBiPhrase{} (HGB) reaches \textbf{16.912\% / 4.927\%} All-8 (\textbf{13.994\% / 4.863\%} Unseen-7), beating OmniASR by \textbf{$-3.517\pp$} (17.2\% WERR), unidirectional A by $-1.739\pp$, \emph{Whole (fixed HGB)} by $-1.889\pp$, Fixed-$L$ by $-1.891\pp$, and \emph{Slots} by $-0.751\pp$. Under CV26's extreme 1.6$\times$--5.7$\times$ dominance gap, restricting \texttt{ListwiseBlockNet} to whole sentences (\emph{Listwise Whole fixed}: 16.744\%) edges out \SymBiList{} (17.029\%, $\Delta{=}{+}0.285$ $[+0.012,+0.574]$), driven by \texttt{ta} (37.9\% vs.\ 38.6\%) where Whisper emits wrong-language text—clarifying that phrase switching thrives under complementary parity while single-model collapse favors whole-sentence deferral.
-
-\emph{Stage-2A FLEURS/Kathbath CTC+AED \& 3-System ($S{=}3$).} On FLEURS-12, Whisper auto-LID averages 93.177\% WER across all 12 low-resource languages (86.529\% Kathbath), yet fusing it with OmniASR or MMS via \SymBiPhrase{}/\SymBiList{} safely extracts $-1.94\pp$ (\texttt{Omni+Whis} 25.459\%/5.949\%) and $-3.17\pp$ (\texttt{MMS+Whis} 24.683\%/6.367\%) below the CTC model without noise corruption ($-2.05\pp$ to $-4.13\pp$ on the 9 Whisper-native FLEURS languages). Scaling to 3 heterogeneous systems (\texttt{Omni+MMS+Whis}, 38d features), \textbf{3-Way \SymBiList{}} sets our best overall FLEURS-12 result at \textbf{21.498\% WER / 5.508\% CER} (+21.5\% WERR; $-0.448\pp$ $[-0.614,-0.294]$ vs.\ \emph{3-Way Whole Listwise} 21.947\%, $-0.781\pp$ vs.\ \emph{3-Way Phrase HGB} 22.279\%, $-1.298\pp$ vs.\ \emph{3-Way Whole HGB} 22.796\%), while also beating all 3-way baselines on Kathbath WER (35.900\% vs.\ 36.364\%--36.820\%; 95\% CIs strictly $<0$).
+The effect varied with the gap between the recognizers. In English, Spanish, Russian and Turkish, where their WERs were closer, CPU recombination improved on Whole by 0.09 points on average. In Arabic, Galician, Tamil and Swahili the gaps were larger, and CPU recombination lost 0.32 points. Deferral reduced that loss; with neural rescoring and deferral, phrases led in both groups. These group averages are descriptive.
 
 \begin{table}[t]
-\caption{Cross-architecture (CTC+AED) on Common Voice 26 (5-fold OOF) and Stage-2A FLEURS/Kathbath 3-system fusion (grouped 5-fold, seed 17).}\label{tab:stage2}
-\centering\scriptsize\setlength{\tabcolsep}{1.7pt}\renewcommand{\arraystretch}{0.84}
+\caption{Two-source CV26 evaluation and matched three-source test results. Language-macro WER and CER (\%, $\downarrow$). Bold marks the minimum within each group, excluding the post-hoc guard.}\label{tab:stage2}
+\centering\footnotesize\setlength{\tabcolsep}{1.4pt}
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}\toprule
-& \multicolumn{2}{c}{\textbf{CV26 All-8}} & \multicolumn{2}{c}{\textbf{CV26 Unseen-7}}\\
+\multirow{2}{*}{\shortstack[c]{Method\\(OmniASR + Whisper)}} & \multicolumn{2}{c}{\textbf{CV26 (all 8)}} & \multicolumn{2}{c}{\textbf{CV26 (other 7)}}\\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-Method (OmniASR-CTC + Whisper-AED) & WER $\downarrow$ & CER $\downarrow$ & WER $\downarrow$ & CER $\downarrow$\\\midrule
-OmniASR-CTC (greedy) & 20.429 & 5.914 & 18.047 & 6.031\\
-Whisper-v3t (AED, auto-LID) & 35.880 & 15.244 & 31.362 & 15.175\\
-Unsup.\ Block MBR & 33.802 & 14.570 & 30.071 & 14.636\\\midrule
-\multicolumn{5}{l}{\emph{Protocol Z1: Strictly Zero-Shot (FLEURS-12 fit, 0 CV26 labels/LM)}}\\
-Z1 Phrase A (HGB, Omni anc.) & 21.712 & 6.282 & 18.187 & 6.195\\
-Z1 Listwise (Omni anc.) & 19.574 & 5.730 & \textbf{15.886} & \textbf{5.552}\\
-Z1 \SymBiList{} (Zero-Shot) & \textbf{19.412} & 5.744 & 15.993 & 5.622\\\midrule
-\multicolumn{5}{l}{\emph{Protocol Z3: CV26 5-Fold OOF (train-fold text LM)}}\\
-Whole (fixed HGB) & 18.801 & 5.490 & 16.269 & 5.545\\
-Learned word slots (HGB) & 17.663 & 5.832 & 15.035 & 5.798\\
-Unidir.\ A (Omni anc.) & 18.651 & 5.444 & 16.114 & 5.490\\
-Unidir.\ A (Whis anc.) & 17.572 & 5.194 & 14.364 & 5.088\\
-\textbf{\SymBiPhrase{} (HGB, Ours)} & \textbf{16.912} & \textbf{4.927} & 13.994 & \textbf{4.863}\\
-\SymBiList{} (32d Listwise, Ours) & 17.029 & 5.005 & \textbf{13.952} & 4.889\\
-\emph{Listwise Whole (fixed, ref.)} & \emph{16.744} & \emph{4.900} & \emph{13.726} & \emph{4.827}\\\midrule
-& \multicolumn{2}{c}{\textbf{FLEURS-12}} & \multicolumn{2}{c}{\textbf{Kathbath Valid}}\\
+ & WER & CER & WER & CER\\\midrule
+\multicolumn{5}{@{}l}{\emph{No CV26 training labels}}\\
+OmniASR-CTC & 20.429 & 5.914 & 18.047 & 6.031\\
+Whisper-AED & 35.880 & 15.244 & 31.362 & 15.175\\
+Qwen3-8B GER & \textbf{18.295} & \textbf{5.524} & \textbf{15.724} & 5.633\\
+Whole (Z1, CPU) & 19.352 & 5.669 & 15.873 & \textbf{5.575}\\
+\SymBiList{} (Z1) & 19.412 & 5.744 & 15.993 & 5.622\\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Z3, mean over three recording-level five-fold splits}}\\
+Whole + Qwen3-1.7B & 16.709 & 5.174 & 14.021 & 5.207\\
+Whole (CPU) & 16.763 & \textbf{4.901} & 13.762 & 4.824\\
+\SymBiPhrase{} (CPU) & 16.898 & 4.950 & 13.972 & 4.890\\
+\SymBiList{} (CPU) & 16.973 & 4.974 & 13.888 & 4.858\\
+\SymBiList{} + \crc{} (CPU) & 16.795 & 4.912 & 13.741 & \textbf{4.816}\\
+\SymBiList{} + 1.7B + \crc{} & \textbf{16.311} & 4.981 & \textbf{13.424} & 4.956\\
+\quad + repetition guard & 16.308 & 4.857 & 13.420 & 4.815\\
+\midrule
+\multirow{2}{*}[-0.3em]{Three-source fusion} & \multicolumn{2}{c}{\textbf{FLEURS-12}} & \multicolumn{2}{c}{\textbf{Kathbath}}\\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
-\emph{Stage-2A: CTC+AED \& 3-System ($S{=}3$)} & WER $\downarrow$ & CER $\downarrow$ & WER $\downarrow$ & CER $\downarrow$\\\midrule
-Omni+Whis: Whole (HGB) & 26.053 & 6.047 & 37.438 & 7.208\\
-Omni+Whis: \SymBiPhrase{} (HGB) & 25.459 & 5.949 & 37.249 & 7.212\\
-MMS+Whis: Whole (HGB) & 25.040 & 6.393 & 40.481 & 7.929\\
-MMS+Whis: \SymBiPhrase{} (HGB) & 24.683 & 6.367 & 40.567 & 8.035\\
-3-Way (O+M+W): Whole (HGB) & 22.796 & 5.768 & 36.820 & 7.008\\
-3-Way: Phrase (HGB) & 22.279 & 5.660 & 36.505 & \textbf{6.960}\\
-3-Way: Whole (Listwise) & 21.947 & 5.628 & 36.364 & 6.987\\
-\textbf{3-Way \SymBiList{} (Ours)} & \textbf{21.498} & \textbf{5.508} & \textbf{35.900} & 6.974\\
+ & WER & CER & WER & CER\\\midrule
+\multicolumn{5}{@{}l}{\emph{Matched OmniASR + MMS + Whisper official tests}}\\
+Bidirectional Whole (3-src) & 21.842 & 5.739 & 37.229 & 7.314\\
+Unanimity (3/3) & 21.226 & 5.620 & 36.926 & 7.381\\
+Majority, hard lock (2/3) & 20.703 & 5.573 & 36.424 & \textbf{7.283}\\
+Majority, selectable (ours) & \textbf{20.623} & \textbf{5.546} & 36.349 & 7.301\\
+Mass-soft ($\tau=0.65$) & 20.642 & 5.567 & \textbf{36.338} & 7.341\\
 \bottomrule\end{tabular*}
+\par\smallskip\raggedright\footnotesize The seven-language subset excludes Tamil, the only CV26 language in the FLEURS fit. CV26 \crc{} uses $\alpha=0.01$; speaker-disjoint Z3 check is in Sec.~\ref{sec:cross}.
 \end{table}
 
-\subsection{Ablations, Boundary Isolation, and Risk Control}\label{sec:ablation}
-Table~\ref{tab:ablation} consolidates five diagnostic studies on identical FLEURS-12 and Kathbath splits. \emph{Features \& importance:} Removing all LMs raises WER by $+3.15\pp$ (FLEURS) and $+2.57\pp$ (Kathbath); removing source distributions/risks raises WER by $+0.27\pp$/$+0.17\pp$. Permutation importance reveals cross-corpus LM differentiation: \texttt{char4\_delta\_norm\_sum} surges from $+1.172\pp$ (FLEURS) to $+1.705\pp$ (Kathbath), while \texttt{word2\_delta\_per\_char} drops from $+0.996\pp$ to $+0.340\pp$, showing why character $n$-grams transfer across agglutinative morphology~\cite{yusuyin2024whistle}; donor risk (\texttt{src2\_exp\_word\_risk}: $+0.293\pp$/$+0.331\pp$) ranks right behind LMs. \emph{Boundary placement:} Matching decision counts strictly ($Q_{\mathrm{var}}$, 2.73 var.\ blocks) or shifting boundaries by $\pm 2$ cells ($Q_{\mathrm{shift}}$) degrades all four metrics (22.472/5.944 and 22.245/6.146 FLEURS; 36.062/7.133 and 35.780/7.404 Kathbath), isolating boundary placement from block count. \emph{Anchor \& scorer:} Mixed-base \emph{DynAnchor} degrades (21.989\%/35.806\%), soft agreement ($\tau{=}0.90$) trades Kathbath WER for CER ($+0.036\pp$), while HGB-24d $\to$ Pairwise-32d $\to$ Unidir.\ Listwise $\to$ \SymBiList{} improves monotonically on both corpora. \emph{Data \& temperature:} Only 10\% of training prompt groups ($\approx$27 utt/lang) already beats 100\%-trained \emph{Whole} and \emph{CN}; $T \in [0.25, 2.0]$ is stable around $T{=}0.5$, whereas uniform $T{\to}\infty$ degrades (22.024\%/35.786\%).
+\emph{Adding a third recognizer.} In the matched three-source comparison (Table~\ref{tab:stage2}, lower panel), selectable majority boundaries reduce WER relative to bidirectional Whole on both corpora. The phrase-minus-Whole difference is $-1.22\pp$ on FLEURS (95\% CI $[-1.35,-1.09]$) and $-0.88\pp$ on Kathbath ($[-1.13,-0.60]$). The Kathbath CER interval includes zero; the archived mass-soft policy has the lowest Kathbath WER point estimate in this panel.
 
-\emph{Mechanism \& \crc{} safety.} Fig.~\ref{fig:mechanism}(a) shows agreement protecting weak-anchor languages (\texttt{am\_et} $+22.6\pp$, \texttt{ast\_es} $+8.9\pp$) where Fixed-$L$ slices MMS words on OmniASR's suffix-split grid (Amharic insertions double 98$\to$192, WER 28.00\% vs.\ \SymBiList{} 22.08\%) while winning 12/12 CER. Fig.~\ref{fig:mechanism}(b) maps the Support--Selection law: finer spaces lower DP oracle WER (19.57\%$\to$16.34\%) yet inflate selection error (3.15$\to$6.19\pp), whereas \SymBiList{} compresses selection error vertically to 4.35\pp{} FLEURS and 6.49\pp{} Kathbath. Fig.~\ref{fig:mechanism}(c) confirms \crc{} holds empirical harm $\hat{R}_{\mathrm{emp}} \le \alpha$ for every $\alpha \in \{0.02,\dots,0.12\}$ on FLEURS (0.016--0.090) and zero-recalibration Kathbath (0.010--0.070), achieving a 5.2$\times$ repair-to-harm ratio (331 vs.\ 64) at $\alpha{=}0.02$.
+Most of the FLEURS WER gain over unanimity comes from allowing two sources to mark a boundary. Making the dissenting word selectable lowers WER by a further 0.08 points. In the OmniASR view, hard locks retained only 74\% of the projected input hypotheses; selectable boundaries retained them all. The selector chose a dissenting word at just 685 of 92,835 eligible cells. Compared with forcing the anchor word at those cells, this repaired 421 recordings and harmed 109. These counts describe one anchor view before arbitration.
 
 \begin{table}[t]
-\caption{Unified ablations on FLEURS-12 dev \& Kathbath valid (3-seed means; identical candidate lists and splits).}\label{tab:ablation}
-\centering\scriptsize\setlength{\tabcolsep}{1.8pt}\renewcommand{\arraystretch}{0.86}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrrr@{}}\toprule
-& \multicolumn{2}{c}{\textbf{FLEURS-12}} & \multicolumn{2}{c}{\textbf{Kathbath}}\\
-Variant & WER $\downarrow$ & CER $\downarrow$ & WER $\downarrow$ & CER $\downarrow$\\\midrule
-\emph{Base Unidir.\ A (HGB 24d)} & 21.948 & 5.631 & 35.725 & 6.840\\\midrule
-\multicolumn{5}{l}{\emph{4-Family Feature Ablations (on Base A)}}\\
-\quad w/o Edit Geometry (17d) & 21.989 & 5.649 & 35.669 & 6.829\\
-\quad w/o Source Dist./Risk (12d) & 22.222 & 5.671 & 35.895 & 6.891\\
-\quad w/o Word 2-gram LM (21d) & 22.683 & 5.724 & 35.807 & 6.874\\
-\quad w/o Char 4-gram LM (22d) & 22.668 & 5.761 & 36.997 & 7.038\\
-\quad w/o All Text LMs (19d) & 25.097 & 6.191 & 38.295 & 7.352\\\midrule
-\multicolumn{5}{l}{\emph{Pure Boundary Placement \& Anchor Controls}}\\
-\quad $Q_{\mathrm{var}}$ (decision-matched) & 22.472 & 5.944 & 36.062 & 7.133\\
-\quad $Q_{\mathrm{shift}}$ ($\pm 2$-cell shift) & 22.245 & 6.146 & 35.780 & 7.404\\
-\quad DynAnchor (mixed-base HGB) & 21.989 & 5.650 & 35.806 & 6.846\\
-\quad Soft Agree ($\tau{=}0.90$) & 21.935 & 5.656 & 35.599 & 6.876\\\midrule
-\multicolumn{5}{l}{\emph{Scorer Architecture \& Symmetry Progression}}\\
-\quad MLP + 32d Block Context & 21.874 & 5.577 & 35.418 & 6.781\\
-\quad Pairwise HGB + 32d Context & 21.793 & 5.573 & 35.338 & 6.782\\
-\quad Unidir.\ Listwise (32d) & 21.736 & 5.559 & 35.293 & 6.771\\
-\quad \textbf{\SymBiList{} (Bidir.\ Listwise)} & \textbf{21.672} & \textbf{5.552} & \textbf{35.236} & \textbf{6.772}\\\midrule
-\multicolumn{5}{l}{\emph{Data Efficiency \& Temperature $T$ (on Base A)}}\\
-\quad 10\% / 25\% train groups & 22.27/22.07 & 5.67/5.65 & 36.00/35.82 & 6.96/6.89\\
-\quad $T{=}0.25$ / $T{\to}\infty$ (uniform) & 21.94/22.02 & 5.63/5.64 & 35.74/35.79 & 6.86/6.86\\
+\caption{Frozen two-source ablations on the full test splits (top; bold marks minima) and noise stress test on 1,200 FLEURS-12 test clips (bottom). Macro rates (\%, $\downarrow$).}\label{tab:ablation}
+\centering\footnotesize\setlength{\tabcolsep}{1.8pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}\toprule
+\multirow{2}{*}{\textbf{Variant}} & \multicolumn{2}{c}{\textbf{FLEURS-12}} & \multicolumn{2}{c}{\textbf{Kathbath}}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& WER & CER & WER & CER\\\midrule
+Omni anchor only & 21.446 & 5.657 & 36.311 & 7.153\\
+MMS anchor only & 21.461 & 5.659 & 36.412 & 7.160\\
+Bidirectional, learned Pass-2 & \textbf{21.419} & 5.662 & 36.409 & 7.161\\
+\quad + \crc{} ($\alpha=0.04$) & 21.540 & 5.674 & 36.412 & 7.170\\
+\quad + \crc{} ($\alpha=0.06$) & 21.464 & 5.662 & 36.359 & 7.158\\
+\quad + \crc{} ($\alpha=0.08$) & 21.424 & \textbf{5.654} & 36.395 & 7.160\\
+Bidirectional, param-free Pass-2 & 21.456 & 5.667 & \textbf{36.305} & \textbf{7.145}\\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Zero external text LMs (24 acoustic/geometry features only)}}\\
+Bidirectional Whole (no LM) & \textbf{24.620} & \textbf{6.282} & 39.118 & 7.746\\
+\SymBiList{} (no LM) & 24.623 & 6.294 & \textbf{38.977} & \textbf{7.732}\\
+\midrule
+\multirow{2}{*}{\textbf{Noise stress test}} & \multicolumn{2}{c}{\textbf{Bidirectional Whole}} & \multicolumn{2}{c}{\textbf{\SymBiList{}}}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+& WER & CER & WER & CER\\\midrule
+Clean & 22.934 & 5.681 & \textbf{21.788} & \textbf{5.523}\\
+Babble + pink, 15 dB & 26.197 & 7.174 & \textbf{24.780} & \textbf{6.919}\\
+Babble + pink, 10 dB & 30.135 & 8.905 & \textbf{28.358} & \textbf{8.392}\\
+Babble + pink, 5 dB & 39.439 & 13.316 & \textbf{37.618} & \textbf{12.702}\\
 \bottomrule\end{tabular*}
 \end{table}
 
-\section{Discussion, Limitations, and Conclusion}
-\emph{Utility and scope.} Because acoustic encoders stay frozen, \SymBiList{} adds only 3.0~ms/utterance CPU post-processing (RTF $<5{\times}10^{-4}$), zero GPU memory, and strict zero-hallucination support—ideal for multilingual pseudo-labeling and edge/batch ASR fusion. Three limitations bound our claims: (1) \SymBiList{} on Kathbath \texttt{clean/testunk} is a frozen \emph{post-lock} evaluation (Common Voice 26 provides our untouched external test); (2) under catastrophic single-model LID collapse (CV26 \texttt{ta}/\texttt{sw}), whole-sentence listwise deferral can beat cross-block switching; and (3) training optimizes edit distance rather than semantic fidelity, leaving acoustic uncertainty and open-set LID integration for future work.
+\subsection{Anchor Choice, Language Models, and Deferral}\label{sec:ablation}
+\emph{When does a second anchor help?} On FLEURS, learned arbitration lowers macro WER relative to either single anchor (Table~\ref{tab:ablation}); its worst language-level deficit to the better anchor is 0.094 points. The OmniASR-anchored view has lower WER on Kathbath. A parameter-free arbiter using expected word risk plus half the character risk has the lowest Kathbath WER among these variants, but does not win on FLEURS. In the two-source FLEURS graphs, agreement already fixes about two thirds of the anchor words.
 
-\emph{Conclusion.} We presented \SymBiList{}, combining unanimous agreement-anchored phrase boundaries, anti-symmetric bidirectional reconciliation, 32d listwise expected-edit ranking, and Conformal Risk-Controlled Deferral. Across FLEURS-12, Kathbath valid/test, 3-system fusion, and untouched 8-language Common Voice 26 (CTC+AED, 7 unseen languages), it resolves the granularity--asymmetry trade-off in 3.0~ms/utt CPU with verified zero-hallucination support.
+\emph{Where are errors repaired?} On 4,227 FLEURS recordings, the phrase decoder emits a transcript absent from both lists. Those recordings account for 2,057 of the 2,063 net word errors saved over bidirectional Whole. Most of the observed reduction thus occurs where whole-sentence selection could not have returned the phrase output.
+
+\emph{Does boundary placement matter?} A development control refitted the same OmniASR-anchored HGB selector with random cuts. For a clip with $K>1$ variable agreement blocks, it placed $K-1$ cuts at random. This controls the number of regions, though some new regions may offer no choice. FLEURS development WER rose from 21.95\% with agreement boundaries to 22.47\% with random cuts. Moving the agreement boundaries by two alignment cells also raised CER on FLEURS development and Kathbath validation.
+
+Removing the external text LMs raises WER for both systems. Without them, the phrase-minus-Whole WER difference is near zero on FLEURS and modestly favors phrases on Kathbath; both intervals cross zero. This supports a role for linguistic context without ruling out acoustic-only fusion. Removing source-risk features slightly raises FLEURS development WER and barely changes Kathbath validation WER. For the Khmer and Burmese pair, the character decoder likewise failed to improve on Whole in CER.
+
+\emph{Noise and deferral.} The same 1,200 recordings are used at each noise level, with the MMS language route held at its clean-audio value. As the recognizers deteriorate, the WER advantage of phrases over Whole widens from 1.15 points on clean audio to 1.82 at 5~dB; CER also improves at 5~dB (Table~\ref{tab:ablation}).
+
+At the 6\% harm target, mean development harm was 5.98\% in the no-refit check, but two of the five evaluation folds exceeded the target. The separate five-model check on FLEURS test also averaged above target. After fitting on the full development set, FLEURS test harm was 6.33\%: three recordings were repaired for each one harmed. Kathbath harm was 3.83\% at the same setting (Fig.~\ref{fig:mechanism}c).
+
+These transfer rates describe the evaluated speakers. Every recording stays in the denominator. A deferral to Whole or an edit that leaves the word error count unchanged contributes neither a harm nor a repair. The calibration bound does not apply to changed transcripts alone or guarantee the same observed rate on new speakers.
+
+\emph{Post-decoding cost.} On one CPU thread, alignment through arbitration took 18.1~ms per utterance on average over 600 clips. Computing block features, including the text LM scores, was the most expensive stage in this profile. With the graphs already built, the two inference passes averaged 4.90~ms per utterance in the official FLEURS run. Figure~\ref{fig:mechanism}b estimates cascade latency using 3.0~ms for the CPU path and 129~ms for the GPU path. None of these times includes acoustic decoding.
+
+\section{Discussion and Limitations}
+Agreement locates possible switches between recognizers. Within each block, the scorer must still choose a span. A word absent from every list remains unreachable. With the external text LMs removed, the intervals for the WER difference between phrases and Whole include zero on both corpora. On CV26, CPU phrase fusion trailed Whole on average in the group with larger WER gaps between recognizers. These observed gaps do not define a routing threshold for new languages.
+
+Earlier project iterations examined FLEURS test, so that split does not provide independent confirmation. WER, CER and BERTScore do not measure listener intelligibility. Transfer to spontaneous or code-switched speech remains untested.
+
+\section{Conclusion}
+\SymBiList{} combines intact spans from scored hypothesis lists while keeping every original sentence available. With two frozen recognizers, changing the unit of selection from sentences to phrases lowers macro WER on FLEURS-12 and Kathbath without changing either directional scorer. With three recognizers, two agreeing sources can mark a boundary without discarding a dissenting word. Neither configuration needs word timestamps or a second acoustic pass.
 
 \section*{Acknowledgment}
-Supported by NSFC Grant 62466058 and the Autonomous Region Key R\&D Program Grant 2025B03042-1.
+This work was supported by the National Natural Science Foundation of China (Grant~62466058) and the Autonomous Region Key R\&D Program (Grant~2025B03042-1).
 
-\renewcommand{\IEEEbibitemsep}{0pt plus 0.2pt}
+\renewcommand{\IEEEbibitemsep}{2.0pt}
+% Leave the body setting alone; allow the bibliography to find natural line breaks.
+\newcommand{\BIBdecl}{\fussy\rightskip=0pt plus 0.65em\relax\setlength{\emergencystretch}{1.5em}}
+\balance
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 \end{document}

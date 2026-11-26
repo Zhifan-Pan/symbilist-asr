@@ -1,0 +1,71 @@
+% IEEEtran's conference typography and compact fixed spacing, without stretching
+% the space adjacent to a heading, an equation or a top float to pad a column.
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}{1.36ex}{0.56ex}{\normalfont\normalsize\centering\scshape}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}{1.00ex}{0.53ex}{\normalfont\normalsize\itshape}}
+\makeatother
+\setlength{\textfloatsep}{10pt}
+\setlength{\dbltextfloatsep}{11pt}
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{5pt}%
+  \setlength{\belowdisplayskip}{5pt}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{5pt}%
+  \setlength{\parskip}{0pt}%
+}
+% NFSS restores a fixed baseline when fonts change. Set the elasticity only
+% as the paragraph is broken into lines; natural leading remains 12/9 pt.
+\newcommand{\PaperLeading}{%
+  \ifdim\baselineskip=12pt\relax
+    \baselineskip=12pt plus .35pt minus .10pt\relax
+  \else\ifdim\baselineskip=9pt\relax
+    \baselineskip=9pt plus .20pt minus .08pt\relax
+  \fi\fi}
+\AddToHook{para/end}{\PaperLeading}
+
+% For this conference paper the last page ends in references. balance.sty
+% gathers that page in reading order. Its usual bottom vfil equalizes *boxes*
+% but can leave the *last baselines* a line apart. Split the gathered list
+% near its natural midpoint; fit both to the taller natural LAST BASELINE.
+% Only trailing discardable glue/penalties are removed, never text/whatsits.
+\makeatletter
+\newbox\paper@all \newbox\paper@tryL \newbox\paper@tryR
+\newbox\paper@bestL \newbox\paper@bestR
+\newdimen\paper@height \newdimen\paper@trial \newdimen\paper@delta
+\newdimen\paper@bestgap \newdimen\paper@depL \newdimen\paper@depR
+\newcount\paper@count
+\def\paper@trim{%
+  \let\paper@next\relax
+  \ifnum\lastnodetype=11 \unskip   \let\paper@next\paper@trim
+  \else\ifnum\lastnodetype=12 \unkern   \let\paper@next\paper@trim
+  \else\ifnum\lastnodetype=13 \unpenalty\let\paper@next\paper@trim
+  \fi\fi\fi
+  \paper@next}
+\def\@BAlancecol{\if@twocolumn
+  \setbox\paper@all=\vbox{\unvbox\@outputbox\paper@trim}%
+  \paper@trial=\ht\paper@all \advance\paper@trial by\topskip
+  \divide\paper@trial by 2 \advance\paper@trial by-16pt
+  \splittopskip=\topskip \paper@bestgap=\maxdimen \paper@count=0
+  \loop
+    \setbox\paper@tryR=\copy\paper@all
+    % Trial boxes are immediately unboxed and never shipped at this trial height.
+    {\vbadness=10000 \vfuzz=\maxdimen
+     \global\setbox\paper@tryL=\vsplit\paper@tryR to\paper@trial
+     \global\setbox\paper@tryR=\box\paper@tryR}%
+    \setbox\paper@tryL=\vbox{\unvbox\paper@tryL\paper@trim}%
+    \setbox\paper@tryR=\vbox{\unvbox\paper@tryR\paper@trim}%
+    \paper@delta=\ht\paper@tryL \advance\paper@delta by-\ht\paper@tryR
+    \ifdim\paper@delta<0pt \paper@delta=-\paper@delta \fi
+    \ifdim\paper@delta<\paper@bestgap
+      \paper@bestgap=\paper@delta
+      \setbox\paper@bestL=\box\paper@tryL \setbox\paper@bestR=\box\paper@tryR
+    \fi
+    \advance\paper@trial by1pt \advance\paper@count by1
+  \ifnum\paper@count<33 \repeat
+  \paper@height=\ht\paper@bestL
+  \ifdim\ht\paper@bestR>\paper@height \paper@height=\ht\paper@bestR \fi
+  \paper@depL=\dp\paper@bestL \paper@depR=\dp\paper@bestR
+  \setbox\@leftcolumn=\vbox to\paper@height{\unvbox\paper@bestL\kern-\paper@depL}%
+  \setbox\@outputbox=\vbox to\paper@height{\unvbox\paper@bestR\kern-\paper@depR}%
+\fi}
+\makeatother

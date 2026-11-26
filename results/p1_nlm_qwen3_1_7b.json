@@ -1,0 +1,136 @@
+{
+  "model": "Qwen3-1.7B",
+  "n_unique_candidates": 100345,
+  "latency_gpu": {
+    "mean_ms_per_utt": 64.94324267841876,
+    "p50_ms_per_utt": 56.891520507633686,
+    "p95_ms_per_utt": 98.33895540796212,
+    "peak_vram_gb": 6.004827499389648
+  },
+  "FLEURS_Kathbath": {
+    "Qwen3_1.7B_ZeroShot_PerChar": {
+      "FLEURS": {
+        "macro_WER": 26.001566084785082,
+        "macro_CER": 6.082651311246594
+      },
+      "Kathbath_valid": {
+        "macro_WER": 35.15108066836067,
+        "macro_CER": 6.697202820172262
+      },
+      "Kathbath_testunk": {
+        "macro_WER": 36.67119534623791,
+        "macro_CER": 7.177267823027467
+      }
+    },
+    "Qwen3_1.7B_ZeroShot_PerTok": {
+      "FLEURS": {
+        "macro_WER": 26.683719256239392,
+        "macro_CER": 6.134507865585568
+      },
+      "Kathbath_valid": {
+        "macro_WER": 35.242708870687814,
+        "macro_CER": 6.690338776586449
+      },
+      "Kathbath_testunk": {
+        "macro_WER": 36.50491980157275,
+        "macro_CER": 7.124445255867603
+      }
+    },
+    "Exact_MBR_plus_Qwen3_1.7B": {
+      "best_gamma_full": 0.35,
+      "FLEURS": {
+        "macro_WER": 25.176981331309417,
+        "macro_CER": 5.966905059997234
+      },
+      "Kathbath_valid": {
+        "macro_WER": 35.569164584464055,
+        "macro_CER": 6.725366065994392
+      },
+      "Kathbath_testunk": {
+        "macro_WER": 36.79537070950365,
+        "macro_CER": 7.2005092269828905
+      }
+    },
+    "Whole_Listwise_Qwen3_1.7B_only": {
+      "FLEURS": {
+        "macro_WER": 23.39383400069185,
+        "macro_CER": 5.889467717590271
+      },
+      "Kathbath_valid": {
+        "macro_WER": 35.276668570081156,
+        "macro_CER": 6.709657965155858
+      },
+      "Kathbath_testunk": {
+        "macro_WER": 36.523911822316734,
+        "macro_CER": 7.170743345233483
+      }
+    },
+    "Whole_Listwise_Qwen3_1.7B_plus_ngrams": {
+      "FLEURS": {
+        "macro_WER": 22.371394532277424,
+        "macro_CER": 5.689007906316935
+      },
+      "Kathbath_valid": {
+        "macro_WER": 35.04946359944111,
+        "macro_CER": 6.708280708705234
+      },
+      "Kathbath_testunk": {
+        "macro_WER": 36.28240950098275,
+        "macro_CER": 7.146335570727791
+      }
+    }
+  },
+  "CV26": {
+    "Qwen3_1.7B_ZeroShot_PerChar": {
+      "all8": {
+        "macro_WER": 25.889016264777386,
+        "macro_CER": 10.062681104457722
+      },
+      "unseen7": {
+        "macro_WER": 24.128203952544386,
+        "macro_CER": 10.67207970643739
+      }
+    },
+    "Qwen3_1.7B_ZeroShot_PerTok": {
+      "all8": {
+        "macro_WER": 28.286915023319914,
+        "macro_CER": 10.945395534065758
+      },
+      "unseen7": {
+        "macro_WER": 26.96034162358415,
+        "macro_CER": 11.7379726383387
+      }
+    },
+    "Z1_Whole_Listwise_Qwen3_1.7B": {
+      "all8": {
+        "macro_WER": 19.976667049248647,
+        "macro_CER": 6.955215697536989
+      },
+      "unseen7": {
+        "macro_WER": 17.39623758787277,
+        "macro_CER": 7.191257906003959
+      }
+    },
+    "Z3_Exact_MBR_plus_Qwen3_1.7B": {
+      "all8": {
+        "macro_WER": 24.78131221060633,
+        "macro_CER": 9.986546724874328
+      },
+      "unseen7": {
+        "macro_WER": 22.62054951090465,
+        "macro_CER": 10.53940783417696
+      }
+    },
+    "Z3_Whole_Listwise_Qwen3_1.7B": {
+      "all8": {
+        "macro_WER": 16.67039787838835,
+        "macro_CER": 5.026625378325182
+      },
+      "unseen7": {
+        "macro_WER": 13.959367870350148,
+        "macro_CER": 5.034891343726734
+      }
+    }
+  },
+  "elapsed_sec": 1081.4
+}

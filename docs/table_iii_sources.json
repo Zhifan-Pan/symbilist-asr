@@ -1,0 +1,589 @@
+{
+  "notes": [
+    "All reported rates are full-split language macro averages in percent.",
+    "GPU rows use Qwen models. Single and oracle rows retain their original input budgets.",
+    "The Kathbath single-source controls come from kathbath_confirm_20261120/results/RESULTS.json.",
+    "All other JSON files originate from research_upgrade_20261123/results with their original filenames."
+  ],
+  "files_sha256": {
+    "fp_fleurs12_official_test.json": "e3cb5fed093e2af01eae5be45a58fb79e27d1a187c9cb3f3c7798478118b7a54",
+    "kathbath_original_readout.json": "16307f2c2baee214f40b1563a079663c2565d0885087e916e046d152589b8fcb",
+    "testunk_complete_table3.json": "8b3c98adffdfb5be4840f63c5f6e00d1d137c1743d80aa0d9ac0c9614368a804",
+    "asr_rigor_upgrade.json": "f13ba195e46ea0057057300880ccae1f29dab52b511074e84ebb22fddd8a583a",
+    "p1_fleurs12_test_q8b.json": "8fbe946a6c325dd6499702105d9152bd0721fa3437a222dfa79cdd619f7ad3cd",
+    "rp1_qwen8b_kathbath.json": "600387c3838cc1beeba5ef2f491dd20d9c43b50d942790e2124156e67848a042",
+    "p1_fleurs12_test_q17.json": "c37c2e80e79d47c41d9db6896b88345a8319f17e73265e781ffde99bda0dbdc4",
+    "p1_nlm_qwen3_1_7b.json": "b1b0e300c8bfc8dac87288887a6eae0dc49e588736f155356bd478018d787384",
+    "rp1_symbilist_qwen17b_and_sem.json": "90dbc1cb833f8e9a7c8d61296e21e81acecf0ea9cb670647d3b1ac95a7b21695",
+    "p1_symbilist_crc.json": "fce566ee3bce930cf71e31b736704420939717aad77621b91d0a8f8053e656c3",
+    "testunk_postlock_symbilist.json": "77dfd0f454a5817395864f81d5dcfe129d0b4c256e38f4232ddb6ecc8032c50c"
+  },
+  "columns": [
+    "FLEURS12_test_WER",
+    "FLEURS12_test_CER",
+    "Kathbath_testunk_WER",
+    "Kathbath_testunk_CER"
+  ],
+  "cells": {
+    "OmniASR (greedy)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "OmniASR_1B_v2",
+          "macro_WER"
+        ],
+        "rate": 27.12846948330046
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "OmniASR_1B_v2",
+          "macro_CER"
+        ],
+        "rate": 6.390661207648112
+      },
+      {
+        "file": "kathbath_original_readout.json",
+        "path": [
+          "metrics",
+          "anchor",
+          "macro_WER"
+        ],
+        "rate": 39.486971564793706
+      },
+      {
+        "file": "kathbath_original_readout.json",
+        "path": [
+          "metrics",
+          "anchor",
+          "macro_CER"
+        ],
+        "rate": 7.734024466131217
+      }
+    ],
+    "MMS (greedy)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "MMS_1B_all",
+          "macro_WER"
+        ],
+        "rate": 27.824021244210662
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "MMS_1B_all",
+          "macro_CER"
+        ],
+        "rate": 7.175353381123396
+      },
+      {
+        "file": "kathbath_original_readout.json",
+        "path": [
+          "metrics",
+          "donor",
+          "macro_WER"
+        ],
+        "rate": 43.43888011650712
+      },
+      {
+        "file": "kathbath_original_readout.json",
+        "path": [
+          "metrics",
+          "donor",
+          "macro_CER"
+        ],
+        "rate": 8.577463684774177
+      }
+    ],
+    "Hystoc--ROVER": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Hystoc_ROVER",
+          "macro_WER"
+        ],
+        "rate": 27.43327534373264
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Hystoc_ROVER",
+          "macro_CER"
+        ],
+        "rate": 8.22585214578793
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Hystoc_ROVER",
+          "macro_WER"
+        ],
+        "rate": 40.27446989444392
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Hystoc_ROVER",
+          "macro_CER"
+        ],
+        "rate": 10.306039340019883
+      }
+    ],
+    "Block MBR + char LM": [
+      {
+        "file": "asr_rigor_upgrade.json",
+        "path": [
+          "unsupervised_block_mbr_char4",
+          "FLEURS12_test",
+          "Block_MBR_Char4_WER"
+        ],
+        "rate": 22.810454696417224
+      },
+      {
+        "file": "asr_rigor_upgrade.json",
+        "path": [
+          "unsupervised_block_mbr_char4",
+          "FLEURS12_test",
+          "Block_MBR_Char4_CER"
+        ],
+        "rate": 5.9428716716807335
+      },
+      {
+        "file": "asr_rigor_upgrade.json",
+        "path": [
+          "unsupervised_block_mbr_char4",
+          "Kathbath_test",
+          "Block_MBR_Char4_WER"
+        ],
+        "rate": 37.42489635654584
+      },
+      {
+        "file": "asr_rigor_upgrade.json",
+        "path": [
+          "unsupervised_block_mbr_char4",
+          "Kathbath_test",
+          "Block_MBR_Char4_CER"
+        ],
+        "rate": 7.336225685644866
+      }
+    ],
+    "Qwen3-8B GER": [
+      {
+        "file": "p1_fleurs12_test_q8b.json",
+        "path": [
+          "macro_WER"
+        ],
+        "rate": 25.90706539914493
+      },
+      {
+        "file": "p1_fleurs12_test_q8b.json",
+        "path": [
+          "macro_CER"
+        ],
+        "rate": 8.970984220034827
+      },
+      {
+        "file": "rp1_qwen8b_kathbath.json",
+        "path": [
+          "Kathbath_testunk",
+          "macro_WER"
+        ],
+        "rate": 37.2042499283436
+      },
+      {
+        "file": "rp1_qwen8b_kathbath.json",
+        "path": [
+          "Kathbath_testunk",
+          "macro_CER"
+        ],
+        "rate": 7.30333683827302
+      }
+    ],
+    "Whole + 1.7B + n-grams": [
+      {
+        "file": "p1_fleurs12_test_q17.json",
+        "path": [
+          "systems",
+          "Whole_Listwise_Qwen3_1.7B_plus_ngrams",
+          "macro_WER"
+        ],
+        "rate": 22.2114414541906
+      },
+      {
+        "file": "p1_fleurs12_test_q17.json",
+        "path": [
+          "systems",
+          "Whole_Listwise_Qwen3_1.7B_plus_ngrams",
+          "macro_CER"
+        ],
+        "rate": 5.832768585771046
+      },
+      {
+        "file": "p1_nlm_qwen3_1_7b.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Whole_Listwise_Qwen3_1.7B_plus_ngrams",
+          "Kathbath_testunk",
+          "macro_WER"
+        ],
+        "rate": 36.28240950098275
+      },
+      {
+        "file": "p1_nlm_qwen3_1_7b.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Whole_Listwise_Qwen3_1.7B_plus_ngrams",
+          "Kathbath_testunk",
+          "macro_CER"
+        ],
+        "rate": 7.146335570727791
+      }
+    ],
+    "\\SymBiList{} + 1.7B": [
+      {
+        "file": "p1_fleurs12_test_q17.json",
+        "path": [
+          "systems",
+          "SymBiList_Qwen3_1.7B",
+          "macro_WER"
+        ],
+        "rate": 21.016303618916744
+      },
+      {
+        "file": "p1_fleurs12_test_q17.json",
+        "path": [
+          "systems",
+          "SymBiList_Qwen3_1.7B",
+          "macro_CER"
+        ],
+        "rate": 5.597978068612112
+      },
+      {
+        "file": "rp1_symbilist_qwen17b_and_sem.json",
+        "path": [
+          "Phase1_SymBiList_Qwen3_1.7B",
+          "Kathbath_testunk",
+          "SymBiList_Qwen3_1.7B",
+          "WER"
+        ],
+        "rate": 35.190735104404354
+      },
+      {
+        "file": "rp1_symbilist_qwen17b_and_sem.json",
+        "path": [
+          "Phase1_SymBiList_Qwen3_1.7B",
+          "Kathbath_testunk",
+          "SymBiList_Qwen3_1.7B",
+          "CER"
+        ],
+        "rate": 6.969742846436806
+      }
+    ],
+    "Bidirectional Whole": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Whole_sym_Listwise",
+          "macro_WER"
+        ],
+        "rate": 22.52218725917381
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Whole_sym_Listwise",
+          "macro_CER"
+        ],
+        "rate": 5.894441551651778
+      },
+      {
+        "file": "p1_symbilist_crc.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Kathbath_testunk",
+          "Whole_sym",
+          "macro_WER"
+        ],
+        "rate": 37.143814372395774
+      },
+      {
+        "file": "p1_symbilist_crc.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Kathbath_testunk",
+          "Whole_sym",
+          "macro_CER"
+        ],
+        "rate": 7.286556195618426
+      }
+    ],
+    "Fixed length ($L=3$)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Fixed_L3_HGB24",
+          "macro_WER"
+        ],
+        "rate": 22.036451225470767
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Fixed_L3_HGB24",
+          "macro_CER"
+        ],
+        "rate": 6.464151485501233
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Fixed_L3",
+          "macro_WER"
+        ],
+        "rate": 36.43318780973692
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Fixed_L3",
+          "macro_CER"
+        ],
+        "rate": 8.032863628060301
+      }
+    ],
+    "Agree A (HGB)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Agree_Phrase_A_Omni_HGB24",
+          "macro_WER"
+        ],
+        "rate": 21.627867094279583
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Agree_Phrase_A_Omni_HGB24",
+          "macro_CER"
+        ],
+        "rate": 5.687251846513255
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Agree_A_check",
+          "macro_WER"
+        ],
+        "rate": 36.8051914752922
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Agree_A_check",
+          "macro_CER"
+        ],
+        "rate": 7.283026694452698
+      }
+    ],
+    "\\SymBiPhrase{} (HGB)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiPhrase_HGB24",
+          "macro_WER"
+        ],
+        "rate": 21.48773101160895
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiPhrase_HGB24",
+          "macro_CER"
+        ],
+        "rate": 5.663503401806283
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "SymBiPhrase_HGB_24d",
+          "macro_WER"
+        ],
+        "rate": 36.564649342330554
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "SymBiPhrase_HGB_24d",
+          "macro_CER"
+        ],
+        "rate": 7.224987982928045
+      }
+    ],
+    "\\SymBiList{} (ours)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiList_frozen",
+          "macro_WER"
+        ],
+        "rate": 21.4188219941362
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiList_frozen",
+          "macro_CER"
+        ],
+        "rate": 5.661656396480386
+      },
+      {
+        "file": "testunk_postlock_symbilist.json",
+        "path": [
+          "systems",
+          "SymBiList_phrase",
+          "macro_WER"
+        ],
+        "rate": 36.409084169592035
+      },
+      {
+        "file": "testunk_postlock_symbilist.json",
+        "path": [
+          "systems",
+          "SymBiList_phrase",
+          "macro_CER"
+        ],
+        "rate": 7.160568642225895
+      }
+    ],
+    "\\SymBiList{} + \\crc{} (.06)": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiList_CRC_a0.06",
+          "macro_WER"
+        ],
+        "rate": 21.46423486079676
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "SymBiList_CRC_a0.06",
+          "macro_CER"
+        ],
+        "rate": 5.662096066493927
+      },
+      {
+        "file": "p1_symbilist_crc.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Kathbath_testunk",
+          "CRC_a0.06",
+          "macro_WER"
+        ],
+        "rate": 36.358921221440454
+      },
+      {
+        "file": "p1_symbilist_crc.json",
+        "path": [
+          "FLEURS_Kathbath",
+          "Kathbath_testunk",
+          "CRC_a0.06",
+          "macro_CER"
+        ],
+        "rate": 7.15829263067614
+      }
+    ],
+    "Whole oracle": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Oracle_H_whole",
+          "macro_WER"
+        ],
+        "rate": 19.62597101851764
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Oracle_H_whole",
+          "macro_CER"
+        ],
+        "rate": 5.032824813702802
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Oracle_Whole",
+          "macro_WER"
+        ],
+        "rate": 31.79988183994015
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Oracle_Whole",
+          "macro_CER"
+        ],
+        "rate": 6.216928403556874
+      }
+    ],
+    "Phrase oracle": [
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Oracle_H_agree",
+          "macro_WER"
+        ],
+        "rate": 17.32091621041736
+      },
+      {
+        "file": "fp_fleurs12_official_test.json",
+        "path": [
+          "systems",
+          "Oracle_H_agree",
+          "macro_CER"
+        ],
+        "rate": 4.461110578016286
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Oracle_Agree",
+          "macro_WER"
+        ],
+        "rate": 29.91483497476369
+      },
+      {
+        "file": "testunk_complete_table3.json",
+        "path": [
+          "Oracle_Agree",
+          "macro_CER"
+        ],
+        "rate": 5.774731121222095
+      }
+    ]
+  }
+}

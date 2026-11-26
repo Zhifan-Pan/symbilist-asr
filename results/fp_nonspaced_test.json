@@ -1,0 +1,340 @@
+{
+  "n_dev": 710,
+  "n_test": 1651,
+  "languages": [
+    "km_kh",
+    "my_mm"
+  ],
+  "inf_ms_per_utt": 16.49111017657005,
+  "systems": {
+    "OmniASR_1B_v2": {
+      "macro_CER": 10.842514404349068,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.153124633603001
+        },
+        "my_mm": {
+          "CER": 10.531904175095136
+        }
+      }
+    },
+    "OmniASR_300M_v2": {
+      "macro_CER": 15.961701019689398,
+      "per_lang": {
+        "km_kh": {
+          "CER": 16.64907961073983
+        },
+        "my_mm": {
+          "CER": 15.274322428638968
+        }
+      }
+    },
+    "Exact_MBR_char": {
+      "macro_CER": 12.123540449078671,
+      "per_lang": {
+        "km_kh": {
+          "CER": 12.640207918083401
+        },
+        "my_mm": {
+          "CER": 11.606872980073938
+        }
+      }
+    },
+    "Block_MBR_char": {
+      "macro_CER": 11.964188278595907,
+      "per_lang": {
+        "km_kh": {
+          "CER": 12.414507367022315
+        },
+        "my_mm": {
+          "CER": 11.5138691901695
+        }
+      }
+    },
+    "Exact_MBR_Char4": {
+      "macro_CER": 12.425100214995796,
+      "per_lang": {
+        "km_kh": {
+          "CER": 13.000742564583577
+        },
+        "my_mm": {
+          "CER": 11.849457865408015
+        }
+      }
+    },
+    "Whole_ZeroShot_FLEURS12": {
+      "macro_CER": 11.440443818923352,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.883964513229374
+        },
+        "my_mm": {
+          "CER": 10.996923124617329
+        }
+      }
+    },
+    "SymBiList_ZeroShot_FLEURS12": {
+      "macro_CER": 12.147098003828601,
+      "per_lang": {
+        "km_kh": {
+          "CER": 12.598194395591511
+        },
+        "my_mm": {
+          "CER": 11.696001612065691
+        }
+      }
+    },
+    "Whole_DevAdapted_Listwise": {
+      "macro_CER": 10.750256135943168,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.100363465822488
+        },
+        "my_mm": {
+          "CER": 10.400148806063847
+        }
+      }
+    },
+    "SymBiList_DevAdapted": {
+      "macro_CER": 10.752952208113186,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.09645523117208
+        },
+        "my_mm": {
+          "CER": 10.40944918505429
+        }
+      }
+    },
+    "SymBiList_DevAdapted_CRC_a0.04": {
+      "macro_CER": 10.752952208113186,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.09645523117208
+        },
+        "my_mm": {
+          "CER": 10.40944918505429
+        }
+      }
+    },
+    "SymBiList_DevAdapted_CRC_a0.06": {
+      "macro_CER": 10.752952208113186,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.09645523117208
+        },
+        "my_mm": {
+          "CER": 10.40944918505429
+        }
+      }
+    },
+    "SymBiList_DevAdapted_CRC_a0.08": {
+      "macro_CER": 10.752952208113186,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.09645523117208
+        },
+        "my_mm": {
+          "CER": 10.40944918505429
+        }
+      }
+    },
+    "Fixed_L4char_HGB24": {
+      "macro_CER": 10.740669254701487,
+      "per_lang": {
+        "km_kh": {
+          "CER": 11.10134052448509
+        },
+        "my_mm": {
+          "CER": 10.379997984917885
+        }
+      }
+    }
+  },
+  "crc_reports": {
+    "SymBiList_DevAdapted": {
+      "macro_WER": 10.752952208113186,
+      "macro_CER": 10.752952208113186,
+      "empirical_harm_rate": 0.021199273167777106,
+      "empirical_repair_rate": 0.019382192610539067,
+      "repair_to_harm": 0.9142857142857143,
+      "accept_rate": 0.05754088431253786,
+      "defer_rate": 0.9424591156874621,
+      "repairs": 32,
+      "harms": 35,
+      "accepted": 95,
+      "n": 1651
+    },
+    "SymBiList_DevAdapted_CRC_a0.04": {
+      "macro_WER": 10.752952208113186,
+      "macro_CER": 10.752952208113186,
+      "empirical_harm_rate": 0.021199273167777106,
+      "empirical_repair_rate": 0.019382192610539067,
+      "repair_to_harm": 0.9142857142857143,
+      "accept_rate": 0.05754088431253786,
+      "defer_rate": 0.9424591156874621,
+      "repairs": 32,
+      "harms": 35,
+      "accepted": 95,
+      "n": 1651,
+      "dev_lambda": 0.0
+    },
+    "SymBiList_DevAdapted_CRC_a0.06": {
+      "macro_WER": 10.752952208113186,
+      "macro_CER": 10.752952208113186,
+      "empirical_harm_rate": 0.021199273167777106,
+      "empirical_repair_rate": 0.019382192610539067,
+      "repair_to_harm": 0.9142857142857143,
+      "accept_rate": 0.05754088431253786,
+      "defer_rate": 0.9424591156874621,
+      "repairs": 32,
+      "harms": 35,
+      "accepted": 95,
+      "n": 1651,
+      "dev_lambda": 0.0
+    },
+    "SymBiList_DevAdapted_CRC_a0.08": {
+      "macro_WER": 10.752952208113186,
+      "macro_CER": 10.752952208113186,
+      "empirical_harm_rate": 0.021199273167777106,
+      "empirical_repair_rate": 0.019382192610539067,
+      "repair_to_harm": 0.9142857142857143,
+      "accept_rate": 0.05754088431253786,
+      "defer_rate": 0.9424591156874621,
+      "repairs": 32,
+      "harms": 35,
+      "accepted": 95,
+      "n": 1651,
+      "dev_lambda": 0.0
+    }
+  },
+  "paired_bootstrap_B2000": {
+    "SymBiList_ZeroShot_FLEURS12_vs_OmniASR_1B_v2": {
+      "delta_WER_pp": 1.3045835994795336,
+      "delta_WER_CI": [
+        1.1836896097888145,
+        1.4225439650850256
+      ],
+      "delta_CER_pp": 1.3045835994795336,
+      "delta_CER_CI": [
+        1.1836896097888145,
+        1.4225439650850256
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_ZeroShot_FLEURS12_vs_Whole_ZeroShot_FLEURS12": {
+      "delta_WER_pp": 0.7066541849052488,
+      "delta_WER_CI": [
+        0.5811401350210688,
+        0.8282269058405283
+      ],
+      "delta_CER_pp": 0.7066541849052488,
+      "delta_CER_CI": [
+        0.5811401350210688,
+        0.8282269058405283
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_vs_OmniASR_1B_v2": {
+      "delta_WER_pp": -0.08956219623588169,
+      "delta_WER_CI": [
+        -0.12054406785695884,
+        -0.05842527744800723
+      ],
+      "delta_CER_pp": -0.08956219623588169,
+      "delta_CER_CI": [
+        -0.12054406785695884,
+        -0.05842527744800723
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_vs_Exact_MBR_char": {
+      "delta_WER_pp": -1.3705882409654855,
+      "delta_WER_CI": [
+        -1.533597389914595,
+        -1.2055301821865132
+      ],
+      "delta_CER_pp": -1.3705882409654855,
+      "delta_CER_CI": [
+        -1.533597389914595,
+        -1.2055301821865132
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_vs_Block_MBR_char": {
+      "delta_WER_pp": -1.2112360704827214,
+      "delta_WER_CI": [
+        -1.3530234203901117,
+        -1.078400862844552
+      ],
+      "delta_CER_pp": -1.2112360704827214,
+      "delta_CER_CI": [
+        -1.3530234203901117,
+        -1.078400862844552
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_vs_Whole_DevAdapted_Listwise": {
+      "delta_WER_pp": 0.0026960721700177714,
+      "delta_WER_CI": [
+        -0.006535840179735164,
+        0.011515044327521455
+      ],
+      "delta_CER_pp": 0.0026960721700177714,
+      "delta_CER_CI": [
+        -0.006535840179735164,
+        0.011515044327521455
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_vs_Fixed_L4char_HGB24": {
+      "delta_WER_pp": 0.012282953411698827,
+      "delta_WER_CI": [
+        -0.01586291856554407,
+        0.038618419495250335
+      ],
+      "delta_CER_pp": 0.012282953411698827,
+      "delta_CER_CI": [
+        -0.01586291856554407,
+        0.038618419495250335
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_CRC_a0.06_vs_Whole_DevAdapted_Listwise": {
+      "delta_WER_pp": 0.0026960721700177714,
+      "delta_WER_CI": [
+        -0.006535840179735164,
+        0.011515044327521455
+      ],
+      "delta_CER_pp": 0.0026960721700177714,
+      "delta_CER_CI": [
+        -0.006535840179735164,
+        0.011515044327521455
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    },
+    "SymBiList_DevAdapted_CRC_a0.06_vs_OmniASR_1B_v2": {
+      "delta_WER_pp": -0.08956219623588169,
+      "delta_WER_CI": [
+        -0.12054406785695884,
+        -0.05842527744800723
+      ],
+      "delta_CER_pp": -0.08956219623588169,
+      "delta_CER_CI": [
+        -0.12054406785695884,
+        -0.05842527744800723
+      ],
+      "n_draws": 2000,
+      "bonferroni_k": 1
+    }
+  },
+  "elapsed_sec": 378.32003091461957
+}

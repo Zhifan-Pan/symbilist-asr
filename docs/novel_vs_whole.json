@@ -1,0 +1,36 @@
+{
+  "Whole_fixed_Listwise": {
+    "outside_n_Aerr_Berr_N": [
+      4227,
+      22149,
+      24279,
+      91812
+    ],
+    "inside_n_Aerr_Berr_N": [
+      5444,
+      16398,
+      16385,
+      95838
+    ],
+    "net_saved": 2117,
+    "outside_micro_delta_pp": -2.3199581754019083,
+    "outside_share_pct": 100.61407652338214
+  },
+  "Whole_sym_Listwise": {
+    "outside_n_Aerr_Berr_N": [
+      4227,
+      22149,
+      24206,
+      91812
+    ],
+    "inside_n_Aerr_Berr_N": [
+      5444,
+      16398,
+      16404,
+      95838
+    ],
+    "net_saved": 2063,
+    "outside_micro_delta_pp": -2.2404478717378993,
+    "outside_share_pct": 99.70916141541444
+  }
+}

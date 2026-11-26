@@ -1,0 +1,319 @@
+{
+  "SymBiList_Q17_full": {
+    "macro_WER": 21.00039539107321,
+    "macro_CER": 5.579529722200587
+  },
+  "SymBiList_Q17_no_ngrams": {
+    "macro_WER": 22.50817230869775,
+    "macro_CER": 5.8526937114949895
+  },
+  "SymBiList_Q17_vs_no_ngrams": {
+    "delta_WER_pp": -1.5077769176245397,
+    "delta_WER_CI": [
+      -1.6348972784875586,
+      -1.3771208398981303
+    ],
+    "delta_CER_pp": -0.2731639892944022,
+    "delta_CER_CI": [
+      -0.3210887218654115,
+      -0.23073158188608497
+    ],
+    "n_draws": 2000,
+    "bonferroni_k": 1
+  },
+  "cascade_pareto": {
+    "learned_router": {
+      "0pct": {
+        "target_rho": 0.0,
+        "actual_test_rho": 0.0,
+        "macro_WER": 21.44482254829414,
+        "macro_CER": 5.6688689402066,
+        "avg_latency_ms": 3.0,
+        "speedup_vs_full_gpu": 43.0,
+        "gpu_gain_recovered_pct": 0.0
+      },
+      "10pct": {
+        "target_rho": 0.1,
+        "actual_test_rho": 0.11053665598180126,
+        "macro_WER": 21.33167042582812,
+        "macro_CER": 5.639198555652791,
+        "avg_latency_ms": 16.927618653706958,
+        "speedup_vs_full_gpu": 7.620682072238817,
+        "gpu_gain_recovered_pct": 25.46021786192798
+      },
+      "20pct": {
+        "target_rho": 0.2,
+        "actual_test_rho": 0.2219005273498087,
+        "macro_WER": 21.246250602903658,
+        "macro_CER": 5.6306302922565035,
+        "avg_latency_ms": 30.959466446075897,
+        "speedup_vs_full_gpu": 4.166738474795347,
+        "gpu_gain_recovered_pct": 44.68042561399324
+      },
+      "25pct": {
+        "target_rho": 0.25,
+        "actual_test_rho": 0.2829076620825147,
+        "macro_WER": 21.190819729385222,
+        "macro_CER": 5.615145105953709,
+        "avg_latency_ms": 38.646365422396855,
+        "speedup_vs_full_gpu": 3.3379594326673785,
+        "gpu_gain_recovered_pct": 57.152857286497905
+      },
+      "30pct": {
+        "target_rho": 0.3,
+        "actual_test_rho": 0.3393651121910868,
+        "macro_WER": 21.150055172742206,
+        "macro_CER": 5.610158288813113,
+        "avg_latency_ms": 45.76000413607694,
+        "speedup_vs_full_gpu": 2.81905568925194,
+        "gpu_gain_recovered_pct": 66.325239302467
+      },
+      "40pct": {
+        "target_rho": 0.4,
+        "actual_test_rho": 0.4359425085306587,
+        "macro_WER": 21.09758836524135,
+        "macro_CER": 5.600415507697593,
+        "avg_latency_ms": 57.928756074862996,
+        "speedup_vs_full_gpu": 2.2268732964555564,
+        "gpu_gain_recovered_pct": 78.13073017951845
+      },
+      "50pct": {
+        "target_rho": 0.5,
+        "actual_test_rho": 0.527763416399545,
+        "macro_WER": 21.05458879429863,
+        "macro_CER": 5.590252284932511,
+        "avg_latency_ms": 69.49819046634268,
+        "speedup_vs_full_gpu": 1.8561634358303687,
+        "gpu_gain_recovered_pct": 87.80600997375998
+      },
+      "75pct": {
+        "target_rho": 0.75,
+        "actual_test_rho": 0.7675524764760625,
+        "macro_WER": 21.014897773669116,
+        "macro_CER": 5.582717600647335,
+        "avg_latency_ms": 99.71161203598388,
+        "speedup_vs_full_gpu": 1.2937309643880448,
+        "gpu_gain_recovered_pct": 96.73683699110723
+      },
+      "100pct": {
+        "target_rho": 1.0,
+        "actual_test_rho": 1.0,
+        "macro_WER": 21.00039539107321,
+        "macro_CER": 5.579529722200587,
+        "avg_latency_ms": 129.0,
+        "speedup_vs_full_gpu": 1.0,
+        "gpu_gain_recovered_pct": 100.0
+      }
+    },
+    "paramfree_entropy": {
+      "0pct": {
+        "target_rho": 0.0,
+        "actual_test_rho": 0.0,
+        "macro_WER": 21.44482254829414,
+        "macro_CER": 5.6688689402066,
+        "avg_latency_ms": 3.0,
+        "speedup_vs_full_gpu": 43.0,
+        "gpu_gain_recovered_pct": 0.0
+      },
+      "10pct": {
+        "target_rho": 0.1,
+        "actual_test_rho": 0.11581015406886568,
+        "macro_WER": 21.317092106674483,
+        "macro_CER": 5.640740654640647,
+        "avg_latency_ms": 17.592079412677073,
+        "speedup_vs_full_gpu": 7.332845479712931,
+        "gpu_gain_recovered_pct": 28.740467260906122
+      },
+      "20pct": {
+        "target_rho": 0.2,
+        "actual_test_rho": 0.2261400062041154,
+        "macro_WER": 21.25662279072034,
+        "macro_CER": 5.63704218826159,
+        "avg_latency_ms": 31.49364078171854,
+        "speedup_vs_full_gpu": 4.096065008618567,
+        "gpu_gain_recovered_pct": 42.34659257787988
+      },
+      "25pct": {
+        "target_rho": 0.25,
+        "actual_test_rho": 0.2696722159032158,
+        "macro_WER": 21.22933001827859,
+        "macro_CER": 5.637522979906917,
+        "avg_latency_ms": 36.978699203805185,
+        "speedup_vs_full_gpu": 3.488494803157533,
+        "gpu_gain_recovered_pct": 48.48770524354512
+      },
+      "30pct": {
+        "target_rho": 0.3,
+        "actual_test_rho": 0.32716368524454553,
+        "macro_WER": 21.175885190622886,
+        "macro_CER": 5.623979369318948,
+        "avg_latency_ms": 44.222624340812736,
+        "speedup_vs_full_gpu": 2.9170589019283244,
+        "gpu_gain_recovered_pct": 60.513259215066846
+      },
+      "40pct": {
+        "target_rho": 0.4,
+        "actual_test_rho": 0.4347016854513494,
+        "macro_WER": 21.103659306322996,
+        "macro_CER": 5.60222053625679,
+        "avg_latency_ms": 57.77241236687003,
+        "speedup_vs_full_gpu": 2.232899661188043,
+        "gpu_gain_recovered_pct": 76.76471530328807
+      },
+      "50pct": {
+        "target_rho": 0.5,
+        "actual_test_rho": 0.5239375452383415,
+        "macro_WER": 21.058931817577484,
+        "macro_CER": 5.591237993179874,
+        "avg_latency_ms": 69.01613070003103,
+        "speedup_vs_full_gpu": 1.869128255837472,
+        "gpu_gain_recovered_pct": 86.82879172588993
+      },
+      "75pct": {
+        "target_rho": 0.75,
+        "actual_test_rho": 0.7377727225726398,
+        "macro_WER": 21.00479344735653,
+        "macro_CER": 5.5802714329758105,
+        "avg_latency_ms": 95.95936304415261,
+        "speedup_vs_full_gpu": 1.3443190524372781,
+        "gpu_gain_recovered_pct": 99.0103988444759
+      },
+      "100pct": {
+        "target_rho": 1.0,
+        "actual_test_rho": 1.0,
+        "macro_WER": 21.00039539107321,
+        "macro_CER": 5.579529722200587,
+        "avg_latency_ms": 129.0,
+        "speedup_vs_full_gpu": 1.0,
+        "gpu_gain_recovered_pct": 100.0
+      }
+    },
+    "random_baseline": {
+      "0pct": {
+        "target_rho": 0.0,
+        "actual_test_rho": 0.0,
+        "macro_WER": 21.44482254829414,
+        "macro_CER": 5.6688689402066,
+        "avg_latency_ms": 3.0,
+        "speedup_vs_full_gpu": 43.0,
+        "gpu_gain_recovered_pct": 0.0
+      },
+      "10pct": {
+        "target_rho": 0.1,
+        "actual_test_rho": 0.1027815117361183,
+        "macro_WER": 21.407595995193983,
+        "macro_CER": 5.664793142843498,
+        "avg_latency_ms": 15.950470478750905,
+        "speedup_vs_full_gpu": 8.0875357358175,
+        "gpu_gain_recovered_pct": 8.376300254228644
+      },
+      "20pct": {
+        "target_rho": 0.2,
+        "actual_test_rho": 0.20308137731361803,
+        "macro_WER": 21.352714215474595,
+        "macro_CER": 5.649445859956095,
+        "avg_latency_ms": 28.588253541515872,
+        "speedup_vs_full_gpu": 4.512342798858494,
+        "gpu_gain_recovered_pct": 20.72518101628005
+      },
+      "25pct": {
+        "target_rho": 0.25,
+        "actual_test_rho": 0.2562299658773653,
+        "macro_WER": 21.32554580730032,
+        "macro_CER": 5.6440128748058696,
+        "avg_latency_ms": 35.284975700548024,
+        "speedup_vs_full_gpu": 3.6559469700299796,
+        "gpu_gain_recovered_pct": 26.83831063332781
+      },
+      "30pct": {
+        "target_rho": 0.3,
+        "actual_test_rho": 0.3059662909730121,
+        "macro_WER": 21.291320805543855,
+        "macro_CER": 5.636950147935553,
+        "avg_latency_ms": 41.551752662599526,
+        "speedup_vs_full_gpu": 3.1045621841148496,
+        "gpu_gain_recovered_pct": 34.53923556565607
+      },
+      "40pct": {
+        "target_rho": 0.4,
+        "actual_test_rho": 0.4080239892462,
+        "macro_WER": 21.245683728892292,
+        "macro_CER": 5.621992754392711,
+        "avg_latency_ms": 54.4110226450212,
+        "speedup_vs_full_gpu": 2.3708431440739326,
+        "gpu_gain_recovered_pct": 44.80797722783033
+      },
+      "50pct": {
+        "target_rho": 0.5,
+        "actual_test_rho": 0.5110123048288698,
+        "macro_WER": 21.210058984717158,
+        "macro_CER": 5.626955462528763,
+        "avg_latency_ms": 67.3875504084376,
+        "speedup_vs_full_gpu": 1.9143001818307361,
+        "gpu_gain_recovered_pct": 52.82385645490119
+      },
+      "75pct": {
+        "target_rho": 0.75,
+        "actual_test_rho": 0.7520421879846965,
+        "macro_WER": 21.092931291849847,
+        "macro_CER": 5.601943861602577,
+        "avg_latency_ms": 97.75731568607175,
+        "speedup_vs_full_gpu": 1.3195943351621677,
+        "gpu_gain_recovered_pct": 79.17861245130038
+      },
+      "100pct": {
+        "target_rho": 1.0,
+        "actual_test_rho": 1.0,
+        "macro_WER": 21.00039539107321,
+        "macro_CER": 5.579529722200587,
+        "avg_latency_ms": 129.0,
+        "speedup_vs_full_gpu": 1.0,
+        "gpu_gain_recovered_pct": 100.0
+      }
+    }
+  },
+  "boot_cascade30_vs_cpu": {
+    "delta_WER_pp": -0.29476737555193466,
+    "delta_WER_CI": [
+      -0.36012808717836764,
+      -0.22904995505849615
+    ],
+    "delta_CER_pp": -0.05871065139348719,
+    "delta_CER_CI": [
+      -0.08850482208402703,
+      -0.03205320291582116
+    ],
+    "n_draws": 2000,
+    "bonferroni_k": 1
+  },
+  "boot_cascade30_vs_full": {
+    "delta_WER_pp": 0.14965978166899774,
+    "delta_WER_CI": [
+      0.10705251394006891,
+      0.19375863876194416
+    ],
+    "delta_CER_pp": 0.030628566612525887,
+    "delta_CER_CI": [
+      0.01879527365044311,
+      0.04312505286213133
+    ],
+    "n_draws": 2000,
+    "bonferroni_k": 1
+  },
+  "qwen8b_anchor_guard": {
+    "blocked_pct": 8.59269982421673,
+    "raw": {
+      "WER": 25.90706539914493,
+      "CER": 8.970984220034827
+    },
+    "guard_to_whole": {
+      "WER": 23.866202653266306,
+      "CER": 6.433496166621308
+    },
+    "guard_to_symbilist": {
+      "WER": 23.68285448436839,
+      "CER": 6.38408722007058
+    }
+  },
+  "elapsed_sec": 590.5
+}

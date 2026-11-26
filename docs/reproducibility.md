@@ -2,9 +2,9 @@
 
 ## Paper and figures
 
-From the repository root, `bash scripts/build_paper.sh` runs latexmk with pdfLaTeX and BibTeX on `manuscript/main.tex` and copies the result to `paper/main.pdf`. Install the usual IEEEtran, AMS, multirow, booktabs, cite and hyperref TeX packages. The checked-in vector figures are the ones used by the manuscript.
+From the repository root, `bash scripts/build_paper.sh` uses Python 3 to regenerate Tables I–III, then runs latexmk, pdfLaTeX and BibTeX and writes `paper/main.pdf`. The IEEEtran class and bibliography style are included. The TeX installation needs the packages loaded by [main.tex](../manuscript/main.tex), including microtype, multirow, booktabs and balance. With the authors’ TeX toolchain the build is byte-reproducible; `sha256sum -c SHA256SUMS` checks the published files.
 
-Figure 1 has an editable [SVG](../manuscript/figures/method_overview.svg) and a [CairoSVG build script](../scripts/build_fig1_svg.py). Figure 2 can be redrawn with `python scripts/generate_figures.py` (NumPy and Matplotlib); its corpus-level inputs are in `results/`. Neither figure needs raw audio to render.
+The manuscript embeds the [supplied Figure 1 PNG](../manuscript/figures/SYMBILIST_Figure1_final.png) directly; it includes the Hausa development example and the fixed-versus-agreement inset. The older `method_overview` artwork and its SVG script are historical. [Figure 2](../manuscript/figures/mechanism_and_risk.pdf) is also included and can be redrawn with `python3 scripts/generate_figures.py` (NumPy and Matplotlib) from the aggregate inputs in `results/`.
 
 ## Code and experiments
 
@@ -15,4 +15,4 @@ Figure 1 has an editable [SVG](../manuscript/figures/method_overview.svg) and a 
 
 Running a corpus experiment requires the corresponding licensed speech assets or previously decoded candidate lists, language-model resources, and exact split memberships. The development adapter takes `SYMBILIST_BUNDLE`, pointing to a compatible local frozen research bundle with its original data-loading code, scored hypotheses, group folds and fitted LMs. Some stage drivers also use local `cache/` and `manifests/` inputs. The Common Voice driver takes `SYMBILIST_CV26_DIR` for the language-specific training splits; the Kathbath test drivers take `SYMBILIST_KATHBATH_TRANSCRIPTS` for the publisher's transcript archive. These are data-dependent research entry points; installing the Python package alone does not recreate those experiments.
 
-Acquire FLEURS, Kathbath and Mozilla Common Voice through the respective data providers and follow their applicable terms. The release contains the reported aggregate metrics. It does not redistribute recordings, per-utterance references or predictions, internal rosters, acoustic model weights or a training checkpoint.
+Acquire FLEURS, Kathbath and Mozilla Common Voice through the respective data providers and follow their applicable terms. The repository contains aggregate metrics and the illustrated excerpt in the paper. It does not distribute corpus recordings, per-utterance reference or prediction files, internal rosters, acoustic model weights or training checkpoints.

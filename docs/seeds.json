@@ -1,0 +1,18 @@
+{
+  "development_partition_seeds": [
+    17,
+    42,
+    2026
+  ],
+  "two_source_deployed_arbiter_partition": 17,
+  "two_source_ranker_initializations_per_direction": [
+    1701,
+    1718,
+    1735
+  ],
+  "official_test": "one prediction set per frozen system, no mean over three independent test runs",
+  "sources": [
+    "results/p2_cv26_z3_3seed.json",
+    "scripts/run_stage1_symbilist.py and src/agree_phrase_asr/data_bridge.py in the full research project"
+  ]
+}

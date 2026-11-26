@@ -1,0 +1,85 @@
+{
+  "Qwen3_8B_ZeroShot_GER": {
+    "latency_gpu": {
+      "b1_mean_ms_per_utt": 523.2268940657377,
+      "b1_p50_ms_per_utt": 466.99138823896646,
+      "b1_p95_ms_per_utt": 1032.1367657743394,
+      "peak_vram_gb": 15.316593170166016,
+      "cv26_batched_ms_per_utt": 187.44773976877332,
+      "fleurs_batched_ms_per_utt": 338.9829805224966
+    },
+    "CV26": {
+      "all8": {
+        "macro_WER": 20.542802850705534,
+        "macro_CER": 8.36209723460217
+      },
+      "unseen7": {
+        "macro_WER": 15.684523477985854,
+        "macro_CER": 5.611143856004108
+      },
+      "hallucination": {
+        "utt_hallucination_rate_pct": 5.3,
+        "word_hallucination_rate_pct": 1.0984699882306788,
+        "n_utt_hallu": 106,
+        "n_total": 2000
+      }
+    },
+    "FLEURS12": {
+      "macro_WER": 56.024019375251775,
+      "macro_CER": 43.533752304211966,
+      "hallucination": {
+        "utt_hallucination_rate_pct": 56.81706718979892,
+        "word_hallucination_rate_pct": 6.819357062828579,
+        "n_utt_hallu": 2317,
+        "n_total": 4078
+      }
+    }
+  },
+  "Qwen3_1.7B_LoRA_GER": {
+    "latency_gpu": {
+      "b1_mean_ms_per_utt": 510.3788562119007,
+      "b1_p50_ms_per_utt": 426.53742991387844,
+      "b1_p95_ms_per_utt": 1041.7557961307461,
+      "peak_vram_gb": 3.784423828125,
+      "cv26_batched_ms_per_utt": 138.60046137170866,
+      "fleurs_batched_ms_per_utt": 226.99793503825853
+    },
+    "CV26": {
+      "all8": {
+        "macro_WER": 21.0398197486727,
+        "macro_CER": 9.053717112486503
+      },
+      "unseen7": {
+        "macro_WER": 16.01917056124355,
+        "macro_CER": 6.307131007699236
+      },
+      "hallucination": {
+        "utt_hallucination_rate_pct": 15.5,
+        "word_hallucination_rate_pct": 3.4731155132492924,
+        "n_utt_hallu": 310,
+        "n_total": 2000
+      }
+    },
+    "FLEURS12": {
+      "macro_WER": 55.822600016271316,
+      "macro_CER": 43.61410655613997,
+      "hallucination": {
+        "utt_hallucination_rate_pct": 62.53065228052967,
+        "word_hallucination_rate_pct": 7.3775974796625166,
+        "n_utt_hallu": 2550,
+        "n_total": 4078
+      }
+    },
+    "Kathbath_valid": {
+      "macro_WER": 73.55782525088838,
+      "macro_CER": 54.996559656258604,
+      "hallucination": {
+        "utt_hallucination_rate_pct": 90.40650406504065,
+        "word_hallucination_rate_pct": 19.487179487179485,
+        "n_utt_hallu": 4448,
+        "n_total": 4920
+      }
+    }
+  },
+  "lora_elapsed_sec": 5207.2
+}

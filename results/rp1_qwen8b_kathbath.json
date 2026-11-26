@@ -1,0 +1,110 @@
+{
+  "Kathbath_testunk": {
+    "dataset": "Kathbath_testunk",
+    "n_utts": 3030,
+    "hit_cap_count": 0,
+    "latency_gpu": {
+      "b1_mean_ms_per_utt": 6647.177053359337,
+      "b1_p50_ms_per_utt": 6022.361406125128,
+      "b1_p95_ms_per_utt": 10346.449604211373,
+      "peak_vram_gb": 15.616910457611084,
+      "batched_ms_per_utt": 1087.9881911357809
+    },
+    "macro_WER": 37.2042499283436,
+    "macro_CER": 7.30333683827302,
+    "per_lang": {
+      "kn_in": {
+        "WER": 31.103429578419412,
+        "CER": 6.319681456200228,
+        "wE": 4589,
+        "wN": 14754,
+        "cE": 6666,
+        "cN": 105480,
+        "wS": 3600,
+        "wD": 778,
+        "wI": 211,
+        "cS": 3116,
+        "cD": 2504,
+        "cI": 1046,
+        "n": 1388
+      },
+      "ta_in": {
+        "WER": 43.3050702782678,
+        "CER": 8.286992220345809,
+        "wE": 7610,
+        "wN": 17573,
+        "cE": 11728,
+        "cN": 141523,
+        "wS": 6268,
+        "wD": 594,
+        "wI": 748,
+        "cS": 5154,
+        "cD": 2902,
+        "cI": 3672,
+        "n": 1642
+      }
+    },
+    "len_ratios": {
+      "kn_in": 0.983,
+      "ta_in": 1.006
+    },
+    "hallucination": {
+      "utt_hallucination_rate_pct": 7.7227722772277225,
+      "word_hallucination_rate_pct": 0.8836247414927618,
+      "n_utt_hallu": 234,
+      "n_total": 3030
+    },
+    "elapsed_sec": 3610.2
+  },
+  "Kathbath_valid": {
+    "dataset": "Kathbath_valid",
+    "n_utts": 4920,
+    "hit_cap_count": 0,
+    "macro_WER": 35.69598646365751,
+    "macro_CER": 6.74942897340495,
+    "per_lang": {
+      "kn_in": {
+        "WER": 30.6759535098393,
+        "CER": 6.120540976847631,
+        "wE": 7311,
+        "wN": 23833,
+        "cE": 10540,
+        "cN": 172207,
+        "wS": 5665,
+        "wD": 1273,
+        "wI": 373,
+        "cS": 4603,
+        "cD": 4328,
+        "cI": 1609,
+        "n": 2150
+      },
+      "ta_in": {
+        "WER": 40.71601941747573,
+        "CER": 7.37831696996227,
+        "wE": 12078,
+        "wN": 29664,
+        "cE": 17698,
+        "cN": 239865,
+        "wS": 9944,
+        "wD": 969,
+        "wI": 1165,
+        "cS": 7788,
+        "cD": 3979,
+        "cI": 5931,
+        "n": 2770
+      }
+    },
+    "len_ratios": {
+      "kn_in": 0.981,
+      "ta_in": 1.008
+    },
+    "hallucination": {
+      "utt_hallucination_rate_pct": 8.130081300813009,
+      "word_hallucination_rate_pct": 0.8864811622753016,
+      "n_utt_hallu": 400,
+      "n_total": 4920
+    },
+    "shardA_batched_ms": 717.8196000467814,
+    "shardB_batched_ms": 1129.3885297689974
+  }
+}

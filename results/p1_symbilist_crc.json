@@ -1,0 +1,708 @@
+{
+  "FLEURS_Kathbath": {
+    "lambdas_full_seed17": {
+      "0.02": 1000000.0,
+      "0.04": 10.311482134868761,
+      "0.06": 5.6609436135721305,
+      "0.08": 1.1728814954566957,
+      "0.12": 0.0
+    },
+    "FLEURS": {
+      "Whole_sym": {
+        "macro_WER_mean": 22.655600923190395,
+        "macro_WER_sd": 0.02469773249411729,
+        "macro_CER_mean": 5.737022292548499,
+        "macro_CER_sd": 0.01276868588473869,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": 0.0,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs_mean": 0.0,
+        "harms_mean": 0.0
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER_mean": 21.680727547812314,
+        "macro_WER_sd": 0.026580620330417307,
+        "macro_CER_mean": 5.550671612790306,
+        "macro_CER_sd": 0.00931660637493742,
+        "empirical_harm_rate": 0.08844204675494523,
+        "empirical_repair_rate": 0.2073728952100703,
+        "repair_to_harm": 2.344731977818854,
+        "accept_rate": 0.41695275461827697,
+        "defer_rate": 0.583047245381723,
+        "repairs_mean": 845.6666666666666,
+        "harms_mean": 360.6666666666667
+      },
+      "CRC_a0.02": {
+        "macro_WER_mean": 22.584773633614706,
+        "macro_WER_sd": 0.07585256738392147,
+        "macro_CER_mean": 5.729646550890711,
+        "macro_CER_sd": 0.0028076681346788147,
+        "empirical_harm_rate": 0.002370443027627922,
+        "empirical_repair_rate": 0.009400032695765899,
+        "repair_to_harm": 3.965517241379311,
+        "accept_rate": 0.015040052313225437,
+        "defer_rate": 0.9849599476867746,
+        "repairs_mean": 38.333333333333336,
+        "harms_mean": 9.666666666666666
+      },
+      "CRC_a0.04": {
+        "macro_WER_mean": 21.752665371022584,
+        "macro_WER_sd": 0.03738883702499092,
+        "macro_CER_mean": 5.576267826744087,
+        "macro_CER_sd": 0.00917081357786994,
+        "empirical_harm_rate": 0.04086970737289521,
+        "empirical_repair_rate": 0.1493379107405591,
+        "repair_to_harm": 3.6540000000000004,
+        "accept_rate": 0.25649828347229037,
+        "defer_rate": 0.7435017165277097,
+        "repairs_mean": 609.0,
+        "harms_mean": 166.66666666666666
+      },
+      "CRC_a0.06": {
+        "macro_WER_mean": 21.7140824120809,
+        "macro_WER_sd": 0.021330065603753445,
+        "macro_CER_mean": 5.570005289687433,
+        "macro_CER_sd": 0.006947231930853139,
+        "empirical_harm_rate": 0.05877063920222331,
+        "empirical_repair_rate": 0.172388425698872,
+        "repair_to_harm": 2.933240611961057,
+        "accept_rate": 0.31535066208925944,
+        "defer_rate": 0.6846493379107406,
+        "repairs_mean": 703.0,
+        "harms_mean": 239.66666666666666
+      },
+      "CRC_a0.08": {
+        "macro_WER_mean": 21.701730421124577,
+        "macro_WER_sd": 0.018160737627387322,
+        "macro_CER_mean": 5.56508903284482,
+        "macro_CER_sd": 0.0009787748921426776,
+        "empirical_harm_rate": 0.07438286741866929,
+        "empirical_repair_rate": 0.19069805460192904,
+        "repair_to_harm": 2.563736263736264,
+        "accept_rate": 0.3708517247016512,
+        "defer_rate": 0.6291482752983489,
+        "repairs_mean": 777.6666666666666,
+        "harms_mean": 303.3333333333333
+      },
+      "CRC_a0.12": {
+        "macro_WER_mean": 21.680727547812314,
+        "macro_WER_sd": 0.026580620330417307,
+        "macro_CER_mean": 5.550671612790306,
+        "macro_CER_sd": 0.00931660637493742,
+        "empirical_harm_rate": 0.08844204675494523,
+        "empirical_repair_rate": 0.2073728952100703,
+        "repair_to_harm": 2.344731977818854,
+        "accept_rate": 0.41695275461827697,
+        "defer_rate": 0.583047245381723,
+        "repairs_mean": 845.6666666666666,
+        "harms_mean": 360.6666666666667
+      }
+    },
+    "Kathbath_valid": {
+      "Whole_sym": {
+        "macro_WER_mean": 35.97434239844907,
+        "macro_WER_sd": 0.02625510325853363,
+        "macro_CER_mean": 6.8869272305554174,
+        "macro_CER_sd": 0.007400574519203494,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": 0.0,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs_mean": 0.0,
+        "harms_mean": 0.0
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER_mean": 35.26880163364963,
+        "macro_WER_sd": 0.03554650693962283,
+        "macro_CER_mean": 6.769437402896824,
+        "macro_CER_sd": 0.004188687629175596,
+        "empirical_harm_rate": 0.07479674796747966,
+        "empirical_repair_rate": 0.13814363143631436,
+        "repair_to_harm": 1.8469202898550723,
+        "accept_rate": 0.34552845528455284,
+        "defer_rate": 0.6544715447154471,
+        "repairs_mean": 679.6666666666666,
+        "harms_mean": 368.0
+      },
+      "CRC_a0.02": {
+        "macro_WER_mean": 35.97434239844907,
+        "macro_WER_sd": 0.02625510325853363,
+        "macro_CER_mean": 6.8869272305554174,
+        "macro_CER_sd": 0.007400574519203494,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": 0.0,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs_mean": 0.0,
+        "harms_mean": 0.0
+      },
+      "CRC_a0.04": {
+        "macro_WER_mean": 35.28214959041755,
+        "macro_WER_sd": 0.01957838777679867,
+        "macro_CER_mean": 6.76886394136017,
+        "macro_CER_sd": 0.006688395058617859,
+        "empirical_harm_rate": 0.03197831978319784,
+        "empirical_repair_rate": 0.09071815718157182,
+        "repair_to_harm": 2.836864406779661,
+        "accept_rate": 0.1913279132791328,
+        "defer_rate": 0.8086720867208671,
+        "repairs_mean": 446.3333333333333,
+        "harms_mean": 157.33333333333334
+      },
+      "CRC_a0.06": {
+        "macro_WER_mean": 35.217250117166564,
+        "macro_WER_sd": 0.009186342707286733,
+        "macro_CER_mean": 6.767881347415819,
+        "macro_CER_sd": 0.00785665643030754,
+        "empirical_harm_rate": 0.0456639566395664,
+        "empirical_repair_rate": 0.11185636856368564,
+        "repair_to_harm": 2.4495548961424336,
+        "accept_rate": 0.25121951219512195,
+        "defer_rate": 0.7487804878048779,
+        "repairs_mean": 550.3333333333334,
+        "harms_mean": 224.66666666666666
+      },
+      "CRC_a0.08": {
+        "macro_WER_mean": 35.23516273445214,
+        "macro_WER_sd": 0.014314372410752693,
+        "macro_CER_mean": 6.767077433876257,
+        "macro_CER_sd": 0.007281893877716718,
+        "empirical_harm_rate": 0.06084010840108401,
+        "empirical_repair_rate": 0.1266260162601626,
+        "repair_to_harm": 2.081291759465479,
+        "accept_rate": 0.30392953929539296,
+        "defer_rate": 0.696070460704607,
+        "repairs_mean": 623.0,
+        "harms_mean": 299.3333333333333
+      },
+      "CRC_a0.12": {
+        "macro_WER_mean": 35.26880163364963,
+        "macro_WER_sd": 0.03554650693962283,
+        "macro_CER_mean": 6.769437402896824,
+        "macro_CER_sd": 0.004188687629175596,
+        "empirical_harm_rate": 0.07479674796747966,
+        "empirical_repair_rate": 0.13814363143631436,
+        "repair_to_harm": 1.8469202898550723,
+        "accept_rate": 0.34552845528455284,
+        "defer_rate": 0.6544715447154471,
+        "repairs_mean": 679.6666666666666,
+        "harms_mean": 368.0
+      }
+    },
+    "Kathbath_testunk": {
+      "Whole_sym": {
+        "macro_WER": 37.143814372395774,
+        "macro_CER": 7.286556195618426,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": Infinity,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs": 0,
+        "harms": 0,
+        "accepted": 0,
+        "n": 3030
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER": 36.42113598966448,
+        "macro_CER": 7.163006247752003,
+        "empirical_harm_rate": 0.07227722772277227,
+        "empirical_repair_rate": 0.1306930693069307,
+        "repair_to_harm": 1.8082191780821917,
+        "accept_rate": 0.332013201320132,
+        "defer_rate": 0.667986798679868,
+        "repairs": 396,
+        "harms": 219,
+        "accepted": 1006,
+        "n": 3030
+      },
+      "CRC_a0.02": {
+        "macro_WER": 37.143814372395774,
+        "macro_CER": 7.286556195618426,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": Infinity,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs": 0,
+        "harms": 0,
+        "accepted": 0,
+        "n": 3030
+      },
+      "CRC_a0.04": {
+        "macro_WER": 36.41163997929249,
+        "macro_CER": 7.170219579113504,
+        "empirical_harm_rate": 0.026732673267326732,
+        "empirical_repair_rate": 0.0867986798679868,
+        "repair_to_harm": 3.246913580246914,
+        "accept_rate": 0.1858085808580858,
+        "defer_rate": 0.8141914191419142,
+        "repairs": 263,
+        "harms": 81,
+        "accepted": 563,
+        "n": 3030
+      },
+      "CRC_a0.06": {
+        "macro_WER": 36.358921221440454,
+        "macro_CER": 7.15829263067614,
+        "empirical_harm_rate": 0.03828382838283828,
+        "empirical_repair_rate": 0.1042904290429043,
+        "repair_to_harm": 2.7241379310344827,
+        "accept_rate": 0.23234323432343235,
+        "defer_rate": 0.7676567656765676,
+        "repairs": 316,
+        "harms": 116,
+        "accepted": 704,
+        "n": 3030
+      },
+      "CRC_a0.08": {
+        "macro_WER": 36.39540143707435,
+        "macro_CER": 7.16044791817802,
+        "empirical_harm_rate": 0.058745874587458745,
+        "empirical_repair_rate": 0.12145214521452145,
+        "repair_to_harm": 2.067415730337079,
+        "accept_rate": 0.29273927392739274,
+        "defer_rate": 0.7072607260726073,
+        "repairs": 368,
+        "harms": 178,
+        "accepted": 887,
+        "n": 3030
+      },
+      "CRC_a0.12": {
+        "macro_WER": 36.42113598966448,
+        "macro_CER": 7.163006247752003,
+        "empirical_harm_rate": 0.07227722772277227,
+        "empirical_repair_rate": 0.1306930693069307,
+        "repair_to_harm": 1.8082191780821917,
+        "accept_rate": 0.332013201320132,
+        "defer_rate": 0.667986798679868,
+        "repairs": 396,
+        "harms": 219,
+        "accepted": 1006,
+        "n": 3030
+      }
+    }
+  },
+  "CV26_Z3": {
+    "all8": {
+      "Whole_sym": {
+        "macro_WER": 16.777983781966217,
+        "macro_CER": 4.929397127002926,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": Infinity,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs": 0,
+        "harms": 0,
+        "accepted": 0,
+        "n": 2000
+      },
+      "Listwise_Whole_dir1": {
+        "macro_WER": 16.74358455971385,
+        "macro_CER": 4.899822065002697,
+        "empirical_harm_rate": 0.0065,
+        "empirical_repair_rate": 0.004,
+        "repair_to_harm": 0.6153846153846154,
+        "accept_rate": 0.015,
+        "defer_rate": 0.985,
+        "repairs": 8,
+        "harms": 13,
+        "accepted": 30,
+        "n": 2000
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER": 17.028941427347355,
+        "macro_CER": 5.004966146062441,
+        "empirical_harm_rate": 0.0445,
+        "empirical_repair_rate": 0.026,
+        "repair_to_harm": 0.5842696629213483,
+        "accept_rate": 0.0945,
+        "defer_rate": 0.9055,
+        "repairs": 52,
+        "harms": 89,
+        "accepted": 189,
+        "n": 2000
+      },
+      "CRC_a0.01": {
+        "macro_WER": 16.808671407667415,
+        "macro_CER": 4.937314311330551,
+        "empirical_harm_rate": 0.015,
+        "empirical_repair_rate": 0.0105,
+        "repair_to_harm": 0.7,
+        "accept_rate": 0.0365,
+        "defer_rate": 0.9635,
+        "repairs": 21,
+        "harms": 30,
+        "accepted": 73,
+        "n": 2000
+      },
+      "CRC_a0.02": {
+        "macro_WER": 16.878867353793154,
+        "macro_CER": 4.955947059160838,
+        "empirical_harm_rate": 0.0255,
+        "empirical_repair_rate": 0.017,
+        "repair_to_harm": 0.6666666666666666,
+        "accept_rate": 0.058,
+        "defer_rate": 0.942,
+        "repairs": 34,
+        "harms": 51,
+        "accepted": 116,
+        "n": 2000
+      },
+      "CRC_a0.04": {
+        "macro_WER": 17.01243704405219,
+        "macro_CER": 5.000144310947161,
+        "empirical_harm_rate": 0.043,
+        "empirical_repair_rate": 0.026,
+        "repair_to_harm": 0.6046511627906976,
+        "accept_rate": 0.0925,
+        "defer_rate": 0.9075,
+        "repairs": 52,
+        "harms": 86,
+        "accepted": 185,
+        "n": 2000
+      },
+      "CRC_a0.06": {
+        "macro_WER": 17.028941427347355,
+        "macro_CER": 5.004966146062441,
+        "empirical_harm_rate": 0.0445,
+        "empirical_repair_rate": 0.026,
+        "repair_to_harm": 0.5842696629213483,
+        "accept_rate": 0.0945,
+        "defer_rate": 0.9055,
+        "repairs": 52,
+        "harms": 89,
+        "accepted": 189,
+        "n": 2000
+      },
+      "CRC_a0.08": {
+        "macro_WER": 17.028941427347355,
+        "macro_CER": 5.004966146062441,
+        "empirical_harm_rate": 0.0445,
+        "empirical_repair_rate": 0.026,
+        "repair_to_harm": 0.5842696629213483,
+        "accept_rate": 0.0945,
+        "defer_rate": 0.9055,
+        "repairs": 52,
+        "harms": 89,
+        "accepted": 189,
+        "n": 2000
+      },
+      "CRC_a0.12": {
+        "macro_WER": 17.028941427347355,
+        "macro_CER": 5.004966146062441,
+        "empirical_harm_rate": 0.0445,
+        "empirical_repair_rate": 0.026,
+        "repair_to_harm": 0.5842696629213483,
+        "accept_rate": 0.0945,
+        "defer_rate": 0.9055,
+        "repairs": 52,
+        "harms": 89,
+        "accepted": 189,
+        "n": 2000
+      }
+    },
+    "unseen7": {
+      "Whole_sym": {
+        "macro_WER": 13.707260678306449,
+        "macro_CER": 4.836602050627615,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": Infinity,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs": 0,
+        "harms": 0,
+        "accepted": 0,
+        "n": 1750
+      },
+      "Listwise_Whole_dir1": {
+        "macro_WER": 13.726290338622796,
+        "macro_CER": 4.8266703096097725,
+        "empirical_harm_rate": 0.005714285714285714,
+        "empirical_repair_rate": 0.0034285714285714284,
+        "repair_to_harm": 0.6,
+        "accept_rate": 0.013142857142857144,
+        "defer_rate": 0.9868571428571429,
+        "repairs": 6,
+        "harms": 10,
+        "accepted": 23,
+        "n": 1750
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER": 13.952395803616183,
+        "macro_CER": 4.888720779286072,
+        "empirical_harm_rate": 0.04114285714285714,
+        "empirical_repair_rate": 0.022857142857142857,
+        "repair_to_harm": 0.5555555555555556,
+        "accept_rate": 0.08114285714285714,
+        "defer_rate": 0.9188571428571428,
+        "repairs": 40,
+        "harms": 72,
+        "accepted": 142,
+        "n": 1750
+      },
+      "CRC_a0.01": {
+        "macro_WER": 13.692323915813933,
+        "macro_CER": 4.834234973103619,
+        "empirical_harm_rate": 0.013142857142857144,
+        "empirical_repair_rate": 0.010285714285714285,
+        "repair_to_harm": 0.782608695652174,
+        "accept_rate": 0.03142857142857143,
+        "defer_rate": 0.9685714285714285,
+        "repairs": 18,
+        "harms": 23,
+        "accepted": 55,
+        "n": 1750
+      },
+      "CRC_a0.02": {
+        "macro_WER": 13.76421313178961,
+        "macro_CER": 4.8430765003970935,
+        "empirical_harm_rate": 0.024,
+        "empirical_repair_rate": 0.01657142857142857,
+        "repair_to_harm": 0.6904761904761905,
+        "accept_rate": 0.052571428571428575,
+        "defer_rate": 0.9474285714285714,
+        "repairs": 29,
+        "harms": 42,
+        "accepted": 92,
+        "n": 1750
+      },
+      "CRC_a0.04": {
+        "macro_WER": 13.933533651278854,
+        "macro_CER": 4.885285617525466,
+        "empirical_harm_rate": 0.03942857142857143,
+        "empirical_repair_rate": 0.022857142857142857,
+        "repair_to_harm": 0.5797101449275363,
+        "accept_rate": 0.07942857142857143,
+        "defer_rate": 0.9205714285714286,
+        "repairs": 40,
+        "harms": 69,
+        "accepted": 139,
+        "n": 1750
+      },
+      "CRC_a0.06": {
+        "macro_WER": 13.952395803616183,
+        "macro_CER": 4.888720779286072,
+        "empirical_harm_rate": 0.04114285714285714,
+        "empirical_repair_rate": 0.022857142857142857,
+        "repair_to_harm": 0.5555555555555556,
+        "accept_rate": 0.08114285714285714,
+        "defer_rate": 0.9188571428571428,
+        "repairs": 40,
+        "harms": 72,
+        "accepted": 142,
+        "n": 1750
+      },
+      "CRC_a0.08": {
+        "macro_WER": 13.952395803616183,
+        "macro_CER": 4.888720779286072,
+        "empirical_harm_rate": 0.04114285714285714,
+        "empirical_repair_rate": 0.022857142857142857,
+        "repair_to_harm": 0.5555555555555556,
+        "accept_rate": 0.08114285714285714,
+        "defer_rate": 0.9188571428571428,
+        "repairs": 40,
+        "harms": 72,
+        "accepted": 142,
+        "n": 1750
+      },
+      "CRC_a0.12": {
+        "macro_WER": 13.952395803616183,
+        "macro_CER": 4.888720779286072,
+        "empirical_harm_rate": 0.04114285714285714,
+        "empirical_repair_rate": 0.022857142857142857,
+        "repair_to_harm": 0.5555555555555556,
+        "accept_rate": 0.08114285714285714,
+        "defer_rate": 0.9188571428571428,
+        "repairs": 40,
+        "harms": 72,
+        "accepted": 142,
+        "n": 1750
+      }
+    },
+    "seen_ta": {
+      "Whole_sym": {
+        "macro_WER": 38.2730455075846,
+        "macro_CER": 5.578962661630103,
+        "empirical_harm_rate": 0.0,
+        "empirical_repair_rate": 0.0,
+        "repair_to_harm": Infinity,
+        "accept_rate": 0.0,
+        "defer_rate": 1.0,
+        "repairs": 0,
+        "harms": 0,
+        "accepted": 0,
+        "n": 250
+      },
+      "Listwise_Whole_dir1": {
+        "macro_WER": 37.864644107351225,
+        "macro_CER": 5.411884352753161,
+        "empirical_harm_rate": 0.012,
+        "empirical_repair_rate": 0.008,
+        "repair_to_harm": 0.6666666666666666,
+        "accept_rate": 0.028,
+        "defer_rate": 0.972,
+        "repairs": 2,
+        "harms": 3,
+        "accepted": 7,
+        "n": 250
+      },
+      "SymBiList_unconstrained": {
+        "macro_WER": 38.56476079346558,
+        "macro_CER": 5.8186837134970215,
+        "empirical_harm_rate": 0.068,
+        "empirical_repair_rate": 0.048,
+        "repair_to_harm": 0.7058823529411765,
+        "accept_rate": 0.188,
+        "defer_rate": 0.812,
+        "repairs": 12,
+        "harms": 17,
+        "accepted": 47,
+        "n": 250
+      },
+      "CRC_a0.01": {
+        "macro_WER": 38.62310385064177,
+        "macro_CER": 5.658869678919077,
+        "empirical_harm_rate": 0.028,
+        "empirical_repair_rate": 0.012,
+        "repair_to_harm": 0.42857142857142855,
+        "accept_rate": 0.072,
+        "defer_rate": 0.928,
+        "repairs": 3,
+        "harms": 7,
+        "accepted": 18,
+        "n": 250
+      },
+      "CRC_a0.02": {
+        "macro_WER": 38.68144690781797,
+        "macro_CER": 5.746040970507046,
+        "empirical_harm_rate": 0.036,
+        "empirical_repair_rate": 0.02,
+        "repair_to_harm": 0.5555555555555556,
+        "accept_rate": 0.096,
+        "defer_rate": 0.904,
+        "repairs": 5,
+        "harms": 9,
+        "accepted": 24,
+        "n": 250
+      },
+      "CRC_a0.04": {
+        "macro_WER": 38.56476079346558,
+        "macro_CER": 5.804155164899027,
+        "empirical_harm_rate": 0.068,
+        "empirical_repair_rate": 0.048,
+        "repair_to_harm": 0.7058823529411765,
+        "accept_rate": 0.184,
+        "defer_rate": 0.8160000000000001,
+        "repairs": 12,
+        "harms": 17,
+        "accepted": 46,
+        "n": 250
+      },
+      "CRC_a0.06": {
+        "macro_WER": 38.56476079346558,
+        "macro_CER": 5.8186837134970215,
+        "empirical_harm_rate": 0.068,
+        "empirical_repair_rate": 0.048,
+        "repair_to_harm": 0.7058823529411765,
+        "accept_rate": 0.188,
+        "defer_rate": 0.812,
+        "repairs": 12,
+        "harms": 17,
+        "accepted": 47,
+        "n": 250
+      },
+      "CRC_a0.08": {
+        "macro_WER": 38.56476079346558,
+        "macro_CER": 5.8186837134970215,
+        "empirical_harm_rate": 0.068,
+        "empirical_repair_rate": 0.048,
+        "repair_to_harm": 0.7058823529411765,
+        "accept_rate": 0.188,
+        "defer_rate": 0.812,
+        "repairs": 12,
+        "harms": 17,
+        "accepted": 47,
+        "n": 250
+      },
+      "CRC_a0.12": {
+        "macro_WER": 38.56476079346558,
+        "macro_CER": 5.8186837134970215,
+        "empirical_harm_rate": 0.068,
+        "empirical_repair_rate": 0.048,
+        "repair_to_harm": 0.7058823529411765,
+        "accept_rate": 0.188,
+        "defer_rate": 0.812,
+        "repairs": 12,
+        "harms": 17,
+        "accepted": 47,
+        "n": 250
+      }
+    },
+    "bootstrap": {
+      "CRC_a0.02_vs_SymBiList": {
+        "delta_WER_pp": -0.150074073554201,
+        "delta_WER_CI": [
+          -0.29011211394842584,
+          -0.012337546296483919
+        ],
+        "delta_CER_pp": -0.049019086901602726,
+        "delta_CER_CI": [
+          -0.08818225577168784,
+          -0.01353771628469418
+        ],
+        "n_draws": 10000,
+        "bonferroni_k": 1
+      },
+      "CRC_a0.02_vs_Whole_sym": {
+        "delta_WER_pp": 0.10088357182693741,
+        "delta_WER_CI": [
+          -0.07337361927646872,
+          0.27181704554143155
+        ],
+        "delta_CER_pp": 0.026549932157911904,
+        "delta_CER_CI": [
+          -0.024496502594317546,
+          0.07828512481003358
+        ],
+        "n_draws": 10000,
+        "bonferroni_k": 1
+      },
+      "CRC_a0.02_vs_Listwise_Whole_dir1": {
+        "delta_WER_pp": 0.13528279407930555,
+        "delta_WER_CI": [
+          -0.0968435160304569,
+          0.39253169827654766
+        ],
+        "delta_CER_pp": 0.056124994158141206,
+        "delta_CER_CI": [
+          -0.02038602849036906,
+          0.1429615349355153
+        ],
+        "n_draws": 10000,
+        "bonferroni_k": 1
+      },
+      "CRC_a0.04_vs_SymBiList": {
+        "delta_WER_pp": -0.016504383295163905,
+        "delta_WER_CI": [
+          -0.03766544622567647,
+          0.0
+        ],
+        "delta_CER_pp": -0.004821835115279782,
+        "delta_CER_CI": [
+          -0.010310741287235792,
+          -0.000903167776267333
+        ],
+        "n_draws": 10000,
+        "bonferroni_k": 1
+      }
+    }
+  },
+  "elapsed_sec": 1517.6
+}

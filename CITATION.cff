@@ -5,10 +5,10 @@ type: software
 authors:
   - family-names: Pan
     given-names: Zhifan
-  - family-names: Gao
-    given-names: Yingxiong
   - family-names: Maimaiti
     given-names: Maihemuti
+  - family-names: Gao
+    given-names: Yingxiong
   - family-names: Yu
     given-names: Yifeng
   - family-names: Wumaier
